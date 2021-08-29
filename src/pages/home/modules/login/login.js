@@ -1,16 +1,16 @@
 import Handlebars from 'handlebars';
 import login from './login.tmpl';
 import './login.less'
-import generateButton from '../../../../components/button/button'
-import generateLoginInpField from '../../../../components/inputField/inputField'
+import { generateButton } from '../../../../components/button/index'
+import { generateInpField } from '../../../../components/inputField/index'
 
 Handlebars.registerPartial('signInButton', 
-  generateButton('Sign In'));
+  generateButton('navToChats', 'Sign In'));
 Handlebars.registerPartial('loginInputField', 
-  generateLoginInpField('login', 'Login', 'Login'));
+  generateInpField('login', 'Login', 'Login'));
 Handlebars.registerPartial('passwordInputField', 
-  generateLoginInpField('password', 'Password', 'Password', 'password'));
+  generateInpField('password', 'Password', 'Password', 'password'));
 
-const compiled = Handlebars.compile(login);
+const template = Handlebars.compile(login);
 
-export default compiled();
+export default () => template();

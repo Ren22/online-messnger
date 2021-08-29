@@ -2,6 +2,6 @@ import button from './button.tmpl';
 import Handlebars from 'handlebars';
 import './button.less';
 
-const compiled = Handlebars.compile(button);
+const template = Handlebars.compile(button);
 
-export default (buttonText) => compiled({ buttonText: buttonText })
+export default (buttonId, buttonText) => template({ buttonId:buttonId, buttonText: buttonText })

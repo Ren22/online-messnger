@@ -2,14 +2,14 @@ import inputField from './inputField.tmpl';
 import Handlebars from 'handlebars';
 import './inputField.less'
 
-const compiled = Handlebars.compile(inputField);
+const template = Handlebars.compile(inputField);
 
 export default (
   inputFieldId, 
   inputFieldText, 
   inputFieldPlaceholder, 
   inputFieldType='text'
-) => compiled(
+) => template(
   { 
     inputFieldId: inputFieldId,
     inputFieldText: inputFieldText,
