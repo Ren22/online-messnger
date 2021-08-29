@@ -2,24 +2,30 @@ import Handlebars from 'handlebars';
 import registration from './registration.tmpl';
 import './registration.less'
 import { generateButton } from '../../../../components/button/index'
-import { generateInpField } from '../../../../components/inputField/index'
+import { generateInpField } from '../inputField/index'
 
 Handlebars.registerPartial('completeRegistration',
   generateButton('navToChats', 'Complete registration'));
-Handlebars.registerPartial('loginInputField',
+Handlebars.registerPartial('loginInputFieldReg',
   generateInpField('login', 'Login', 'Login'));
-Handlebars.registerPartial('emailInputField', 
+Handlebars.registerPartial('emailInputFieldReg', 
   generateInpField('email', 'Email', 'Email'));
-Handlebars.registerPartial('nameInputField', 
+Handlebars.registerPartial('nameInputFieldReg', 
   generateInpField('name', 'Name', 'Name'));  
-Handlebars.registerPartial('surnameInputField', 
+Handlebars.registerPartial('surnameInputFieldReg', 
   generateInpField('surname', 'Surname', 'Surname'));
-Handlebars.registerPartial('phoneInputField', 
+Handlebars.registerPartial('phoneInputFieldReg', 
   generateInpField('phone', 'Phone', 'Phone'));  
-Handlebars.registerPartial('passwordInputField', 
+Handlebars.registerPartial('passwordInputFieldReg', 
   generateInpField('password', 'Password', 'Password', 'password'));
-Handlebars.registerPartial('passwordAgainInputField', 
-  generateInpField('passwordAgain', 'Password (again)', 'Password (again)', 'password'));
+Handlebars.registerPartial('passwordAgainInputFieldReg', 
+  generateInpField(
+    'passwordAgain', 
+    'Password (again)', 
+    'Password (again)',
+    'password'
+  )
+);
   
 const template = Handlebars.compile(registration);
 

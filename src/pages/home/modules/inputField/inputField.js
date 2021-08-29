@@ -5,15 +5,17 @@ import './inputField.less'
 const template = Handlebars.compile(inputField);
 
 export default (
-  inputFieldId, 
-  inputFieldText, 
-  inputFieldPlaceholder, 
-  inputFieldType='text'
+  inputFieldId,
+  inputFieldText,
+  inputFieldPlaceholder='', 
+  inputFieldType='text',
+  inputFieldValue = ''
 ) => template(
   { 
     inputFieldId: inputFieldId,
     inputFieldText: inputFieldText,
     inputFieldPlaceholder: inputFieldPlaceholder,
-    inputFieldType: inputFieldType
+    inputFieldType: inputFieldType,
+    inputFieldValue: inputFieldValue
   }
 )
