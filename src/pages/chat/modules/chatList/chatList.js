@@ -2,7 +2,7 @@ import Handlebars from 'handlebars';
 import chatList from './chatList.tmpl';
 import './chatList.tmpl';
 import './chatList.less';
-import { generateSearchField } from '../../../components/searchField/index'
+import { generateSearchField } from '../../../../components/searchField/index'
 
 const chatContacts = [
   {
