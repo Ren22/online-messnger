@@ -10,3 +10,5 @@ More details coming...
 1. Clone or download this repository.
 2. Run `npm i` in you command line interface.
 3. Run `npm run` to get more details of possible running commands.
+
+Netlify build CI https://zen-johnson-0174eb.netlify.app
