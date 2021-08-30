@@ -1,1 +1,1 @@
-export { default as generateLoginModule } from './login';
+export { default as generateLoginModule } from './login.js';

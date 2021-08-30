@@ -1,8 +1,8 @@
-import { generateLoginModule } from './pages/home/modules/login/index';
-import { generateRegistrationModule } from './pages/home/modules/registration/index';
-import { generateChatPage } from './pages/chat/index';
-import { generateProfilePage } from './pages/profile/index';
-import { generateErrorPage } from './pages/error';
+import { generateLoginModule } from './pages/home/modules/login/index.js';
+import { generateRegistrationModule } from './pages/home/modules/registration/index.js';
+import { generateChatPage } from './pages/chat/index.js';
+import { generateProfilePage } from './pages/profile/index.js';
+import { generateErrorPage } from './pages/error/index.js';
 
 function errorPageLoaded() {
   document.getElementById('navToChats').addEventListener('click', function navToChats() {

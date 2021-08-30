@@ -1,1 +1,1 @@
-export { default as generateInpField } from './inputField';
+export { default as generateInpField } from './inputField.js';

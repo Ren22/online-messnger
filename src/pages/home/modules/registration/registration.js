@@ -1,8 +1,8 @@
 import Handlebars from 'handlebars';
 import registration from './registration.tmpl';
 import './registration.less'
-import { generateButton } from '../../../../components/button/index'
-import { generateInpField } from '../inputField/index'
+import { generateButton } from '../../../../components/button/index.js'
+import { generateInpField } from '../inputField/index.js'
 
 Handlebars.registerPartial('completeRegistration',
   generateButton('navToChats', 'Complete registration'));

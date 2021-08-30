@@ -1,1 +1,1 @@
-export { default as generateRegistrationModule } from './registration';
+export { default as generateRegistrationModule } from './registration.js';

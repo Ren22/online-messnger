@@ -1,1 +1,1 @@
-export { default as generateProfilePage } from './profile';
+export { default as generateProfilePage } from './profile.js';
