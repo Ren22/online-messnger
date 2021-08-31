@@ -14,3 +14,6 @@ More details coming...
 Netlify build CI https://zen-johnson-0174eb.netlify.app
 
 Figma UI prototypes: https://www.figma.com/file/0tnzcPJnhbMgOgE5XtB8qA/Chat-(Copy)?node-id=0%3A1
+
+## Pull requests
+PR1: https://github.com/Ren22/middle.messenger.praktikum.yandex/pull/1/files
