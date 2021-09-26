@@ -1,0 +1,1 @@
+export { default as generateProfilePage } from './profile.js';
