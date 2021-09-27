@@ -7,4 +7,4 @@ Handlebars.registerPartial('chatsList', chatList());
 
 const template = Handlebars.compile(chat);
 
-export default () => template();
+export default () => template({});

@@ -13,4 +13,4 @@ Handlebars.registerPartial('passwordInputField',
 
 const template = Handlebars.compile(login);
 
-export default () => template();
+export default () => template({});

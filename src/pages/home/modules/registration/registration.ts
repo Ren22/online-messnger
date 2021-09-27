@@ -29,4 +29,4 @@ Handlebars.registerPartial('passwordAgainInputFieldReg',
   
 const template = Handlebars.compile(registration);
 
-export default () => template();
+export default () => template({});

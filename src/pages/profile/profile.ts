@@ -18,4 +18,4 @@ Handlebars.registerPartial('phoneInputFieldProfile',
 
 const template = Handlebars.compile(profile);
 
-export default () => template();
+export default () => template({});

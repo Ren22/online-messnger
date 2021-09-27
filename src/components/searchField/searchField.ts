@@ -4,4 +4,4 @@ import './searchField.less';
 
 const template = Handlebars.compile(searchField);
 
-export default () => template();
+export default () => template({});
