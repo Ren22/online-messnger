@@ -1,4 +1,4 @@
-export default`
+export default `
   <div class="chatListContainer">
     <div class="chatListContainer__profileLink">
       <p class="chatListContainer__profileLinkText">Profile
@@ -20,4 +20,4 @@ export default`
       {{/each}}
     </div>
   </div>
-`
+`;

@@ -1,4 +1,4 @@
-export default`
+export default `
 <div class="profileContainer">
   <div class="profileContainer__navBack">
     <button id="navToChats" class="roundButton">{{buttonText}}</button>
@@ -27,4 +27,4 @@ export default`
     </div>
   </div>
 </div>
-`
+`;

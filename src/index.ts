@@ -7,7 +7,7 @@ import { generateErrorPage } from './pages/error/index';
 function errorPageLoaded() {
   const navToChats = document.getElementById('navToChats');
   if (navToChats !== null) {
-    navToChats.addEventListener('click', function navToChats() {
+    navToChats.addEventListener('click', () => {
       document.body.innerHTML = generateChatPage();
       chatPageLoaded();
     });
@@ -17,7 +17,7 @@ function errorPageLoaded() {
 function profilePageLoaded() {
   const navToChats = document.getElementById('navToChats');
   if (navToChats) {
-    navToChats.addEventListener('click', function navToChats() {
+    navToChats.addEventListener('click', () => {
       document.body.innerHTML = generateChatPage();
       chatPageLoaded();
     });
@@ -26,39 +26,39 @@ function profilePageLoaded() {
   const changeUserSettings = document.querySelector('.profileConfigs__changeUserSettings');
 
   if (changeUserSettings) {
-    changeUserSettings.addEventListener('click', 
-    function navToErrorPage() {
-      document.body.innerHTML = generateErrorPage(404, 'Sorry, but this page does not exist :(');
-      errorPageLoaded();
-    });
+    changeUserSettings.addEventListener('click',
+      () => {
+        document.body.innerHTML = generateErrorPage(404, 'Sorry, but this page does not exist :(');
+        errorPageLoaded();
+      });
   }
 
   const logout = document.querySelector('.profileConfigs__logout');
 
   if (logout) {
-    logout.addEventListener('click', 
-    function navToErrorPage() {
-      document.body.innerHTML = generateErrorPage(500, 'We are working hard to fix the problem!');
-      errorPageLoaded();
-    });
+    logout.addEventListener('click',
+      () => {
+        document.body.innerHTML = generateErrorPage(500, 'We are working hard to fix the problem!');
+        errorPageLoaded();
+      });
   }
-};
+}
 
-function chatPageLoaded () {
+function chatPageLoaded() {
   const profileTextLink = document.querySelector('.chatListContainer__profileLinkText');
   if (profileTextLink) {
-    profileTextLink.addEventListener('click', 
-    function navToProfile() {
-      document.body.innerHTML = generateProfilePage();
-      profilePageLoaded();
-    });
+    profileTextLink.addEventListener('click',
+      () => {
+        document.body.innerHTML = generateProfilePage();
+        profilePageLoaded();
+      });
   }
-};
+}
 
-function registrationPageLoaded () {
+function registrationPageLoaded() {
   const navToSignIn = document.getElementById('navToSignIn');
   if (navToSignIn) {
-    navToSignIn.addEventListener('click', function navToRegistration() {
+    navToSignIn.addEventListener('click', () => {
       document.body.innerHTML = generateLoginModule();
       loginPageLoaded();
     });
@@ -66,17 +66,17 @@ function registrationPageLoaded () {
 
   const navToChats = document.getElementById('navToChats');
   if (navToChats) {
-    navToChats.addEventListener('click', function navToChats() {
+    navToChats.addEventListener('click', () => {
       document.body.innerHTML = generateChatPage();
       chatPageLoaded();
     });
   }
-};
+}
 
-function loginPageLoaded () {
+function loginPageLoaded() {
   const navToRegistration = document.getElementById('navToRegistration');
   if (navToRegistration) {
-    navToRegistration.addEventListener('click', function navToRegistration() {
+    navToRegistration.addEventListener('click', () => {
       document.body.innerHTML = generateRegistrationModule();
       registrationPageLoaded();
     });
@@ -84,12 +84,12 @@ function loginPageLoaded () {
 
   const navToChats = document.getElementById('navToChats');
   if (navToChats) {
-    navToChats.addEventListener('click', function navToChats() {
+    navToChats.addEventListener('click', () => {
       document.body.innerHTML = generateChatPage();
       chatPageLoaded();
     });
   }
-};
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   document.body.innerHTML = generateLoginModule();

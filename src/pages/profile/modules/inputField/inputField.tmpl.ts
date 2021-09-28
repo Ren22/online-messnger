@@ -1,4 +1,4 @@
-export default`
+export default `
 <div class="profile__inputfield">
   <label for="{{inputFieldId}}">{{inputFieldText}}</label>
   <input 
@@ -8,4 +8,4 @@ export default`
     value="{{inputFieldValue}}" 
     name="{{inputFieldText}}" readonly>
 </div>
-`
+`;

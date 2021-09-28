@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 import profile from './profile.tmpl';
 import './profile.less';
-import { generateInpField } from './modules/inputField/index'
+import { generateInpField } from './modules/inputField/index';
 
 Handlebars.registerPartial('emailInputFieldProfile',
   generateInpField('email', 'Email', '', 'text', 'pochta@yandex.ru'));

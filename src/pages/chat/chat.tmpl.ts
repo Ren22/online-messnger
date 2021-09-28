@@ -1,4 +1,4 @@
-export default`
+export default `
   <div class="chatPageContainer">
     {{> chatsList }}
     <div class="chatWindow">
