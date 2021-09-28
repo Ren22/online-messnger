@@ -5,8 +5,8 @@ import './inputField.less'
 const template = Handlebars.compile(inputField);
 
 export default (
-  inputFieldId,
-  inputFieldText,
+  inputFieldId: string,
+  inputFieldText: string,
   inputFieldPlaceholder='', 
   inputFieldType='text',
   inputFieldValue = ''

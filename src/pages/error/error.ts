@@ -4,7 +4,7 @@ import './error.less';
 
 const template = Handlebars.compile(error);
 
-export default (errorCode, errorDescription) => template(
+export default (errorCode: number, errorDescription: string) => template(
   { 
     errorCode: errorCode, 
     errorDescription: errorDescription

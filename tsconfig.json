@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
-    "strictNullChecks": false 
+    "strictNullChecks": true 
   }
 }

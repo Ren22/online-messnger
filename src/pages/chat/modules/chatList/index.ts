@@ -1,1 +1,1 @@
-export { default as chatList } from './chatList.js';
+export { default as chatList } from './chatList';
