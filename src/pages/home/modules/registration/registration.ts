@@ -7,23 +7,74 @@ import { generateInpField } from '../inputField/index';
 Handlebars.registerPartial('completeRegistration',
   generateButton('navToChats', 'Complete registration'));
 Handlebars.registerPartial('loginInputFieldReg',
-  generateInpField('login', 'Login', 'Login'));
+  generateInpField(
+    'login',
+    'Login',
+    'Login',
+    '',
+    '',
+    'registrationInputFieldStyle',
+    'registrationLabelStyle',
+  ));
 Handlebars.registerPartial('emailInputFieldReg',
-  generateInpField('email', 'Email', 'Email'));
+  generateInpField(
+    'email',
+    'Email',
+    'Email',
+    '',
+    '',
+    'registrationInputFieldStyle',
+    'registrationLabelStyle',
+  ));
 Handlebars.registerPartial('nameInputFieldReg',
-  generateInpField('name', 'Name', 'Name'));
+  generateInpField(
+    'name',
+    'Name',
+    'Name',
+    '',
+    '',
+    'registrationInputFieldStyle',
+    'registrationLabelStyle',
+  ));
 Handlebars.registerPartial('surnameInputFieldReg',
-  generateInpField('surname', 'Surname', 'Surname'));
+  generateInpField(
+    'surname',
+    'Surname',
+    'Surname',
+    '',
+    '',
+    'registrationInputFieldStyle',
+    'registrationLabelStyle',
+  ));
 Handlebars.registerPartial('phoneInputFieldReg',
-  generateInpField('phone', 'Phone', 'Phone'));
+  generateInpField(
+    'phone',
+    'Phone',
+    'Phone',
+    '',
+    '',
+    'registrationInputFieldStyle',
+    'registrationLabelStyle',
+  ));
 Handlebars.registerPartial('passwordInputFieldReg',
-  generateInpField('password', 'Password', 'Password', 'password'));
+  generateInpField(
+    'password',
+    'Password',
+    'Password',
+    'password',
+    '',
+    'registrationInputFieldStyle',
+    'registrationLabelStyle',
+  ));
 Handlebars.registerPartial('passwordAgainInputFieldReg',
   generateInpField(
     'passwordAgain',
     'Password (again)',
     'Password (again)',
     'password',
+    '',
+    'registrationInputFieldStyle',
+    'registrationLabelStyle',
   ));
 
 const template = Handlebars.compile(registration);

@@ -1,8 +1,9 @@
 import { generateLoginModule } from './pages/home/modules/login/index';
 import { generateRegistrationModule } from './pages/home/modules/registration/index';
-import { generateChatPage } from './pages/chat/index';
+import { generateChatPage } from './pages/chat/noConversation/index';
 import { generateProfilePage } from './pages/profile/index';
 import { generateErrorPage } from './pages/error/index';
+import { generateWithConversationChatPage } from './pages/chat/withConversation/index';
 
 function errorPageLoaded() {
   const navToChats = document.getElementById('navToChats');
@@ -50,6 +51,15 @@ function chatPageLoaded() {
     profileTextLink.addEventListener('click',
       () => {
         document.body.innerHTML = generateProfilePage();
+        profilePageLoaded();
+      });
+  }
+
+  const chatContact = document.querySelector('.chatContact');
+  if (chatContact) {
+    chatContact.addEventListener('click',
+      () => {
+        document.body.innerHTML = generateWithConversationChatPage();
         profilePageLoaded();
       });
   }

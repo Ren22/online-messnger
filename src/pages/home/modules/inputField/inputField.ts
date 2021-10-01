@@ -10,6 +10,8 @@ export default (
   inputFieldPlaceholder = '',
   inputFieldType = 'text',
   inputFieldValue = '',
+  inpFieldStyle = '',
+  labelStyle = '',
 ) => template(
   {
     inputFieldId,
@@ -17,5 +19,7 @@ export default (
     inputFieldPlaceholder,
     inputFieldType,
     inputFieldValue,
+    inpFieldStyle,
+    labelStyle,
   },
 );

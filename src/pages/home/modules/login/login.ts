@@ -7,9 +7,25 @@ import { generateInpField } from '../inputField/index';
 Handlebars.registerPartial('signInButton',
   generateButton('navToChats', 'Sign In'));
 Handlebars.registerPartial('loginInputField',
-  generateInpField('login', 'Login', 'Login'));
+  generateInpField(
+    'login',
+    'Login',
+    'Login',
+    '',
+    '',
+    'loginInputFieldStyle',
+    'loginLabelStyle',
+  ));
 Handlebars.registerPartial('passwordInputField',
-  generateInpField('password', 'Password', 'Password', 'password'));
+  generateInpField(
+    'password',
+    'Password',
+    'Password',
+    'password',
+    '',
+    'loginInputFieldStyle',
+    'loginLabelStyle',
+  ));
 
 const template = Handlebars.compile(login);
 
