@@ -2,7 +2,7 @@ import Handlebars from 'handlebars';
 import { chatList } from '../modules/chatList/index';
 import chat from './withConversationChat.tmpl';
 import './withConversationChat.less';
-import { generateInpField } from '../../home/modules/inputField/index';
+import { generateInpField } from '../../../components/inputField/index';
 
 Handlebars.registerPartial('chatsList', chatList());
 Handlebars.registerPartial('messageInputField',

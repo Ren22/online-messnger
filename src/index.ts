@@ -1,9 +1,12 @@
-import { generateLoginModule } from './pages/home/modules/login/index';
+// import { generateLoginModule } from './pages/home/modules/login/index';
 import { generateRegistrationModule } from './pages/home/modules/registration/index';
 import { generateChatPage } from './pages/chat/noConversation/index';
-import { generateProfilePage } from './pages/profile/index';
 import { generateErrorPage } from './pages/error/index';
 import { generateWithConversationChatPage } from './pages/chat/withConversation/index';
+import { LoginView } from './pages/login';
+import ProfileView from './pages/profile/profileView';
+
+const profileView = new ProfileView();
 
 function errorPageLoaded() {
   const navToChats = document.getElementById('navToChats');
@@ -50,7 +53,7 @@ function chatPageLoaded() {
   if (profileTextLink) {
     profileTextLink.addEventListener('click',
       () => {
-        document.body.innerHTML = generateProfilePage();
+        document.body.innerHTML = profileView.render();
         profilePageLoaded();
       });
   }
@@ -69,7 +72,8 @@ function registrationPageLoaded() {
   const navToSignIn = document.getElementById('navToSignIn');
   if (navToSignIn) {
     navToSignIn.addEventListener('click', () => {
-      document.body.innerHTML = generateLoginModule();
+      // document.body.innerHTML = generateLoginModule();
+      document.body.innerHTML = LoginView.getView();
       loginPageLoaded();
     });
   }
@@ -102,6 +106,6 @@ function loginPageLoaded() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.body.innerHTML = generateLoginModule();
+  document.body.innerHTML = LoginView.getView();
   loginPageLoaded();
 });
