@@ -3,7 +3,7 @@ import Handlebars from 'handlebars';
 class View {
   static generateView(notCompiledTemplate: string) {
     const template = Handlebars.compile(notCompiledTemplate);
-    return template();
+    return template({});
   }
 
   static registerPartial(partialName: string, partialTemplate: string) {
