@@ -12,6 +12,10 @@ export default (
   inputFieldValue = '',
   inpFieldStyle = '',
   labelStyle = '',
+  readOnly = false,
+  mediumMarginHorizontally = false,
+  vbox = true,
+  justifyContentSpaceBetween = false,
 ) => template(
   {
     inputFieldId,
@@ -21,5 +25,9 @@ export default (
     inputFieldValue,
     inpFieldStyle,
     labelStyle,
+    readOnly,
+    mediumMarginHorizontally,
+    vbox,
+    justifyContentSpaceBetween,
   },
 );

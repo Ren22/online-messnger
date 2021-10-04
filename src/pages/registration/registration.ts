@@ -9,6 +9,8 @@ export default class RegistrationPage extends View {
   notCompiledTemplate: string;
 
   static render() {
+    const readonly = false;
+    const mediumMarginHorizontally = true;
     View.registerPartial('completeRegistration',
       generateButton('navToChats', 'Complete registration'));
     View.registerPartial('loginInputFieldReg',
@@ -20,6 +22,8 @@ export default class RegistrationPage extends View {
         '',
         'registrationInputFieldStyle',
         'registrationLabelStyle',
+        readonly,
+        mediumMarginHorizontally,
       ));
     View.registerPartial('emailInputFieldReg',
       generateInpField(
@@ -30,6 +34,8 @@ export default class RegistrationPage extends View {
         '',
         'registrationInputFieldStyle',
         'registrationLabelStyle',
+        readonly,
+        mediumMarginHorizontally,
       ));
     View.registerPartial('nameInputFieldReg',
       generateInpField(
@@ -40,6 +46,8 @@ export default class RegistrationPage extends View {
         '',
         'registrationInputFieldStyle',
         'registrationLabelStyle',
+        readonly,
+        mediumMarginHorizontally,
       ));
     View.registerPartial('surnameInputFieldReg',
       generateInpField(
@@ -50,6 +58,8 @@ export default class RegistrationPage extends View {
         '',
         'registrationInputFieldStyle',
         'registrationLabelStyle',
+        readonly,
+        mediumMarginHorizontally,
       ));
     View.registerPartial('phoneInputFieldReg',
       generateInpField(
@@ -60,6 +70,8 @@ export default class RegistrationPage extends View {
         '',
         'registrationInputFieldStyle',
         'registrationLabelStyle',
+        readonly,
+        mediumMarginHorizontally,
       ));
     View.registerPartial('passwordInputFieldReg',
       generateInpField(
@@ -70,6 +82,8 @@ export default class RegistrationPage extends View {
         '',
         'registrationInputFieldStyle',
         'registrationLabelStyle',
+        readonly,
+        mediumMarginHorizontally,
       ));
     View.registerPartial('passwordAgainInputFieldReg',
       generateInpField(
@@ -80,6 +94,8 @@ export default class RegistrationPage extends View {
         '',
         'registrationInputFieldStyle',
         'registrationLabelStyle',
+        readonly,
+        mediumMarginHorizontally,
       ));
     return View.generateView(notCompiledTemplate);
   }

@@ -6,6 +6,8 @@ import notCompiledTemplate from './login.tmpl';
 
 export default class LoginView extends View {
   static getView() {
+    const readonly = false;
+    const mediumMarginHorizontally = true;
     super.registerPartial('signInButton', generateButton('navToChats', 'Sign In'));
     super.registerPartial('loginInputField', generateInpField(
       'login',
@@ -15,6 +17,8 @@ export default class LoginView extends View {
       '',
       'loginInputFieldStyle',
       'loginLabelStyle',
+      readonly,
+      mediumMarginHorizontally,
     ));
     super.registerPartial('passwordInputField',
       generateInpField(
@@ -25,6 +29,8 @@ export default class LoginView extends View {
         '',
         'loginInputFieldStyle',
         'loginLabelStyle',
+        readonly,
+        mediumMarginHorizontally,
       ));
     return super.generateView(notCompiledTemplate);
   }

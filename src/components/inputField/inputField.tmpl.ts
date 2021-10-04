@@ -1,5 +1,8 @@
 export default `
-<div class="mediumMarginLeft mediumMarginRight home__inputfield">
+<div 
+  class="{{#if mediumMarginHorizontally}}mediumMarginLeft mediumMarginRight {{/if}}
+  {{#if vbox}}inputfieldVBox{{else}}inputfieldHBox{{/if}}
+  {{#if justifyContentSpaceBetween}}justifyContentSpaceBetween{{/if}}">
   <label for="{{inputFieldId}}" class="{{labelStyle}}">{{inputFieldText}}</label>
   <input 
     placeholder="{{inputFieldPlaceholder}}" 
@@ -7,6 +10,7 @@ export default `
     type="{{inputFieldType}}" 
     value="{{inputFieldValue}}" 
     name="{{inputFieldText}}"
-    class="{{inpFieldStyle}}">
+    class="{{inpFieldStyle}}"
+    {{#if readOnly}}readonly{{/if}}>
 </div>
 `;
