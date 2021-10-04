@@ -15,7 +15,7 @@ type User = {
   phone: string,
   avatar: string,
 }
-export default class ProfileView extends View {
+export default class ProfilePage extends View {
   user: User;
   bus: EventBus;
   controller: ProfileController;

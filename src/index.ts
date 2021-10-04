@@ -1,12 +1,12 @@
 // import { generateLoginModule } from './pages/home/modules/login/index';
-import { generateRegistrationModule } from './pages/home/modules/registration/index';
 import { generateChatPage } from './pages/chat/noConversation/index';
 import { generateErrorPage } from './pages/error/index';
 import { generateWithConversationChatPage } from './pages/chat/withConversation/index';
 import { LoginView } from './pages/login';
-import ProfileView from './pages/profile/profileView';
+import { ProfilePage } from './pages/profile/index';
+import { RegistrationPage } from './pages/registration/index';
 
-const profileView = new ProfileView();
+const profileView = new ProfilePage();
 
 function errorPageLoaded() {
   const navToChats = document.getElementById('navToChats');
@@ -91,7 +91,7 @@ function loginPageLoaded() {
   const navToRegistration = document.getElementById('navToRegistration');
   if (navToRegistration) {
     navToRegistration.addEventListener('click', () => {
-      document.body.innerHTML = generateRegistrationModule();
+      document.body.innerHTML = RegistrationPage.render();
       registrationPageLoaded();
     });
   }
