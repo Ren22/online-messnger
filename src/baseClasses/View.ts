@@ -1,9 +1,10 @@
 import Handlebars from 'handlebars';
 
 class View {
-  static generateView(notCompiledTemplate: string) {
+  static generateView(notCompiledTemplate: string, ...args: any) {
     const template = Handlebars.compile(notCompiledTemplate);
-    return template({});
+    console.log(...args);
+    return template(...args);
   }
 
   static registerPartial(partialName: string, partialTemplate: string) {

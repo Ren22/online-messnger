@@ -1,10 +1,11 @@
 import Handlebars from 'handlebars';
-import { chatList } from '../modules/chatList/index';
+import { ChatList } from '../../../components/chatList/index';
 import chat from './withConversationChat.tmpl';
 import './withConversationChat.less';
 import { generateInpField } from '../../../components/inputField/index';
 
-Handlebars.registerPartial('chatsList', chatList());
+const chatList = new ChatList();
+// Handlebars.registerPartial('chatContacts', ChatList.render());
 Handlebars.registerPartial('messageInputField',
   generateInpField(
     'message',
@@ -13,6 +14,9 @@ Handlebars.registerPartial('messageInputField',
     'message',
     '',
     'chatWindowBottom__inputField-defaultStyle',
+    '',
+    false,
+    true,
   ));
 
 const template = Handlebars.compile(chat);
