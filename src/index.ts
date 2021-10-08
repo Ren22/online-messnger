@@ -1,13 +1,14 @@
 // import { generateLoginModule } from './pages/home/modules/login/index';
 import { ChatsPage } from './pages/chats/index';
 import { generateErrorPage } from './pages/error/index';
-import { generateWithConversationChatPage } from './pages/chat/withConversation/index';
+import { ConversationPage } from './pages/conversation/index';
 import { LoginView } from './pages/login';
 import { ProfilePage } from './pages/profile/index';
 import { RegistrationPage } from './pages/registration/index';
 
 const profileView = new ProfilePage();
 const chatsPage = new ChatsPage();
+const conversationPage = new ConversationPage();
 
 function errorPageLoaded() {
   const navToChats = document.getElementById('navToChats');
@@ -63,7 +64,7 @@ function chatPageLoaded() {
   if (chatContact) {
     chatContact.addEventListener('click',
       () => {
-        document.body.innerHTML = generateWithConversationChatPage();
+        document.body.innerHTML = conversationPage.render();
         profilePageLoaded();
       });
   }
