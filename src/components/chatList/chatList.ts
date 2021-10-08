@@ -3,7 +3,7 @@ import notCompiledTemplate from './chatList.tmpl';
 import './chatList.less';
 import { generateSearchField } from '../searchField/index';
 import View from '../../baseClasses/View';
-import ChatsListController from './chatList.controller';
+import ChatsListController from '../../pages/chats/chats.controller';
 
 type Chat = {
   id: number,
@@ -32,10 +32,11 @@ export default class ChatList extends View {
   controller: ChatsListController;
   chatContacts: Chat[];
 
-  constructor() {
+  constructor(chatContacts: Chat[]) {
     super();
     this.controller = new ChatsListController();
-    this.chatContacts = ChatsListController.getChatsData();
+    this.chatContacts = chatContacts;
+    // this.chatContacts = ChatsListController.getChatsData();
   }
 
   render() {
