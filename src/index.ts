@@ -67,7 +67,7 @@ function chatPageLoaded() {
     chatContact.addEventListener('click',
       () => {
         document.body.innerHTML = conversationPage.render();
-        profilePageLoaded();
+        conversationPageLoaded();
       });
   }
 }
@@ -76,7 +76,6 @@ function registrationPageLoaded() {
   const navToSignIn = document.getElementById('navToSignIn');
   if (navToSignIn) {
     navToSignIn.addEventListener('click', () => {
-      // document.body.innerHTML = generateLoginModule();
       document.body.innerHTML = LoginView.getView();
       loginPageLoaded();
     });
@@ -106,6 +105,17 @@ function loginPageLoaded() {
       document.body.innerHTML = chatsPage.render();
       chatPageLoaded();
     });
+  }
+}
+
+function conversationPageLoaded() {
+  const profileTextLink = document.querySelector('.chatListContainer__profileLinkText');
+  if (profileTextLink) {
+    profileTextLink.addEventListener('click',
+      () => {
+        document.body.innerHTML = profileView.render();
+        profilePageLoaded();
+      });
   }
 }
 

@@ -15,6 +15,10 @@ export default class ErrorPage extends View {
   }
 
   render() {
-    return View.generateView(notCompiledTemplate, this.errorCode, this.desc);
+    return View.generateView(notCompiledTemplate,
+      {
+        errorCode: this.errorCode,
+        errorDescription: this.desc,
+      });
   }
 }

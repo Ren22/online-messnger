@@ -36,7 +36,7 @@ export default class ChatList extends View {
     super();
     this.controller = new ChatsListController();
     this.chatContacts = chatContacts;
-    // this.chatContacts = ChatsListController.getChatsData();
+    this.chatContacts = ChatsListController.getChatsData();
   }
 
   render() {
