@@ -1,14 +1,16 @@
 // import { generateLoginModule } from './pages/home/modules/login/index';
 import { ChatsPage } from './pages/chats/index';
-import { generateErrorPage } from './pages/error/index';
 import { ConversationPage } from './pages/conversation/index';
 import { LoginView } from './pages/login';
 import { ProfilePage } from './pages/profile/index';
 import { RegistrationPage } from './pages/registration/index';
+import { ErrorPage } from './pages/error/index';
 
 const profileView = new ProfilePage();
 const chatsPage = new ChatsPage();
 const conversationPage = new ConversationPage();
+const errorPage404 = new ErrorPage(404, 'Sorry, but this page does not exist :(');
+const errorPage500 = new ErrorPage(500, 'We are working to fix the problem!');
 
 function errorPageLoaded() {
   const navToChats = document.getElementById('navToChats');
@@ -34,7 +36,7 @@ function profilePageLoaded() {
   if (changeUserSettings) {
     changeUserSettings.addEventListener('click',
       () => {
-        document.body.innerHTML = generateErrorPage(404, 'Sorry, but this page does not exist :(');
+        document.body.innerHTML = errorPage404.render();
         errorPageLoaded();
       });
   }
@@ -44,7 +46,7 @@ function profilePageLoaded() {
   if (logout) {
     logout.addEventListener('click',
       () => {
-        document.body.innerHTML = generateErrorPage(500, 'We are working hard to fix the problem!');
+        document.body.innerHTML = errorPage500.render();
         errorPageLoaded();
       });
   }
