@@ -19,7 +19,9 @@
         "import/prefer-default-export": "off",
         "no-use-before-define": "off",
         "lines-between-class-members": "off",
-        "no-return-assign": "off"
+        "no-return-assign": "off",
+        "no-undef": "off",
+        "no-unused-vars": "off"
     },
     "settings": {
         "import/resolver": {

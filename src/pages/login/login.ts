@@ -4,34 +4,42 @@ import { generateInpField } from '../../components/inputField/index';
 import View from '../../baseClasses/View';
 import notCompiledTemplate from './login.tmpl';
 
-export default class LoginView extends View {
-  static getView() {
+export default class LoginPage extends View {
+  login: string;
+  password: string;
+  constructor() {
+    super();
+    this.login = '';
+    this.password = '';
+  }
+
+  render() {
     const readonly = false;
     const mediumMarginHorizontally = true;
-    super.registerPartial('signInButton', generateButton('navToChats', 'Sign In'));
-    super.registerPartial('loginInputField', generateInpField(
+    View.registerPartial('signInButton', generateButton('navToChats', 'Sign In'));
+    View.registerPartial('loginInputField', generateInpField(
       'login',
       'Login',
       'Login',
       '',
-      '',
+      this.login,
       'loginInputFieldStyle',
       'loginLabelStyle',
       readonly,
       mediumMarginHorizontally,
     ));
-    super.registerPartial('passwordInputField',
+    View.registerPartial('passwordInputField',
       generateInpField(
         'password',
         'Password',
         'Password',
         'password',
-        '',
+        this.password,
         'loginInputFieldStyle',
         'loginLabelStyle',
         readonly,
         mediumMarginHorizontally,
       ));
-    return super.generateView(notCompiledTemplate);
+    return View.generateView(notCompiledTemplate);
   }
 }

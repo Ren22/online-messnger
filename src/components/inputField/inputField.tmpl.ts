@@ -12,5 +12,6 @@ export default `
     name="{{inputFieldText}}"
     class="{{inpFieldStyle}}"
     {{#if readOnly}}readonly{{/if}}>
+  <span class="error-message"></span>
 </div>
 `;

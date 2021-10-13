@@ -1,6 +1,6 @@
 export default `
 <div class="container">
-  <form class="loginForm">
+  <form name="loginForm" id="loginForm" class="loginForm" onsubmit="return false">
     <div>
       <p class="form__header">Login</p>
       {{> loginInputField}}
@@ -10,6 +10,6 @@ export default `
       {{> signInButton}}
       <p class="login__registrationText"><a id="navToRegistration">Registration</a></p>
     </div>
-  </form>  
+  </form>
 </div>
 `;
