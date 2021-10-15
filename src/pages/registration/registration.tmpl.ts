@@ -1,7 +1,7 @@
 // language=hbs
 export default `
 <div class="container">
-  <form class="registrationForm">
+  <form name="registrationForm" class="registrationForm" onsubmit="return false">
     <div>
       <p class="form__header">Registration</p>
       {{> emailInputFieldReg }}

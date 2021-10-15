@@ -23,7 +23,7 @@ export class FormValidator {
   validateOnEntry() {
     this.inputFields.forEach((field) => {
       const fieldId = field.getAttribute('id');
-      const parentElem = field.parentElement?.querySelector('.error-message') as HTMLElement;
+      const parentElem = field.parentElement?.parentElement?.querySelector('.error-message') as HTMLElement;
       if (fieldId && Object.keys(this.validators).includes(fieldId)) {
         field.addEventListener('focus', () => {
           if (field.classList.contains('invalidInputField')) {
@@ -32,12 +32,11 @@ export class FormValidator {
           }
           this.isFormValid = true;
         });
-        field.addEventListener('blur', (e) => {
+        field.addEventListener('blur', () => {
           if (!this.validators[fieldId].regex.test(field.value)) {
             field.classList.add('invalidInputField');
             parentElem.innerText = this.validators[fieldId].errMsg;
             this.isFormValid = false;
-            e.preventDefault();
           }
         });
       } else {

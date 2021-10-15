@@ -80,7 +80,7 @@ export default `
         </div>
       </div>
     </div>
-    <div class="chatWindowBottom">
+    <form name="conversationForm" class="chatWindowBottom" onsubmit="return false">
       <div class="chatWindowBottom__attachment"></div>
       <div class="chatWindowBottom__inputField">
         {{> messageInputField}}
@@ -88,7 +88,7 @@ export default `
       <div class="chatWindowBottom__submitMsg">
         <button id="navToChats" class="chatWindowBottomRoundButton">{{buttonText}}</button>
       </div>
-    </div>
+    </form>
   </div>
 </div>
 `;
