@@ -9,8 +9,15 @@ export default class EventBus {
   }
 
   on(event: string, callback: CallBackFunction) {
-    if (!this.listeners[event]) {
+    if (this.listeners[event]) {
       this.listeners[event].push(callback);
+    }
+  }
+
+  off(event: string, callback: CallBackFunction) {
+    if (!this.listeners[event]) {
+      this.listeners[event] = this.listeners[event]
+        .filter((listener: CallBackFunction) => callback !== listener);
     }
   }
 
