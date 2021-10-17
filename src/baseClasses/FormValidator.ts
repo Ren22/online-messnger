@@ -56,6 +56,7 @@ export class FormValidator {
       prev[k] = v;
       return prev;
     }, {});
+    // eslint-disable-next-line no-console
     console.log(toShow);
   }
 
