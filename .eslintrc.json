@@ -21,7 +21,10 @@
         "lines-between-class-members": "off",
         "no-return-assign": "off",
         "no-undef": "off",
-        "no-unused-vars": "off"
+        "no-unused-vars": "off",
+        "no-underscore-dangle": ["off"],
+        "no-param-reassign": ["error", { "props": false }],
+        "class-methods-use-this": "off"
     },
     "settings": {
         "import/resolver": {

@@ -2,20 +2,21 @@
 type CallBackFunction = (...args: any[]) => {};
 
 export default class EventBus {
-  listeners: Record<string, Array<(CallBackFunction)>>
+  listeners: Record<string, CallBackFunction[]>
 
   constructor() {
     this.listeners = {};
   }
 
   on(event: string, callback: CallBackFunction) {
-    if (this.listeners[event]) {
-      this.listeners[event].push(callback);
+    if (!this.listeners[event]) {
+      this.listeners[event] = [];
     }
+    this.listeners[event].push(callback);
   }
 
   off(event: string, callback: CallBackFunction) {
-    if (!this.listeners[event]) {
+    if (this.listeners[event]) {
       this.listeners[event] = this.listeners[event]
         .filter((listener: CallBackFunction) => callback !== listener);
     }

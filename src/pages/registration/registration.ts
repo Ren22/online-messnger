@@ -1,18 +1,26 @@
 import Handlebars from 'handlebars';
 import notCompiledTemplate from './registration.tmpl';
+import { Button } from '../../components/button/index';
 import './registration.less';
-import { generateButton } from '../../components/button/index';
 import { generateInpField } from '../../components/inputField/index';
 import View from '../../baseClasses/View';
 
 export default class RegistrationPage extends View {
   notCompiledTemplate: string;
+  button: Button;
 
-  static render() {
+  constructor() {
+    super();
+    this.button = new Button({
+      buttonId: 'navToChats',
+      buttonText: 'Complete registration',
+    });
+  }
+
+  render() {
     const readonly = false;
     const mediumMarginHorizontally = true;
-    View.registerPartial('completeRegistration',
-      generateButton('navToChats', 'Complete registration'));
+    View.registerPartial('completeRegistration', this.button.render());
     View.registerPartial('loginInputFieldReg',
       generateInpField(
         'login',

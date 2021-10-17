@@ -1,5 +1,5 @@
 import './login.less';
-import { generateButton } from '../../components/button/index';
+import { Button } from '../../components/button/index';
 import { generateInpField } from '../../components/inputField/index';
 import View from '../../baseClasses/View';
 import notCompiledTemplate from './login.tmpl';
@@ -7,16 +7,22 @@ import notCompiledTemplate from './login.tmpl';
 export default class LoginPage extends View {
   login: string;
   password: string;
+  button: Button;
   constructor() {
     super();
     this.login = '';
     this.password = '';
+    this.button = new Button({
+      buttonId: 'navToChats',
+      buttonText: 'Sign In',
+    });
   }
 
   render() {
     const readonly = false;
     const mediumMarginHorizontally = true;
-    View.registerPartial('signInButton', generateButton('navToChats', 'Sign In'));
+
+    View.registerPartial('signInButton', this.button.render());
     View.registerPartial('loginInputField', generateInpField(
       'login',
       'Login',

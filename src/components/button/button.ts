@@ -1,7 +1,18 @@
 import Handlebars from 'handlebars';
-import button from './button.tmpl';
+import notRenderedTemplate from './button.tmpl';
 import './button.less';
+import { Block } from '../../baseClasses/Block';
 
-const template = Handlebars.compile(button);
+export class Button extends Block {
+  buttonId: string;
+  buttonText: string;
 
-export default (buttonId: string, buttonText: string) => template({ buttonId, buttonText });
+  constructor(props: Record <string, any>) {
+    super('button', props);
+  }
+
+  render() {
+    const template = Handlebars.compile(notRenderedTemplate);
+    return template({ buttonId: this.props.buttonId, buttonText: this.props.buttonText });
+  }
+}

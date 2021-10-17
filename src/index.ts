@@ -8,10 +8,11 @@ import { ErrorPage } from './pages/error/index';
 import './global/styles.less';
 import { FormValidator } from './baseClasses/FormValidator';
 
-const profileView = new ProfilePage();
+const profilePage = new ProfilePage();
 const chatsPage = new ChatsPage();
 const conversationPage = new ConversationPage();
 const loginPage = new LoginPage();
+const registrationPage = new RegistrationPage();
 const errorPage404 = new ErrorPage(404, 'Sorry, but this page does not exist :(');
 const errorPage500 = new ErrorPage(500, 'We are working to fix the problem!');
 
@@ -66,7 +67,7 @@ function chatPageLoaded() {
   if (profileTextLink) {
     profileTextLink.addEventListener('click',
       () => {
-        document.body.innerHTML = profileView.render();
+        document.body.innerHTML = profilePage.render();
         profilePageLoaded();
       });
   }
@@ -157,7 +158,7 @@ function loginPageLoaded() {
   const navToRegistration = document.getElementById('navToRegistration');
   if (navToRegistration) {
     navToRegistration.addEventListener('click', () => {
-      document.body.innerHTML = RegistrationPage.render();
+      document.body.innerHTML = registrationPage.render();
       registrationPageLoaded();
     });
   }
@@ -184,7 +185,7 @@ function conversationPageLoaded() {
   if (profileTextLink) {
     profileTextLink.addEventListener('click',
       () => {
-        document.body.innerHTML = profileView.render();
+        document.body.innerHTML = profilePage.render();
         profilePageLoaded();
       });
   }
