@@ -1,4 +1,11 @@
+import { Request } from '../utils/request';
+
 export default class ChatsService {
+  request: Request;
+  constructor() {
+    this.request = new Request();
+  }
+
   static getChats() {
     return [
       {

@@ -22,7 +22,7 @@ export default class ProfileController {
     this.userService = new UserService();
   }
 
-  static getProfileData(): User {
-    return convertObj(UserService.getUserInfo());
+  getProfileData(): User {
+    return convertObj(this.userService.getUserInfo());
   }
 }

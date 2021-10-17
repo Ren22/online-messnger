@@ -1,5 +1,12 @@
+import { Request } from '../utils/request';
+
 export default class UserService {
-  static getUserInfo() {
+  request: Request;
+  constructor() {
+    this.request = new Request();
+  }
+
+  getUserInfo() {
     return {
       id: 123,
       first_name: 'Petya',

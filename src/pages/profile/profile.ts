@@ -24,7 +24,7 @@ export default class ProfilePage extends View {
   constructor() {
     super();
     this.controller = new ProfileController();
-    this.user = ProfileController.getProfileData();
+    this.user = this.controller.getProfileData();
   }
 
   render() {
