@@ -14,18 +14,6 @@ type Chat = {
   secondName: string,
   time: string,
   content: string,
-  // lastMessage: {
-  //   user: {
-  //     firstName: string,
-  //     secondName: string,
-  //     avatar: string,
-  //     email: string,
-  //     login: string,
-  //     phone: string,
-  //   },
-  //   time: string,
-  //   content: string,
-  // },
 }
 
 export default class chatsPageChatsPage extends View {
