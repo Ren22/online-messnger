@@ -1,7 +1,15 @@
 import Handlebars from 'handlebars';
-import searchField from './searchField.tmpl';
+import notCompiledTemplate from './searchField.tmpl';
 import './searchField.less';
+import { Block } from '../../baseClasses/Block';
 
-const template = Handlebars.compile(searchField);
+export class SearchField extends Block {
+  constructor() {
+    super('div');
+  }
 
-export default () => template({});
+  render() {
+    const template = Handlebars.compile(notCompiledTemplate);
+    return template({});
+  }
+}
