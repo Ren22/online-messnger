@@ -36,6 +36,7 @@ export default class LoginPage extends View {
       inputFieldId: 'password',
       inputFieldText: 'Password',
       inputFieldPlaceholder: 'Password',
+      inputFieldType: 'password',
       inpFieldStyle: 'loginInputFieldStyle',
       labelStyle: 'loginLabelStyle',
       readOnly: false,
