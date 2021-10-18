@@ -1,9 +1,17 @@
 ### Information
 
 This is a chat project for Y.Practicum module 1.
-We will build it without any frontend JS frameworks.
+It is build on a vanila JS without any frontend JS frameworks.
 
-More details coming...
+The architecture of the project is build around a basic Block that implements EventBus and dynamically re-renderes once the properties of the Block are updated.
+
+All forms have a validation with regular expressions. The events are triggered on blur/focus of an input field.
+
+Pages of the app are implemented based on the View.ts base class that implements a subscription pattern.
+
+A separate class to have requests based on XMLHttpRequest is introduced.
+
+The project uses Typescript.
 
 ## Installation
 
