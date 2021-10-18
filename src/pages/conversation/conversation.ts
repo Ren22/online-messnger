@@ -6,25 +6,14 @@ import View from '../../baseClasses/View';
 import ChatsListController from '../chats/chats.controller';
 import { InputField } from '../../components/inputField/index';
 
-type Chat = {
-  id: number,
-  title: string,
-  avatar: string,
-  unreadCount: number,
-  firstName: string,
-  secondName: string,
-  time: string,
-  content: string,
-}
-
 export default class chatsPageChatsPage extends View {
   chatList: ChatList;
-  chatContacts: Chat[];
+  chatContacts: Record <string, any>;
   emailInputField: InputField;
   constructor() {
     super();
     this.chatContacts = ChatsListController.getChatsData();
-    this.chatList = new ChatList(this.chatContacts);
+    this.chatList = new ChatList({ chatContacts: this.chatContacts });
     this.init();
   }
 

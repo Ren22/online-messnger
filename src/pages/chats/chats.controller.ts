@@ -6,29 +6,6 @@ const convertObj = (obj: objWithSnakeKeys) => Object.entries(obj)
   // eslint-disable-next-line no-param-reassign
   .reduce((x: objWithSnakeKeys, [k, v]) => (x[snakeToCamel(k)] = v) && x, {});
 
-type Chat = {
-  id: number,
-  title: string,
-  avatar: string,
-  unreadCount: number,
-  firstName: string,
-  secondName: string,
-  time: string,
-  content: string,
-  // lastMessage: {
-  //   user: {
-  //     firstName: string,
-  //     secondName: string,
-  //     avatar: string,
-  //     email: string,
-  //     login: string,
-  //     phone: string,
-  //   },
-  //   time: string,
-  //   content: string,
-  // },
-}
-
 export default class ChatsListController {
   chatsService: ChatsService;
 
@@ -36,7 +13,7 @@ export default class ChatsListController {
     this.chatsService = new ChatsService();
   }
 
-  static getChatsData(): Chat[] {
-    return ChatsService.getChats().map(chat => convertObj(chat));
+  static getChatsData(): Record<string, any> {
+    return ChatsService.getChats().map((chat) => convertObj(chat));
   }
 }
