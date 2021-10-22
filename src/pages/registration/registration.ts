@@ -1,4 +1,3 @@
-import Handlebars from 'handlebars';
 import notCompiledTemplate from './registration.tmpl';
 import { Button } from '../../components/button/index';
 import './registration.less';

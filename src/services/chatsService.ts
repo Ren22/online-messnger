@@ -1,4 +1,16 @@
+/* eslint-disable camelcase */
 import { Request } from '../utils/request';
+
+type RawChat = {
+  id: number,
+  title: string,
+  avatar: string,
+  unread_count: number,
+  first_name: string,
+  second_name: string,
+  time: string,
+  content: string,
+}
 
 export default class ChatsService {
   request: Request;
@@ -6,7 +18,7 @@ export default class ChatsService {
     this.request = new Request();
   }
 
-  static getChats() {
+  static getChats(): RawChat[] {
     return [
       {
         id: 123,
@@ -17,18 +29,6 @@ export default class ChatsService {
         second_name: 'Pupkin',
         time: '14:22',
         content: 'this is message content',
-        // last_message: {
-        //   user: {
-        //     first_name: 'Petya',
-        //     second_name: 'Pupkin',
-        //     avatar: '/path/to/avatar.jpg',
-        //     email: 'my@email.com',
-        //     login: 'userLogin',
-        //     phone: '8(911)-222-33-22',
-        //   },
-        //   time: '2020-01-02T14:22:22.000Z',
-        //   content: 'this is message content',
-        // },
       },
     ];
   }

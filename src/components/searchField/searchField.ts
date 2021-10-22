@@ -1,7 +1,8 @@
-import Handlebars from 'handlebars';
 import notCompiledTemplate from './searchField.tmpl';
 import './searchField.less';
 import { Block } from '../../baseClasses/Block';
+
+const Handlebars = require('handlebars');
 
 export class SearchField extends Block {
   constructor() {

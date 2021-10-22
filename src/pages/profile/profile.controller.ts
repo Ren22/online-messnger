@@ -1,10 +1,5 @@
 import UserService from '../../services/userService';
-
-type objWithSnakeKeys = Record<string, any>;
-const snakeToCamel = (s: string) => s.replace(/(_\w)/g, (k) => k[1].toUpperCase());
-const convertObj = (obj: objWithSnakeKeys) => Object.entries(obj)
-  // eslint-disable-next-line no-param-reassign
-  .reduce((x: objWithSnakeKeys, [k, v]) => (x[snakeToCamel(k)] = v) && x, {});
+import { snakeToCamelCase } from '../../utils/common';
 
 type User = {
   id: number,
@@ -22,7 +17,7 @@ export default class ProfileController {
     this.userService = new UserService();
   }
 
-  getProfileData(): User {
-    return convertObj(this.userService.getUserInfo());
+  getProfileData() {
+    return ([this.userService.getUserInfo()].map(snakeToCamelCase) as unknown as User);
   }
 }

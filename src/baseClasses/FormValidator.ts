@@ -1,4 +1,6 @@
-type Validators = Record<string, Record<string, any>>;
+import { GenericObject } from '../global/types';
+
+type Validators = Record<string, GenericObject>;
 
 export class FormValidator {
   form: HTMLFormElement;
@@ -51,7 +53,8 @@ export class FormValidator {
 
   getFormData() {
     const loginFormData: FormData = new FormData(this.form);
-    const toShow = [...loginFormData.entries()].reduce((prev: Record<string, any>, [k, v]) => {
+    //  todo: use the same converting block everywhere
+    const toShow = [...loginFormData.entries()].reduce((prev: GenericObject, [k, v]) => {
       // eslint-disable-next-line no-param-reassign
       prev[k] = v;
       return prev;

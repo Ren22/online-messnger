@@ -1,13 +1,19 @@
-import Handlebars from 'handlebars';
 import notCompiledTemplate from './chatList.tmpl';
 import './chatList.less';
 import { Block } from '../../baseClasses/Block';
 import { SearchField } from '../searchField/index';
+import { Chat } from '../../pages/chats/chats.controller';
+
+const Handlebars = require('handlebars');
+
+type ChatListProps = {
+  chatContacts: Chat[];
+}
 
 export class ChatList extends Block {
   searchField: SearchField;
 
-  constructor(props: Record <string, any>) {
+  constructor(props: ChatListProps) {
     super('div', props);
     this.init();
   }

@@ -24,7 +24,8 @@
         "no-unused-vars": "off",
         "no-underscore-dangle": ["off"],
         "no-param-reassign": ["error", { "props": false }],
-        "class-methods-use-this": "off"
+        "class-methods-use-this": "off",
+        "camelcase": "off"
     },
     "settings": {
         "import/resolver": {

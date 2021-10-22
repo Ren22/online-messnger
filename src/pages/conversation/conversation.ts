@@ -1,14 +1,13 @@
-import Handlebars from 'handlebars';
 import { ChatList } from '../../components/chatList/index';
 import notCompiledTemplate from './conversation.tmpl';
 import './conversation.less';
 import View from '../../baseClasses/View';
-import ChatsListController from '../chats/chats.controller';
+import ChatsListController, { Chat } from '../chats/chats.controller';
 import { InputField } from '../../components/inputField/index';
 
 export default class chatsPageChatsPage extends View {
   chatList: ChatList;
-  chatContacts: Record <string, any>;
+  chatContacts: Chat[];
   emailInputField: InputField;
   constructor() {
     super();

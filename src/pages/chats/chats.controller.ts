@@ -1,10 +1,16 @@
 import ChatsService from '../../services/chatsService';
+import { snakeToCamelCase } from '../../utils/common';
 
-type objWithSnakeKeys = Record<string, any>;
-const snakeToCamel = (s: string) => s.replace(/(_\w)/g, (k) => k[1].toUpperCase());
-const convertObj = (obj: objWithSnakeKeys) => Object.entries(obj)
-  // eslint-disable-next-line no-param-reassign
-  .reduce((x: objWithSnakeKeys, [k, v]) => (x[snakeToCamel(k)] = v) && x, {});
+export type Chat = {
+  id: number,
+  title: string,
+  avatar: string,
+  unreadCount: number,
+  firstName: string,
+  secondName: string,
+  time: string,
+  content: string,
+}
 
 export default class ChatsListController {
   chatsService: ChatsService;
@@ -13,7 +19,7 @@ export default class ChatsListController {
     this.chatsService = new ChatsService();
   }
 
-  static getChatsData(): Record<string, any> {
-    return ChatsService.getChats().map((chat) => convertObj(chat));
+  static getChatsData() {
+    return (ChatsService.getChats().map(snakeToCamelCase) as unknown as Chat[]);
   }
 }

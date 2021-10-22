@@ -1,3 +1,5 @@
+import { GenericObject } from '../global/types';
+
 const METHODS = {
   GET: 'GET',
   POST: 'POST',
@@ -5,7 +7,7 @@ const METHODS = {
   DELETE: 'DELETE',
 };
 
-function queryStringify(data: Record<string, any>) {
+function queryStringify(data: GenericObject) {
   let queryString = '?';
   data.forEach((key: string) => {
     queryString += `${String(key)}=${String(data[key])}&`;
@@ -14,20 +16,20 @@ function queryStringify(data: Record<string, any>) {
 }
 
 export class Request {
-  get(url: string, options?: Record<string, any>, timeout?: number) {
+  get(url: string, options?: GenericObject, timeout?: number) {
     return this.request(url, { ...options, method: METHODS.GET }, timeout);
   }
-  put(url: string, options?: Record<string, any>, timeout?: number) {
+  put(url: string, options?: GenericObject, timeout?: number) {
     return this.request(url, { ...options, method: METHODS.PUT }, timeout);
   }
-  post(url: string, options?: Record<string, any>, timeout?: number) {
+  post(url: string, options?: GenericObject, timeout?: number) {
     return this.request(url, { ...options, method: METHODS.POST }, timeout);
   }
-  delete(url: string, options?: Record<string, any>, timeout?: number) {
+  delete(url: string, options?: GenericObject, timeout?: number) {
     return this.request(url, { ...options, method: METHODS.DELETE }, timeout);
   }
 
-  request = (url: string, options: Record<string, any>, timeout = 5000) => {
+  request = (url: string, options: GenericObject, timeout = 5000) => {
     const { headers = {}, data, method } = options;
     return new Promise((resolve, reject) => {
       if (!method) {

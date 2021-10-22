@@ -1,8 +1,9 @@
 import EventBus from './EventBus';
 
+type allowedTags = 'div' | 'button';
 export class Block {
-  _element: HTMLElement;
-  _meta: Record<string, any>;
+  private _element: HTMLElement;
+  private _meta: { props: any, tagName: allowedTags };
   props: any;
   eventBus: () => EventBus;
   static eventBus: () => EventBus;;
@@ -14,7 +15,7 @@ export class Block {
     FLOW_CDU: 'flow:component-did-update',
   }
 
-  constructor(tagName = 'div', props = {}) {
+  constructor(tagName: allowedTags = 'div', props = {}) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
@@ -83,8 +84,6 @@ export class Block {
   }
 
   private static _makePropsProxy(props: any) {
-    const self = this;
-
     function errorWhenPrivateProp(prop: string | number | symbol) {
       if (typeof prop === 'string' && prop.indexOf('_') === 0) {
         throw new Error('Нет прав');
@@ -92,18 +91,18 @@ export class Block {
     }
 
     return new Proxy(props, {
-      get(target, prop) {
+      get: (target, prop) => {
         errorWhenPrivateProp(prop);
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target, prop, value) {
+      set: (target, prop, value) => {
         errorWhenPrivateProp(prop);
         target[prop] = value;
-        self.eventBus().emit(Block.EVENTS.FLOW_CDU);
+        this.eventBus().emit(Block.EVENTS.FLOW_CDU);
         return true;
       },
-      deleteProperty() {
+      deleteProperty: () => {
         throw new Error('Нет прав');
       },
     });

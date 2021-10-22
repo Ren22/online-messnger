@@ -1,4 +1,3 @@
-import Handlebars from 'handlebars';
 import notCompiledTemplate from './error.tmpl';
 import './error.less';
 import View from '../../baseClasses/View';
