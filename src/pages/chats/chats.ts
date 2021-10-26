@@ -14,6 +14,9 @@ export default class chatsPageChatsPage extends View {
   }
   render() {
     View.registerPartial('chatsList', this.chatList.render());
-    return View.generateView(notCompiledTemplate);
+    View.generateView(notCompiledTemplate);
+    const templateHTML = View.generateView(notCompiledTemplate);
+    const templateDOM = this.convertHTMLToDOM(templateHTML);
+    return templateDOM;
   }
 }

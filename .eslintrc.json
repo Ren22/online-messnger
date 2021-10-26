@@ -25,7 +25,8 @@
         "no-underscore-dangle": ["off"],
         "no-param-reassign": ["error", { "props": false }],
         "class-methods-use-this": "off",
-        "camelcase": "off"
+        "camelcase": "off",
+        "function-paren-newline": "off"
     },
     "settings": {
         "import/resolver": {

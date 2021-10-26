@@ -1,3 +1,4 @@
+import { v4 as makeUUID } from 'uuid';
 import EventBus from './EventBus';
 
 type allowedTags = 'div' | 'button';
@@ -6,8 +7,8 @@ export class Block {
   private _meta: { props: any, tagName: allowedTags };
   props: any;
   eventBus: () => EventBus;
-  static eventBus: () => EventBus;;
-
+  static eventBus: () => EventBus;
+  private _id: string;
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -21,7 +22,8 @@ export class Block {
       tagName,
       props,
     };
-    this.props = Block._makePropsProxy(props);
+    this._id = makeUUID();
+    this.props = this._makePropsProxy(props);
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
@@ -41,11 +43,13 @@ export class Block {
 
   private _createResources() {
     const { tagName } = this._meta;
-    this._element = Block._createDocumentElement(tagName);
+    this._element = this._createDocumentElement(tagName);
   }
 
-  static _createDocumentElement(tagName: string) {
-    return document.createElement(tagName);
+  _createDocumentElement(tagName: string) {
+    const element = document.createElement(tagName);
+    element.setAttribute('data-id', this._id);
+    return element;
   }
 
   setProps = (nextProps: any) => {
@@ -64,26 +68,47 @@ export class Block {
   componentDidMount() {}
 
   private _componentDidUpdate() {
-    const response = this.componentDidUpdate();
-    if (response) {
-      this._render();
-    }
+    this.componentDidUpdate();
+    this._render();
   }
 
-  componentDidUpdate() {
-    return true;
+  getElement() {
+    return this._element;
+  }
+
+  componentDidUpdate() {}
+
+  getId() {
+    return this._id;
+  }
+
+  private _addEvents() {
+    const { events = {} } = this.props;
+    Object.keys(events).forEach((eventName) => {
+      this._element.addEventListener(
+        eventName,
+        events[eventName],
+      );
+    });
   }
 
   private _render() {
-    const block = this.render();
-    this._element.innerHTML = block;
+    const blockAsString = this.render();
+    //  todo this.removeListneres()
+    this._element.innerHTML = blockAsString.trim();
+    this._addEvents();
   }
 
-  render() {
+  renderAsHTMLString() {
+    // this method is needed when we work with html templates in handlebars partials
+    return this._element.outerHTML;
+  }
+
+  render(): string {
     return '';
   }
 
-  private static _makePropsProxy(props: any) {
+  private _makePropsProxy(props: any) {
     function errorWhenPrivateProp(prop: string | number | symbol) {
       if (typeof prop === 'string' && prop.indexOf('_') === 0) {
         throw new Error('Нет прав');

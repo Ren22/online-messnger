@@ -1,5 +1,5 @@
+/* eslint-disable no-useless-escape */
 export default `
-<div>
   <div 
     class="{{#if mediumMarginHorizontally}}mediumMarginLeft mediumMarginRight {{/if}}
     {{#if vbox}}inputfieldVBox{{else}}inputfieldHBox{{/if}}
@@ -7,13 +7,13 @@ export default `
     <label for="{{inputFieldId}}" class="{{labelStyle}}">{{inputFieldText}}</label>
     <input 
       placeholder="{{inputFieldPlaceholder}}"
-      id="{{inputFieldId}}"
       type="{{inputFieldType}}"
       value="{{inputFieldValue}}"
       name="{{inputFieldText}}"
-      class="{{inpFieldStyle}}"
+      class="inputField {{inpFieldStyle}}"
       {{#if readOnly}}readonly{{/if}}>
   </div>
-  <span class="error-message mediumMarginLeft mediumMarginRight"></span>
-</div>
+  {{#unless isValid}}
+    <span class="error-message mediumMarginLeft mediumMarginRight">{{validationFailedMessage}}</span>
+  {{/unless}}
 `;

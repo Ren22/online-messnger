@@ -22,11 +22,9 @@ export default class RegistrationPage extends View {
 
   init() {
     this.button = new Button({
-      buttonId: 'navToChats',
       buttonText: 'Complete registration',
     });
     this.loginInputField = new InputField({
-      inputFieldId: 'login',
       inputFieldText: 'Login',
       inputFieldPlaceholder: 'Login',
       inpFieldStyle: 'registrationInputFieldStyle',
@@ -35,7 +33,6 @@ export default class RegistrationPage extends View {
       mediumMarginHorizontally: true,
     });
     this.emailInputField = new InputField({
-      inputFieldId: 'email',
       inputFieldText: 'Email',
       inputFieldPlaceholder: 'Email',
       inpFieldStyle: 'registrationInputFieldStyle',
@@ -44,7 +41,6 @@ export default class RegistrationPage extends View {
       mediumMarginHorizontally: true,
     });
     this.nameInputField = new InputField({
-      inputFieldId: 'name',
       inputFieldText: 'Name',
       inputFieldPlaceholder: 'Name',
       inpFieldStyle: 'registrationInputFieldStyle',
@@ -53,7 +49,6 @@ export default class RegistrationPage extends View {
       mediumMarginHorizontally: true,
     });
     this.surnameInputField = new InputField({
-      inputFieldId: 'surname',
       inputFieldText: 'Surname',
       inputFieldPlaceholder: 'Surname',
       inpFieldStyle: 'registrationInputFieldStyle',
@@ -62,7 +57,6 @@ export default class RegistrationPage extends View {
       mediumMarginHorizontally: true,
     });
     this.phoneInputField = new InputField({
-      inputFieldId: 'phone',
       inputFieldText: 'Phone',
       inputFieldPlaceholder: 'Phone',
       inpFieldStyle: 'registrationInputFieldStyle',
@@ -71,7 +65,6 @@ export default class RegistrationPage extends View {
       mediumMarginHorizontally: true,
     });
     this.passwordInputField = new InputField({
-      inputFieldId: 'password',
       inputFieldText: 'Password',
       inputFieldPlaceholder: 'Password',
       inputFieldType: 'password',
@@ -81,7 +74,6 @@ export default class RegistrationPage extends View {
       mediumMarginHorizontally: true,
     });
     this.passwordAgainInputField = new InputField({
-      inputFieldId: 'password',
       inputFieldText: 'Password',
       inputFieldPlaceholder: 'Password',
       inputFieldType: 'password',
@@ -101,6 +93,9 @@ export default class RegistrationPage extends View {
     View.registerPartial('phoneInputFieldReg', this.phoneInputField.render());
     View.registerPartial('passwordInputFieldReg', this.passwordInputField.render());
     View.registerPartial('passwordAgainInputFieldReg', this.passwordAgainInputField.render());
-    return View.generateView(notCompiledTemplate);
+    View.generateView(notCompiledTemplate);
+    const templateHTML = View.generateView(notCompiledTemplate);
+    const templateDOM = this.convertHTMLToDOM(templateHTML);
+    return templateDOM;
   }
 }

@@ -1,4 +1,5 @@
 import { GenericObject } from '../global/types';
+import { Block } from './Block';
 
 const Handlebars = require('handlebars');
 
@@ -20,6 +21,25 @@ class View {
   }
 
   render(): any {}
+
+  convertHTMLToDOM(htmlString: string) {
+    const template = document.createElement('template');
+    template.innerHTML = htmlString.trim();
+    return template.content.children[0];
+  }
+
+  replaceElementsInHTMLTemplate(templateHTML: string, elementsWithId: Block[]) {
+    const templateDOM = this.convertHTMLToDOM(templateHTML);
+    elementsWithId.forEach((elementWithId) => {
+      const oldEl = templateDOM.querySelector(`[data-id='${elementWithId.getId()}']`);
+      const newEl = elementWithId.getElement();
+      const parent = oldEl?.parentElement;
+      if (parent && oldEl) {
+        parent.replaceChild(newEl, oldEl);
+      }
+    });
+    return templateDOM;
+  }
 }
 
 export default View;

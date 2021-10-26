@@ -1,54 +1,26 @@
 import { GenericObject } from '../global/types';
 
-type Validators = Record<string, GenericObject>;
-
 export class FormValidator {
   form: HTMLFormElement;
-  validators: Validators;
   inputFields: HTMLInputElement[];
-  isFormValid: boolean;
+  isValid: boolean;
   submitElement: HTMLElement;
-  constructor(form: HTMLFormElement, submitElement: HTMLElement, validators: Validators) {
-    this.form = form;
-    //  Collect all innput fields from the form
-    this.inputFields = Array.from(this.form.getElementsByTagName('input'));
-    this.validators = validators;
-    this.isFormValid = false;
-    this.submitElement = submitElement;
+  constructor(form: HTMLFormElement | null, submitElement: HTMLElement) {
+    if (form) {
+      this.form = form;
+      //  Collect all innput fields from the form
+      this.inputFields = Array.from(this.form.getElementsByTagName('input'));
+      this.isValid = false;
+      this.submitElement = submitElement;
+    }
   }
 
   initialize() {
-    this.validateOnEntry();
     this.validateOnSubmit();
   }
 
-  validateOnEntry() {
-    this.inputFields.forEach((field) => {
-      const fieldId = field.getAttribute('id');
-      const parentElem = field.parentElement?.parentElement?.querySelector('.error-message') as HTMLElement;
-      if (fieldId && Object.keys(this.validators).includes(fieldId)) {
-        field.addEventListener('focus', () => {
-          if (field.classList.contains('invalidInputField')) {
-            field.classList.remove('invalidInputField');
-            parentElem.innerText = '';
-          }
-          this.isFormValid = true;
-        });
-        field.addEventListener('blur', () => {
-          if (!this.validators[fieldId].regex.test(field.value)) {
-            field.classList.add('invalidInputField');
-            parentElem.innerText = this.validators[fieldId].errMsg;
-            this.isFormValid = false;
-          }
-        });
-      } else {
-        throw new Error(`No validator found for the input: ${fieldId}`);
-      }
-    });
-  }
-
-  isFormValidStatus() {
-    return this.isFormValid;
+  isFormValid() {
+    return this.isValid;
   }
 
   getFormData() {
