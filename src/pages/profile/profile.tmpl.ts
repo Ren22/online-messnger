@@ -7,14 +7,14 @@ export default `
   <div class="profileContainer__main">
     <div class="profileImage"></div>
     <div class="profileName">Ivan</div>
-    <div class="profileInputFields">
+    <form name="profileForm" class="profileForm" onsubmit="return false">
       {{> emailInputField}}
       {{> loginInputField}}
       {{> nameInputField}}
       {{> surnameInputField}}
       {{> visibleNameInputField}}
       {{> phoneInputField}}
-    </div>
+    </form>
     <div class="profileConfigs">
       {{> changeUserSettingsText}}
       {{> changePasswordText}}

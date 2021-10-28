@@ -6,7 +6,10 @@ import notCompiledTemplate from './profile.tmpl';
 import { InputField } from '../../components/inputField/index';
 import { Block } from '../../baseClasses/Block';
 import { Text } from '../../components/text/index';
-import { emailRule } from '../../global/regex';
+import { emailRule, loginRule, nameRule, phoneRule } from '../../global/regex';
+import { Form } from '../../global/types';
+import { getFormData } from '../../utils/common';
+import { navTo } from '../../utils/navigator';
 
 type User = {
   id: number,
@@ -46,7 +49,6 @@ export class ProfilePage extends Block {
       inputFieldValue: this.user.email,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
-      readOnly: true,
       mediumMarginHorizontally: false,
       vbox: false,
       justifyContentSpaceBetween: true,
@@ -60,10 +62,10 @@ export class ProfilePage extends Block {
       inputFieldValue: this.user.login,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
-      readOnly: true,
       mediumMarginHorizontally: false,
       vbox: false,
       justifyContentSpaceBetween: true,
+      validation: loginRule,
     });
 
     this.nameInputField = new InputField({
@@ -73,10 +75,10 @@ export class ProfilePage extends Block {
       inputFieldValue: this.user.firstName,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
-      readOnly: true,
       mediumMarginHorizontally: false,
       vbox: false,
       justifyContentSpaceBetween: true,
+      validation: nameRule,
     });
 
     this.surnameInputField = new InputField({
@@ -86,10 +88,10 @@ export class ProfilePage extends Block {
       inputFieldValue: this.user.secondName,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
-      readOnly: true,
       mediumMarginHorizontally: false,
       vbox: false,
       justifyContentSpaceBetween: true,
+      validation: nameRule,
     });
 
     this.visibleNameInputField = new InputField({
@@ -99,10 +101,10 @@ export class ProfilePage extends Block {
       inputFieldValue: this.user.displayName,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
-      readOnly: true,
       mediumMarginHorizontally: false,
       vbox: false,
       justifyContentSpaceBetween: true,
+      validation: nameRule,
     });
 
     this.phoneInputField = new InputField({
@@ -112,10 +114,10 @@ export class ProfilePage extends Block {
       inputFieldValue: this.user.phone,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
-      readOnly: true,
       mediumMarginHorizontally: false,
       vbox: false,
       justifyContentSpaceBetween: true,
+      validation: phoneRule,
     });
     this.changeUserSettingsText = new Text({
       textStyle: 'profileConfigs__changeUserSettings',
@@ -141,9 +143,16 @@ export class ProfilePage extends Block {
   }
 
   onClickChangeUserSettings() {
-    this.emailInputField.setProps({
-      readOnly: false,
+    const { profileForm } = document.forms as Form;
+    getFormData(profileForm);
+    this.getAllInputFields().forEach((inpField) => {
+      inpField.validateInputField();
     });
+    const isValidationPassed = this.getAllInputFields()
+      .map((inpField) => inpField.getIsInputFieldValid()).every((isValidField) => isValidField);
+    if (isValidationPassed) {
+      navTo('loginPage');
+    }
   }
 
   getAllInputFields() {

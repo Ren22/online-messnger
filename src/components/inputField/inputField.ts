@@ -26,30 +26,40 @@ export class InputField extends Block {
   id: string;
   isValid: boolean;
   value: string;
-  _events: { [key: string]: CallBack }
   constructor(props: InputFieldProps) {
     super('div', props);
     this.validation = this.props.validation;
     this.isValid = this.props.isValid ?? false;
-    this._events = {
-      blur: this.handleBlur.bind(this),
-      focus: this.handleFocus.bind(this),
-    };
-    this._addEventsToInputField();
   }
 
-  private _addEventsToInputField() {
-    Object.keys(this._events).forEach((eventName) => {
-      this._getInputField().addEventListener(eventName, this._events[eventName]);
+  componentDidMount() {
+    this._addEventsToInputField({
+      blur: this.handleBlur.bind(this),
+      focus: this.handleFocus.bind(this),
+    });
+  }
+
+  private _addEventsToInputField(events: { [key: string]: CallBack }) {
+    Object.keys(events).forEach((eventName) => {
+      this.getElement().addEventListener(eventName, events[eventName], true);
     });
   }
 
   handleBlur() {
-    if (!this.isInputFieldValid()) {
+    const inpFieldVal = this.getInputFieldValue();
+    if (!this.isInputFieldValid(inpFieldVal)) {
       this.isValid = false;
+      this.setProps({
+        isValid: false,
+        inputFieldValue: inpFieldVal,
+      });
       this.highlightInvalidInput();
     } else {
       this.isValid = true;
+      this.setProps({
+        isValid: true,
+        inputFieldValue: inpFieldVal,
+      });
       this.resetHighlightedInput();
     }
   }
@@ -62,15 +72,15 @@ export class InputField extends Block {
     this._getInputField().dispatchEvent(new Event('blur'));
   }
 
-  getValidationStatus() {
+  getIsInputFieldValid() {
     return this.isValid;
   }
 
-  isInputFieldValid() {
+  isInputFieldValid(inpFieldValue: string) {
     if (!this.validation) {
       return true;
     }
-    return this.validation.regex.test(this.getInputFieldValue());
+    return this.validation.regex.test(inpFieldValue);
   }
 
   getInputFieldValue() {
@@ -109,7 +119,7 @@ export class InputField extends Block {
       mediumMarginHorizontally: this.props.mediumMarginHorizontally ?? false,
       vbox: this.props.vbox ?? true,
       justifyContentSpaceBetween: this.props.justifyContentSpaceBetween ?? false,
-      isValid: this.isValid,
+      isValid: this.props.isValid,
       validationFailedMessage: this.validation?.validationMessage ?? '',
     });
     return rh.convertHTMLToDOM(templateHTML);

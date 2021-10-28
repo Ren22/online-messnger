@@ -130,7 +130,7 @@ export class RegistrationPage extends Block {
       inpField.validateInputField();
     });
     const isValidationPassed = this.getAllInputFields()
-      .map((inpField) => inpField.isInputFieldValid()).every((isValidField) => isValidField);
+      .map((inpField) => inpField.getIsInputFieldValid()).every((isValidField) => isValidField);
     if (isValidationPassed || this.isLoggedIn) {
       navTo('chatsPage');
     }
