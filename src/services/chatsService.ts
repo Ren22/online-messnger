@@ -21,12 +21,22 @@ export default class ChatsService {
   static getChats(): RawChat[] {
     return [
       {
-        id: 123,
+        id: 1,
         title: 'my-chat',
         avatar: '/123/avatar1.jpg',
         unread_count: 15,
         first_name: 'Petya',
         second_name: 'Pupkin',
+        time: '14:22',
+        content: 'this is message content',
+      },
+      {
+        id: 2,
+        title: 'my-chat',
+        avatar: '/123/avatar1.jpg',
+        unread_count: 15,
+        first_name: 'Vanya',
+        second_name: 'Ivanov',
         time: '14:22',
         content: 'this is message content',
       },

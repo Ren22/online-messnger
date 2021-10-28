@@ -93,9 +93,10 @@ export class Block {
   }
 
   private _render() {
-    const blockAsString = this.render();
+    const block = this.render();
+    this._element.innerHTML = '';
     //  todo this.removeListneres()
-    this._element.innerHTML = blockAsString.trim();
+    this._element.appendChild(block);
     this._addEvents();
   }
 
@@ -104,8 +105,8 @@ export class Block {
     return this._element.outerHTML;
   }
 
-  render(): string {
-    return '';
+  render(): Node {
+    return document.createElement('div');
   }
 
   private _makePropsProxy(props: any) {

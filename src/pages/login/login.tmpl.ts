@@ -8,7 +8,7 @@ export default `
     </div>
     <div class="formBottom">
       {{> signInButton}}
-      {{> linkToRegistration }}
+      {{> linkToRegistration}}
     </div>
   </form>
 </div>

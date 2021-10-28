@@ -1,18 +1,16 @@
 import './login.less';
 import { Button } from '../../components/button/index';
-import View from '../../baseClasses/View';
+import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 import notCompiledTemplate from './login.tmpl';
 import { InputField } from '../../components/inputField/index';
 import { loginRule, passwordRule } from '../../global/regex';
 import { navTo } from '../../utils/navigator';
 import { Link } from '../../components/link/index';
-import { GenericObject } from '../../global/types';
+import { getFormData } from '../../utils/common';
+import { Form } from '../../global/types';
+import { Block } from '../../baseClasses/Block';
 
-interface LoginForm extends HTMLCollectionOf<HTMLFormElement>{
-  loginForm: HTMLFormElement,
-}
-
-export default class LoginPage extends View {
+export default class LoginPage extends Block {
   login: string;
   password: string;
   button: Button;
@@ -20,16 +18,16 @@ export default class LoginPage extends View {
   passwordInputField: InputField;
   isLoggedIn: boolean;
   linkToRegistration: Link;
+  rh: RenderHelpers;
 
   constructor() {
     super();
     this.login = '';
     this.password = '';
     this.isLoggedIn = false;
-    this.init();
   }
 
-  init() {
+  componentDidMount() {
     this.button = new Button({
       buttonText: 'Sign In',
       events: {
@@ -57,33 +55,25 @@ export default class LoginPage extends View {
     });
     this.linkToRegistration = new Link({
       linkText: 'Registration',
-      linkStyle: 'login__registrationText',
+      linkStyle: 'link-registration',
       events: {
         click: this.onClickLinkToRegistration.bind(this),
       },
     });
   }
 
-  getFormData() {
-    const { loginForm } = document.forms as LoginForm;
-    const loginFormData: FormData = new FormData(loginForm);
-    const toShow = [...loginFormData.entries()].reduce((prev: GenericObject, [k, v]) => {
-      prev[k] = v;
-      return prev;
-    }, {});
-    // eslint-disable-next-line no-console
-    console.log(toShow);
-  }
-
   onClickSignIn() {
-    this.getFormData();
-    this.loginInputField.validateInputField();
-    this.passwordInputField.validateInputField();
-    const isValidationPassed = this.loginInputField.isInputFieldValid()
-      && this.passwordInputField.isInputFieldValid();
-    if (isValidationPassed || this.isLoggedIn) {
-      navTo('chatsPage');
-    }
+    navTo('chatsPage');
+    // todo: uncomment part below once done, only for dev
+    // const { loginForm } = document.forms as Form;
+    // getFormData(loginForm);
+    // this.loginInputField.validateInputField();
+    // this.passwordInputField.validateInputField();
+    // const isValidationPassed = this.loginInputField.isInputFieldValid()
+    //   && this.passwordInputField.isInputFieldValid();
+    // if (isValidationPassed || this.isLoggedIn) {
+    //   navTo('chatsPage');
+    // }
   }
 
   onClickLinkToRegistration() {
@@ -91,12 +81,13 @@ export default class LoginPage extends View {
   }
 
   render() {
-    View.registerPartial('signInButton', this.button.renderAsHTMLString());
-    View.registerPartial('loginInputField', this.loginInputField.renderAsHTMLString());
-    View.registerPartial('passwordInputField', this.passwordInputField.renderAsHTMLString());
-    View.registerPartial('linkToRegistration', this.linkToRegistration.renderAsHTMLString());
-    const templateHTML = View.generateView(notCompiledTemplate);
-    return this.replaceElementsInHTMLTemplate(templateHTML,
+    const rh = new RenderHelpers();
+    rh.registerPartial('signInButton', this.button.renderAsHTMLString());
+    rh.registerPartial('loginInputField', this.loginInputField.renderAsHTMLString());
+    rh.registerPartial('passwordInputField', this.passwordInputField.renderAsHTMLString());
+    rh.registerPartial('linkToRegistration', this.linkToRegistration.renderAsHTMLString());
+    const templateHTML = rh.generateView(notCompiledTemplate);
+    return rh.replaceElementsInHTMLTemplate(templateHTML,
       [this.button, this.loginInputField, this.passwordInputField, this.linkToRegistration],
     );
   }

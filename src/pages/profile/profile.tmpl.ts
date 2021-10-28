@@ -8,23 +8,17 @@ export default `
     <div class="profileImage"></div>
     <div class="profileName">Ivan</div>
     <div class="profileInputFields">
-      {{> emailInputFieldProfile}}
-      {{> loginInputFieldProfile}}
-      {{> nameInputFieldProfile}}
-      {{> surnameInputFieldProfile}}
-      {{> visibleNameInputFieldProfile}}
-      {{> phoneInputFieldProfile}}
+      {{> emailInputField}}
+      {{> loginInputField}}
+      {{> nameInputField}}
+      {{> surnameInputField}}
+      {{> visibleNameInputField}}
+      {{> phoneInputField}}
     </div>
     <div class="profileConfigs">
-      <div>
-        <span class="profileConfigs__changeUserSettings">Change user settings</span>
-      </div>
-      <div>
-        <span class="profileConfigs__changePassword">Change password</span>
-      </div>
-      <div>
-        <span class="profileConfigs__logout">Logout</span>
-      </div>
+      {{> changeUserSettingsText}}
+      {{> changePasswordText}}
+      {{> logoutText}}
     </div>
   </div>
 </div>

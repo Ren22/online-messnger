@@ -18,6 +18,6 @@ export default class ProfileController {
   }
 
   getProfileData() {
-    return ([this.userService.getUserInfo()].map(snakeToCamelCase) as unknown as User);
+    return (snakeToCamelCase(this.userService.getUserInfo()) as User);
   }
 }

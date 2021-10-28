@@ -1,9 +1,12 @@
 import './profile.less';
-import View from '../../baseClasses/View';
+import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 import EventBus from '../../baseClasses/EventBus';
 import ProfileController from './profile.controller';
 import notCompiledTemplate from './profile.tmpl';
 import { InputField } from '../../components/inputField/index';
+import { Block } from '../../baseClasses/Block';
+import { Text } from '../../components/text/index';
+import { emailRule } from '../../global/regex';
 
 type User = {
   id: number,
@@ -15,7 +18,7 @@ type User = {
   phone: string,
   avatar: string,
 }
-export default class ProfilePage extends View {
+export class ProfilePage extends Block {
   user: User;
   bus: EventBus;
   controller: ProfileController;
@@ -25,17 +28,18 @@ export default class ProfilePage extends View {
   surnameInputField: InputField;
   visibleNameInputField: InputField;
   phoneInputField: InputField;
+  changeUserSettingsText: Text;
+  changePasswordText: Text;
+  logoutText: Text;
 
   constructor() {
-    super();
-    this.controller = new ProfileController();
-    this.user = this.controller.getProfileData();
-    this.init();
+    super('div');
   }
 
-  init() {
+  componentDidMount() {
+    this.controller = new ProfileController();
+    this.user = this.controller.getProfileData();
     this.emailInputField = new InputField({
-      inputFieldId: 'email',
       inputFieldText: 'Email',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
@@ -46,10 +50,10 @@ export default class ProfilePage extends View {
       mediumMarginHorizontally: false,
       vbox: false,
       justifyContentSpaceBetween: true,
+      validation: emailRule,
     });
 
     this.loginInputField = new InputField({
-      inputFieldId: 'login',
       inputFieldText: 'Login',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
@@ -63,7 +67,6 @@ export default class ProfilePage extends View {
     });
 
     this.nameInputField = new InputField({
-      inputFieldId: 'name',
       inputFieldText: 'Name',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
@@ -77,7 +80,6 @@ export default class ProfilePage extends View {
     });
 
     this.surnameInputField = new InputField({
-      inputFieldId: 'surname',
       inputFieldText: 'Surname',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
@@ -91,7 +93,6 @@ export default class ProfilePage extends View {
     });
 
     this.visibleNameInputField = new InputField({
-      inputFieldId: 'visibleName',
       inputFieldText: 'Visible Name',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
@@ -105,11 +106,10 @@ export default class ProfilePage extends View {
     });
 
     this.phoneInputField = new InputField({
-      inputFieldId: 'phone',
       inputFieldText: 'Phone',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
-      inputFieldValue: this.user.displayName,
+      inputFieldValue: this.user.phone,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
       readOnly: true,
@@ -117,15 +117,68 @@ export default class ProfilePage extends View {
       vbox: false,
       justifyContentSpaceBetween: true,
     });
+    this.changeUserSettingsText = new Text({
+      textStyle: 'profileConfigs__changeUserSettings',
+      text: 'Change user settings',
+      events: {
+        click: this.onClickChangeUserSettings.bind(this),
+      },
+    });
+    this.changePasswordText = new Text({
+      textStyle: 'profileConfigs__changePassword',
+      text: 'Change password',
+      // events: {
+      //   click: this.onClickSignIn.bind(this),
+      // },
+    });
+    this.logoutText = new Text({
+      textStyle: 'profileConfigs__logout',
+      text: 'Logout',
+      // events: {
+      //   click: this.onClickSignIn.bind(this),
+      // },
+    });
+  }
+
+  onClickChangeUserSettings() {
+    this.emailInputField.setProps({
+      readOnly: false,
+    });
+  }
+
+  getAllInputFields() {
+    return [
+      this.emailInputField,
+      this.loginInputField,
+      this.nameInputField,
+      this.surnameInputField,
+      this.visibleNameInputField,
+      this.phoneInputField,
+    ];
+  }
+
+  getAllText() {
+    return [
+      this.changeUserSettingsText,
+      this.changePasswordText,
+      this.logoutText,
+    ];
   }
 
   render() {
-    View.registerPartial('emailInputFieldProfile', this.emailInputField.render());
-    View.registerPartial('loginInputFieldProfile', this.loginInputField.render());
-    View.registerPartial('nameInputFieldProfile', this.nameInputField.render());
-    View.registerPartial('surnameInputFieldProfile', this.surnameInputField.render());
-    View.registerPartial('visibleNameInputFieldProfile', this.visibleNameInputField.render());
-    View.registerPartial('phoneInputFieldProfile', this.phoneInputField.render());
-    return View.generateView(notCompiledTemplate);
+    const rh = new RenderHelpers();
+    rh.registerPartial('emailInputField', this.emailInputField.renderAsHTMLString());
+    rh.registerPartial('loginInputField', this.loginInputField.renderAsHTMLString());
+    rh.registerPartial('nameInputField', this.nameInputField.renderAsHTMLString());
+    rh.registerPartial('surnameInputField', this.surnameInputField.renderAsHTMLString());
+    rh.registerPartial('visibleNameInputField', this.visibleNameInputField.renderAsHTMLString());
+    rh.registerPartial('phoneInputField', this.phoneInputField.renderAsHTMLString());
+    rh.registerPartial('changeUserSettingsText', this.changeUserSettingsText.renderAsHTMLString());
+    rh.registerPartial('changePasswordText', this.changePasswordText.renderAsHTMLString());
+    rh.registerPartial('logoutText', this.logoutText.renderAsHTMLString());
+    const templateHTML = rh.generateView(notCompiledTemplate);
+    return rh.replaceElementsInHTMLTemplate(templateHTML,
+      [...this.getAllInputFields(), ...this.getAllText()],
+    );
   }
 }

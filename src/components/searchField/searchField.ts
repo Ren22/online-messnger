@@ -1,6 +1,7 @@
 import notCompiledTemplate from './searchField.tmpl';
 import './searchField.less';
 import { Block } from '../../baseClasses/Block';
+import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 
 const Handlebars = require('handlebars');
 
@@ -10,7 +11,9 @@ export class SearchField extends Block {
   }
 
   render() {
+    const rh = new RenderHelpers();
     const template = Handlebars.compile(notCompiledTemplate);
-    return template({});
+    const templateHTML = template({});
+    return rh.convertHTMLToDOM(templateHTML);
   }
 }

@@ -1,7 +1,7 @@
 import { ChatList } from '../../components/chatList/index';
 import notCompiledTemplate from './conversation.tmpl';
 import './conversation.less';
-import View from '../../baseClasses/View';
+import View from '../../baseClasses/RenderHelpers';
 import ChatsListController, { Chat } from '../chats/chats.controller';
 import { InputField } from '../../components/inputField/index';
 
@@ -18,7 +18,6 @@ export default class chatsPageChatsPage extends View {
 
   init() {
     this.emailInputField = new InputField({
-      inputFieldId: 'message',
       inputFieldPlaceholder: 'Message',
       inputFieldType: 'text',
       inpFieldStyle: 'chatWindowBottom__inputField-defaultStyle',

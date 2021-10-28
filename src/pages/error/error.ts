@@ -1,6 +1,6 @@
 import notCompiledTemplate from './error.tmpl';
 import './error.less';
-import View from '../../baseClasses/View';
+import View from '../../baseClasses/RenderHelpers';
 
 // const template = Handlebars.compile(error);
 

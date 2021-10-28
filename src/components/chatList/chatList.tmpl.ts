@@ -1,10 +1,6 @@
 export default `
   <div class="chatListContainer">
-    <div class="chatListContainer__profileLink">
-      <p class="chatListContainer__profileLinkText">Profile
-        <a class="arrow arrow-right"></a>
-      </p>
-    </div>
+    {{> linkToProfile }}
     {{> searchField }}
     <div class="contactsContainer">
       {{#each chatContacts}}

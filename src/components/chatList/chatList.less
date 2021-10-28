@@ -3,10 +3,11 @@
 
 .chatListContainer {
   flex-direction: column;
-  width: 25%;
   background: #FBFBFB;
   border-right: 1px solid #EAEAEA;
   display: flex;
+  height: 100%;
+  width: 22rem;
 
   .arrow {
     position: absolute;
@@ -20,15 +21,17 @@
 }
 
 .chatListContainer__profileLink {
-  margin-right: 1.6rem;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.chatListContainer__profileLinkText {
   .fontRegular;
   color: #999999;
   font-size: 0.8rem;
+  margin: 1.2rem 1.2rem 0 0;
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
+.chatListContainer__profileLink:hover {
+  text-decoration: underline;
 }
 
 .contactsContainer {

@@ -2,6 +2,7 @@ import notCompiledTemplate from './inputField.tmpl';
 import './inputField.less';
 import { Block } from '../../baseClasses/Block';
 import { CallBack } from '../../global/types';
+import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 
 const Handlebars = require('handlebars');
 
@@ -66,7 +67,10 @@ export class InputField extends Block {
   }
 
   isInputFieldValid() {
-    return this.getValidationRule().test(this.getInputFieldValue());
+    if (!this.validation) {
+      return true;
+    }
+    return this.validation.regex.test(this.getInputFieldValue());
   }
 
   getInputFieldValue() {
@@ -92,6 +96,7 @@ export class InputField extends Block {
   }
 
   render() {
+    const rh = new RenderHelpers();
     const template = Handlebars.compile(notCompiledTemplate);
     const templateHTML = template({
       inputFieldText: this.props.inputFieldText ?? '',
@@ -104,9 +109,9 @@ export class InputField extends Block {
       mediumMarginHorizontally: this.props.mediumMarginHorizontally ?? false,
       vbox: this.props.vbox ?? true,
       justifyContentSpaceBetween: this.props.justifyContentSpaceBetween ?? false,
-      isValid: this.props.isValid,
+      isValid: this.isValid,
       validationFailedMessage: this.validation?.validationMessage ?? '',
     });
-    return templateHTML;
+    return rh.convertHTMLToDOM(templateHTML);
   }
 }

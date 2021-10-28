@@ -1,7 +1,8 @@
-import notRenderedTemplate from './link.tmpl';
+import notCompiledTemplate from './link.tmpl';
 import './link.less';
 import { Block } from '../../baseClasses/Block';
 import { CallBack } from '../../global/types';
+import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 
 const Handlebars = require('handlebars');
 
@@ -17,11 +18,12 @@ export class Link extends Block {
   }
 
   render() {
-    const template = Handlebars.compile(notRenderedTemplate);
-    return template({
-      // login__registrationText
+    const rh = new RenderHelpers();
+    const template = Handlebars.compile(notCompiledTemplate);
+    const templateHTML = template({
       linkStyle: this.props.linkStyle,
       linkText: this.props.linkText,
     });
+    return rh.convertHTMLToDOM(templateHTML);
   }
 }

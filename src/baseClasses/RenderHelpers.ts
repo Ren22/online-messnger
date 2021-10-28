@@ -3,8 +3,8 @@ import { Block } from './Block';
 
 const Handlebars = require('handlebars');
 
-class View {
-  static generateView(notCompiledTemplate: string, content?: GenericObject) {
+export class RenderHelpers {
+  generateView(notCompiledTemplate: string, content?: GenericObject) {
     const template = Handlebars.compile(notCompiledTemplate);
     if (content) {
       const templateContent = Object.entries(content).reduce((res: GenericObject, [k, v]) => {
@@ -16,16 +16,20 @@ class View {
     return template({});
   }
 
-  static registerPartial(partialName: string, partialTemplate: string) {
+  registerPartial(partialName: string, partialTemplate: string) {
     return Handlebars.registerPartial(partialName, partialTemplate);
   }
-
-  render(): any {}
 
   convertHTMLToDOM(htmlString: string) {
     const template = document.createElement('template');
     template.innerHTML = htmlString.trim();
-    return template.content.children[0];
+    return template.content;
+  }
+
+  convertDOMToHTML(domEl: DocumentFragment) {
+    const div = document.createElement('div');
+    div.appendChild(domEl.cloneNode(true));
+    return div.innerHTML;
   }
 
   replaceElementsInHTMLTemplate(templateHTML: string, elementsWithId: Block[]) {
@@ -41,5 +45,3 @@ class View {
     return templateDOM;
   }
 }
-
-export default View;
