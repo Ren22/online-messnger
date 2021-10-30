@@ -64,17 +64,15 @@ export default class LoginPage extends Block {
   }
 
   onClickSignIn() {
-    navTo('chatsPage');
-    // todo uncomment below only for testing
-    // const { loginForm } = document.forms as Form;
-    // getFormData(loginForm);
-    // this.loginInputField.validateInputField();
-    // this.passwordInputField.validateInputField();
-    // const isValidationPassed = this.loginInputField.getIsInputFieldValid()
-    //   && this.passwordInputField.getIsInputFieldValid();
-    // if (isValidationPassed || this.isLoggedIn) {
-    //   navTo('chatsPage');
-    // }
+    const { loginForm } = document.forms as Form;
+    getFormData(loginForm);
+    this.loginInputField.validateInputField();
+    this.passwordInputField.validateInputField();
+    const isValidationPassed = this.loginInputField.getIsInputFieldValid()
+      && this.passwordInputField.getIsInputFieldValid();
+    if (isValidationPassed || this.isLoggedIn) {
+      navTo('chatsPage');
+    }
   }
 
   onClickLinkToRegistration() {
