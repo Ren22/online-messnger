@@ -1,5 +1,6 @@
 @import '../../global/fonts.less';
 @import '../../global/styles.less';
+@import '../../global/colors.less';
 
 @chatWindowBottomHeight: 12rem;
 
@@ -12,11 +13,11 @@
   font-weight: 500;
   font-size: 0.9rem;
   line-height: 0.9rem;
-  color: #999999;
+  color: @baseGray;
 }
 
 .chatWindowHeader__profileImageSmall {
-  background: #EFEFEF;
+  background: @brightGray;
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
@@ -46,7 +47,7 @@
   font-weight: 500;
   font-size: 0.9rem;
   line-height: 0.9rem;
-  color: #999999;
+  color: @baseGray;
   text-align: center;
 }
 
@@ -72,7 +73,7 @@
   font-weight: 500;
   font-size: 0.9rem;
   line-height: 1.2rem;
-  color: #1E1E1E;
+  color: @eerieBlack;
   margin: 0;
 }
 
@@ -82,7 +83,7 @@ p.chatWindowConversation__time {
   font-weight: 500;
   font-size: 0.7rem;
   line-height: 0.7rem;
-  color: #999;
+  color: @baseGray;
   margin: 1rem 0 0 0;
   text-align: right;
 }

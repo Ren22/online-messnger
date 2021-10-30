@@ -1,9 +1,10 @@
 @import '../../global/styles.less';
 @import '../../global/fonts.less';
+@import '../../global/colors.less';
 
 .chatListContainer {
   flex-direction: column;
-  background: #FBFBFB;
+  background: @lotion;
   border-right: 1px solid #EAEAEA;
   display: flex;
   height: 100%;
@@ -22,7 +23,7 @@
 
 .chatListContainer__profileLink {
   .fontRegular;
-  color: #999999;
+  color: @baseGray;
   font-size: 0.8rem;
   margin: 1.2rem 1.2rem 0 0;
   display: flex;
