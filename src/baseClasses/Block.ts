@@ -9,6 +9,7 @@ export class Block {
   eventBus: () => EventBus;
   static eventBus: () => EventBus;
   private _id: string;
+  isFullPageHeight: boolean;
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -16,7 +17,7 @@ export class Block {
     FLOW_CDU: 'flow:component-did-update',
   }
 
-  constructor(tagName: allowedTags = 'div', props = {}) {
+  constructor(tagName: allowedTags = 'div', props = {}, isFullPageHeight = false) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
@@ -26,6 +27,7 @@ export class Block {
     this.props = this._makePropsProxy(props);
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
+    this.isFullPageHeight = isFullPageHeight;
     eventBus.emit(Block.EVENTS.INIT);
   }
 
@@ -49,6 +51,10 @@ export class Block {
   _createDocumentElement(tagName: string) {
     const element = document.createElement(tagName);
     element.setAttribute('data-id', this._id);
+    // todo: refactor and remove this part, it's not correct to assign styles here
+    if (this.isFullPageHeight) {
+      element.style.height = '100%';
+    }
     return element;
   }
 

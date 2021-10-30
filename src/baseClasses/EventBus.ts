@@ -3,6 +3,7 @@ type CallBackFunction = (...args: any[]) => {};
 
 export default class EventBus {
   listeners: Record<string, CallBackFunction[]>
+  static instance: any;
 
   constructor() {
     this.listeners = {};
@@ -24,7 +25,7 @@ export default class EventBus {
 
   emit(event: string, ...args: any[]) {
     if (!this.listeners[event]) {
-      throw new Error('No such event exists');
+      throw new Error(`No such event exists ${event}`);
     }
     this.listeners[event].forEach((listener) => {
       listener(args);

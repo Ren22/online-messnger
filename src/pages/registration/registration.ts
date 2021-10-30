@@ -7,7 +7,7 @@ import {
 } from '../../global/regex';
 import { getFormData } from '../../utils/common';
 import { Form } from '../../global/types';
-import { navTo } from '../../utils/navigator';
+import { navTo } from '../../utils/router';
 import { Link } from '../../components/link/link';
 import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 import { Block } from '../../baseClasses/Block';
@@ -26,13 +26,14 @@ export class RegistrationPage extends Block {
   linkToSignIn: Link;
 
   constructor() {
-    super();
+    super('div', {}, true);
     this.isLoggedIn = false;
   }
 
   componentDidMount() {
     this.button = new Button({
       buttonText: 'Complete registration',
+      buttonStyle: 'defaultButton',
       events: {
         click: this.onClickCompleteRegistration.bind(this),
       },

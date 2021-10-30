@@ -4,7 +4,7 @@ import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 import notCompiledTemplate from './login.tmpl';
 import { InputField } from '../../components/inputField/index';
 import { loginRule, passwordRule } from '../../global/regex';
-import { navTo } from '../../utils/navigator';
+import { navTo } from '../../utils/router';
 import { Link } from '../../components/link/index';
 import { getFormData } from '../../utils/common';
 import { Form } from '../../global/types';
@@ -21,7 +21,7 @@ export default class LoginPage extends Block {
   rh: RenderHelpers;
 
   constructor() {
-    super();
+    super('div', {}, true);
     this.login = '';
     this.password = '';
     this.isLoggedIn = false;
@@ -29,6 +29,7 @@ export default class LoginPage extends Block {
 
   componentDidMount() {
     this.button = new Button({
+      buttonStyle: 'defaultButton',
       buttonText: 'Sign In',
       events: {
         click: this.onClickSignIn.bind(this),

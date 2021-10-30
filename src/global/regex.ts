@@ -27,3 +27,8 @@ export const phoneRule = {
   regex: /^\+?[\d]{10,15}$/,
   validationMessage: 'Please provide a correct phone number',
 };
+
+export const noEmptyStringRule = {
+  regex: /^.*\S.*$$/,
+  validationMessage: 'Message cannot be empty',
+};

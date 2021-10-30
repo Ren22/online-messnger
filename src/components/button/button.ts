@@ -7,7 +7,8 @@ import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 const Handlebars = require('handlebars');
 
 type ButtonProps = {
-  buttonText: string,
+  buttonText?: string,
+  buttonStyle: string,
   events?: { [key: string]: CallBack },
 }
 
@@ -21,7 +22,8 @@ export class Button extends Block {
     const rh = new RenderHelpers();
     const template = Handlebars.compile(notRenderedTemplate);
     const templateHTML = template({
-      buttonText: this.props.buttonText,
+      buttonStyle: this.props.buttonStyle,
+      buttonText: this.props.buttonText ?? null,
     });
     return rh.convertHTMLToDOM(templateHTML);
   }

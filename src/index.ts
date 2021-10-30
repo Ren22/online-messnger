@@ -1,13 +1,13 @@
 // import { generateLoginModule } from './pages/home/modules/login/index';
 import { ChatsPage } from './pages/chats/index';
-import { ConversationPage } from './pages/conversation/index';
+import { ConversationPage } from './components/conversation/index';
 import { LoginPage } from './pages/login/index';
 import { ProfilePage } from './pages/profile/index';
 import { RegistrationPage } from './pages/registration/index';
 import { ErrorPage } from './pages/error/index';
 import './global/styles.less';
 import { FormValidator } from './baseClasses/FormValidator';
-import { navTo } from './utils/navigator';
+import { navTo } from './utils/router';
 
 // const profilePage = new ProfilePage();
 // const chatsPage = new ChatsPage();

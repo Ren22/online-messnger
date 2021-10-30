@@ -1,3 +1,3 @@
 export default `
-  <button class="defaultButton">{{ buttonText }}</button>
+  <button class="{{ buttonStyle }}">{{ buttonText }}</button>
  `;

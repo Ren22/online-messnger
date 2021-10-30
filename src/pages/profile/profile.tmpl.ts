@@ -2,7 +2,7 @@
 export default `
 <div class="profileContainer">
   <div class="profileContainer__navBack">
-    <button id="navToChats" class="profileRoundButton">{{buttonText}}</button>
+    {{> backToButton}}
   </div>
   <div class="profileContainer__main">
     <div class="profileImage"></div>

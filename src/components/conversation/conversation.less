@@ -3,13 +3,8 @@
 
 @chatWindowBottomHeight: 12rem;
 
-.chatPageContainer {
-  display: flex;
-  height: 100%;
-}
-
 .chatWindow {
-  width: 75%;
+  height: 100%;
 }
 
 .chatWindow__noChatSelected {
@@ -133,29 +128,6 @@ p.chatWindowConversation__time {
   border: none;
   padding: 0 1rem;
   border-radius: 10px;
-}
-
-.chatWindowBottomRoundButton {
-  background: #3369F3;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  border: none;
-  position: relative;
-  cursor: pointer;
- 
- &::before {
-   content: '';
-   width: 0.5rem;
-   height: 0.5rem;
-   border-style: solid;
-   border-color: #fafafa;
-   position: absolute;
-   top: 30%;
-   right: 40%;
-   transform: rotate(45deg);
-   border-width: 0.15rem 0.15rem 0 0;
- }
 }
 
 .chatWindowBottom__submitMsg {

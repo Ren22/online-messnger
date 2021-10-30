@@ -6,10 +6,13 @@ import notCompiledTemplate from './profile.tmpl';
 import { InputField } from '../../components/inputField/index';
 import { Block } from '../../baseClasses/Block';
 import { Text } from '../../components/text/index';
-import { emailRule, loginRule, nameRule, phoneRule } from '../../global/regex';
+import {
+  emailRule, loginRule, nameRule, phoneRule,
+} from '../../global/regex';
 import { Form } from '../../global/types';
 import { getFormData } from '../../utils/common';
-import { navTo } from '../../utils/navigator';
+import { navTo } from '../../utils/router';
+import { Button } from '../../components/button/index';
 
 type User = {
   id: number,
@@ -34,9 +37,10 @@ export class ProfilePage extends Block {
   changeUserSettingsText: Text;
   changePasswordText: Text;
   logoutText: Text;
+  backToButton: Button;
 
   constructor() {
-    super('div');
+    super('div', {}, true);
   }
 
   componentDidMount() {
@@ -129,17 +133,35 @@ export class ProfilePage extends Block {
     this.changePasswordText = new Text({
       textStyle: 'profileConfigs__changePassword',
       text: 'Change password',
-      // events: {
-      //   click: this.onClickSignIn.bind(this),
-      // },
+      events: {
+        click: this.onClickChangePswrd.bind(this),
+      },
     });
     this.logoutText = new Text({
       textStyle: 'profileConfigs__logout',
       text: 'Logout',
-      // events: {
-      //   click: this.onClickSignIn.bind(this),
-      // },
+      events: {
+        click: this.onClickLogout.bind(this),
+      },
     });
+    this.backToButton = new Button({
+      buttonStyle: 'roundButtonArrowLeft',
+      events: {
+        click: this.onClickBackToButton.bind(this),
+      },
+    });
+  }
+
+  onClickBackToButton() {
+    navTo('chatsPage');
+  }
+
+  onClickChangePswrd() {
+    navTo('page404');
+  }
+
+  onClickLogout() {
+    navTo('page500');
   }
 
   onClickChangeUserSettings() {
@@ -151,7 +173,7 @@ export class ProfilePage extends Block {
     const isValidationPassed = this.getAllInputFields()
       .map((inpField) => inpField.getIsInputFieldValid()).every((isValidField) => isValidField);
     if (isValidationPassed) {
-      navTo('loginPage');
+      navTo('profilePage');
     }
   }
 
@@ -185,9 +207,10 @@ export class ProfilePage extends Block {
     rh.registerPartial('changeUserSettingsText', this.changeUserSettingsText.renderAsHTMLString());
     rh.registerPartial('changePasswordText', this.changePasswordText.renderAsHTMLString());
     rh.registerPartial('logoutText', this.logoutText.renderAsHTMLString());
+    rh.registerPartial('backToButton', this.backToButton.renderAsHTMLString());
     const templateHTML = rh.generateView(notCompiledTemplate);
     return rh.replaceElementsInHTMLTemplate(templateHTML,
-      [...this.getAllInputFields(), ...this.getAllText()],
+      [...this.getAllInputFields(), ...this.getAllText(), this.backToButton],
     );
   }
 }

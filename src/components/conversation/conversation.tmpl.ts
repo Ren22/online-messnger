@@ -1,6 +1,4 @@
 export default `
-  <div class="chatPageContainer">
-    {{> chatsList }}
   <div class="chatWindow">
     <div class="chatWindowHeader">
       <div class="chatWindowHeader__profileImageSmall"></div>
@@ -86,9 +84,8 @@ export default `
         {{> messageInputField}}
       </div>
       <div class="chatWindowBottom__submitMsg">
-        <button id="navToChats" class="chatWindowBottomRoundButton">{{buttonText}}</button>
+        {{> submitMessageButton }}
       </div>
     </form>
-  </div>
 </div>
 `;
