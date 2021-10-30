@@ -1,11 +1,11 @@
 export default `
-  <div class="chatContact">
-    <div class="chatContact__photo"></div>
-    <div class="chatContact__middleSection">
-      <p class="chatContact__name">{{firstName}}</p>
-      <p class="chatContact__lastMessage">{{content}}</p>
+  <div class="chat-contact">
+    <div class="chat-contact__photo"></div>
+    <div class="chat-contact__middleSection">
+      <p class="chat-contact__name">{{firstName}}</p>
+      <p class="chat-contact__lastMessage">{{content}}</p>
     </div>
-    <div class="chatContact__spacer"></div>
-    <p class="chatContact__lastMessageTime" >{{time}}</p>
+    <div class="chat-contact__spacer"></div>
+    <p class="chat-contact__lastMessageTime" >{{time}}</p>
   </div>
 `;

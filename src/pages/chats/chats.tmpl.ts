@@ -5,7 +5,7 @@ export default `
       {{> chat}}
     {{else}}
       <div class="chatWindowNoConversation">
-        <span class="chatWindow__noChatSelected">Choose a chat to send a message</span>
+        <span class="chatwindow_no-selected-chat">Choose a chat to send a message</span>
       </div>
     {{/if}}
   </div>

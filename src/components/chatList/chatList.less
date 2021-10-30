@@ -2,7 +2,7 @@
 @import '../../global/fonts.less';
 @import '../../global/colors.less';
 
-.chatListContainer {
+.chatlist {
   flex-direction: column;
   background: @lotion;
   border-right: 1px solid #EAEAEA;
@@ -21,7 +21,7 @@
   .arrow-right { transform:rotate(225deg) }  
 }
 
-.chatListContainer__profileLink {
+.chatlist__link_profile {
   .fontRegular;
   color: @baseGray;
   font-size: 0.8rem;
@@ -31,11 +31,11 @@
   cursor: pointer;
 }
 
-.chatListContainer__profileLink:hover {
+.chatlist__link_profile:hover {
   text-decoration: underline;
 }
 
-.contactsContainer {
+.chatlist__chats {
   margin: 1.2rem;
   overflow: scroll;
 }

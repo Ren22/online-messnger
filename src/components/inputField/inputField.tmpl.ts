@@ -2,8 +2,8 @@
 export default `
     <div 
       class="{{#if mediumMarginHorizontally}}mediumMarginLeft mediumMarginRight {{/if}}
-      {{#if vbox}}inputfieldVBox{{else}}inputfieldHBox{{/if}}
-      {{#if justifyContentSpaceBetween}}justifyContentSpaceBetween{{/if}}">
+      {{#if vbox}}inputfield_style_VBox{{else}}inputfield_style_HBox{{/if}}
+      {{#if style_justifyContentSpaceBetween}}style_justifyContentSpaceBetween{{/if}}">
       {{#if isLabelEnabled}}
         <label for="{{inputFieldId}}" class="{{labelStyle}}">{{inputFieldText}}</label>
       {{/if}}
@@ -16,6 +16,6 @@ export default `
         {{#if readOnly}}readonly{{/if}}>
     </div>
     {{#unless isValid}}
-      <span class="error-message mediumMarginLeft mediumMarginRight">{{validationFailedMessage}}</span>
+      <span class="inputfield__error-msg mediumMarginLeft mediumMarginRight">{{validationFailedMessage}}</span>
     {{/unless}}
 `;

@@ -16,7 +16,7 @@ type InputFieldProps = {
   readOnly?: boolean,
   mediumMarginHorizontally?: boolean,
   vbox?: boolean,
-  justifyContentSpaceBetween?: boolean,
+  style_justifyContentSpaceBetween?: boolean,
   validation?: { regex: RegExp, validationMessage: string },
   isValid?: boolean,
   isLabelEnabled?: boolean
@@ -97,14 +97,14 @@ export class InputField extends Block {
   }
 
   highlightInvalidInput() {
-    this._getInputField().classList.add('invalidInputField');
-    (this.getElement().querySelector('.error-message') as HTMLElement).innerText = this.validation.validationMessage;
+    this._getInputField().classList.add('inputfield_style_invalid');
+    (this.getElement().querySelector('.inputfield__error-msg') as HTMLElement).innerText = this.validation.validationMessage;
   }
 
   resetHighlightedInput() {
-    this._getInputField().classList.remove('invalidInputField');
+    this._getInputField().classList.remove('inputfield_style_invalid');
     //  todo : this seems to be not working properly atm
-    // (this.getElement().querySelector('.error-message') as HTMLElement).innerText = '';
+    // (this.getElement().querySelector('.inputfield__error-msg') as HTMLElement).innerText = '';
   }
 
   render() {
@@ -120,7 +120,7 @@ export class InputField extends Block {
       readOnly: this.props.readOnly ?? false,
       mediumMarginHorizontally: this.props.mediumMarginHorizontally ?? false,
       vbox: this.props.vbox ?? true,
-      justifyContentSpaceBetween: this.props.justifyContentSpaceBetween ?? false,
+      style_justifyContentSpaceBetween: this.props.style_justifyContentSpaceBetween ?? false,
       isValid: this.props.isValid,
       validationFailedMessage: this.validation?.validationMessage ?? '',
       isLabelEnabled: this.props.isLabelEnabled ?? true,

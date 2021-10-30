@@ -1,8 +1,8 @@
 export default `
-  <div class="chatListContainer">
+  <div class="chatlist">
     {{> linkToProfile }}
     {{> searchField }}
-    <div class="contactsContainer">
+    <div class="chatlist__chats">
       {{> chatContacts }}
     </div>
   </div>

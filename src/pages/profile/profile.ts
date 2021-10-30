@@ -55,7 +55,7 @@ export class ProfilePage extends Block {
       labelStyle: 'profileInputFieldLabel',
       mediumMarginHorizontally: false,
       vbox: false,
-      justifyContentSpaceBetween: true,
+      style_justifyContentSpaceBetween: true,
       validation: emailRule,
     });
 
@@ -68,7 +68,7 @@ export class ProfilePage extends Block {
       labelStyle: 'profileInputFieldLabel',
       mediumMarginHorizontally: false,
       vbox: false,
-      justifyContentSpaceBetween: true,
+      style_justifyContentSpaceBetween: true,
       validation: loginRule,
     });
 
@@ -81,7 +81,7 @@ export class ProfilePage extends Block {
       labelStyle: 'profileInputFieldLabel',
       mediumMarginHorizontally: false,
       vbox: false,
-      justifyContentSpaceBetween: true,
+      style_justifyContentSpaceBetween: true,
       validation: nameRule,
     });
 
@@ -94,7 +94,7 @@ export class ProfilePage extends Block {
       labelStyle: 'profileInputFieldLabel',
       mediumMarginHorizontally: false,
       vbox: false,
-      justifyContentSpaceBetween: true,
+      style_justifyContentSpaceBetween: true,
       validation: nameRule,
     });
 
@@ -107,7 +107,7 @@ export class ProfilePage extends Block {
       labelStyle: 'profileInputFieldLabel',
       mediumMarginHorizontally: false,
       vbox: false,
-      justifyContentSpaceBetween: true,
+      style_justifyContentSpaceBetween: true,
       validation: nameRule,
     });
 
@@ -120,7 +120,7 @@ export class ProfilePage extends Block {
       labelStyle: 'profileInputFieldLabel',
       mediumMarginHorizontally: false,
       vbox: false,
-      justifyContentSpaceBetween: true,
+      style_justifyContentSpaceBetween: true,
       validation: phoneRule,
     });
     this.changeUserSettingsText = new Text({
@@ -145,7 +145,7 @@ export class ProfilePage extends Block {
       },
     });
     this.backToButton = new Button({
-      buttonStyle: 'roundButtonArrowLeft',
+      buttonStyle: 'button_style_round-arrow-left',
       events: {
         click: this.onClickBackToButton.bind(this),
       },

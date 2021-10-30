@@ -36,7 +36,7 @@ export class ChatList extends Block {
     this.searchField = new SearchField();
     this.linkToProfile = new Link({
       linkText: 'Profile',
-      linkStyle: 'chatListContainer__profileLink',
+      linkStyle: 'chatlist__link_profile',
       events: {
         click: this.onClickLinkToProfile.bind(this),
       },

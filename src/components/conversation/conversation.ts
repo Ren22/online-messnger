@@ -21,13 +21,13 @@ export class Conversation extends Block {
       inputFieldPlaceholder: 'Message',
       inputFieldType: 'text',
       inputFieldText: 'Message',
-      inpFieldStyle: 'chatWindowBottom__inputField-defaultStyle',
+      inpFieldStyle: 'form-conversation__inputfield_style_default',
       mediumMarginHorizontally: true,
       validation: noEmptyStringRule,
       isLabelEnabled: false,
     });
     this.submitMessageButton = new Button({
-      buttonStyle: 'roundButtonArrowRight',
+      buttonStyle: 'button_style_round-arrow-right',
       events: {
         click: this.onClickSubmitMessage.bind(this),
       },

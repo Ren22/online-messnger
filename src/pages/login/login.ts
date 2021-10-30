@@ -29,7 +29,7 @@ export default class LoginPage extends Block {
 
   componentDidMount() {
     this.button = new Button({
-      buttonStyle: 'defaultButton',
+      buttonStyle: 'button_style_default',
       buttonText: 'Sign In',
       events: {
         click: this.onClickSignIn.bind(this),
@@ -64,15 +64,17 @@ export default class LoginPage extends Block {
   }
 
   onClickSignIn() {
-    const { loginForm } = document.forms as Form;
-    getFormData(loginForm);
-    this.loginInputField.validateInputField();
-    this.passwordInputField.validateInputField();
-    const isValidationPassed = this.loginInputField.getIsInputFieldValid()
-      && this.passwordInputField.getIsInputFieldValid();
-    if (isValidationPassed || this.isLoggedIn) {
-      navTo('chatsPage');
-    }
+    navTo('chatsPage');
+    // todo uncomment below only for testing
+    // const { loginForm } = document.forms as Form;
+    // getFormData(loginForm);
+    // this.loginInputField.validateInputField();
+    // this.passwordInputField.validateInputField();
+    // const isValidationPassed = this.loginInputField.getIsInputFieldValid()
+    //   && this.passwordInputField.getIsInputFieldValid();
+    // if (isValidationPassed || this.isLoggedIn) {
+    //   navTo('chatsPage');
+    // }
   }
 
   onClickLinkToRegistration() {

@@ -2,17 +2,13 @@
 @import '../../global/fonts.less';
 @import '../../global/colors.less';
 
-.chatContact {
+.chat-contact {
   display: flex;
   border-top: 1px solid @brightGray;
   cursor: pointer;
-
-  p {
-    margin: 0;
-  }
 }
 
-.chatContact__photo {
+.chat-contact__photo {
   background: @brightGray;
   width: 4rem;
   height: 4rem;
@@ -20,19 +16,19 @@
   margin: 0.5rem 1rem 0.5rem 0;
 }
 
-.chatContact__spacer {
+.chat-contact__spacer {
   flex-grow: 1;
 }
 
 
-p.chatContact__name {
+.chat-contact__name {
   .fontBold;
   margin: 0.7rem 0 0 0;
   font-size: 0.8rem;
   line-height: 0.8rem;
 }
 
-p.chatContact__lastMessage {
+.chat-contact__lastMessage {
   .fontMedium;
   color: @baseGray;
   margin: 0.5rem 0 0 0;
@@ -40,15 +36,10 @@ p.chatContact__lastMessage {
   line-height: 0.8rem;
 }
 
-p.chatContact__lastMessageTime {
+.chat-contact__lastMessageTime {
   .fontMedium;
   color: @baseGray;
   margin: 0.8rem 0 0 0;
   font-size: 0.7rem;
   line-height: 0.7rem;
-}
-
-.contactsContainer {
-  margin: 1.2rem;
-  overflow: scroll;
 }

@@ -33,7 +33,7 @@ export class RegistrationPage extends Block {
   componentDidMount() {
     this.button = new Button({
       buttonText: 'Complete registration',
-      buttonStyle: 'defaultButton',
+      buttonStyle: 'button_style_default',
       events: {
         click: this.onClickCompleteRegistration.bind(this),
       },
