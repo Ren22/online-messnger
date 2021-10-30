@@ -4,7 +4,9 @@ export default `
       class="{{#if mediumMarginHorizontally}}mediumMarginLeft mediumMarginRight {{/if}}
       {{#if vbox}}inputfieldVBox{{else}}inputfieldHBox{{/if}}
       {{#if justifyContentSpaceBetween}}justifyContentSpaceBetween{{/if}}">
-      <label for="{{inputFieldId}}" class="{{labelStyle}}">{{inputFieldText}}</label>
+      {{#if isLabelEnabled}}
+        <label for="{{inputFieldId}}" class="{{labelStyle}}">{{inputFieldText}}</label>
+      {{/if}}
       <input 
         placeholder="{{inputFieldPlaceholder}}"
         type="{{inputFieldType}}"

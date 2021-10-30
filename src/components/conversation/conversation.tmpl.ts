@@ -78,7 +78,7 @@ export default `
         </div>
       </div>
     </div>
-    <form name="conversationForm" class="chatWindowBottom" onsubmit="return false">
+    <form name="conversationForm" id="conversationForm" class="chatWindowBottom" onsubmit="return false">
       <div class="chatWindowBottom__attachment"></div>
       <div class="chatWindowBottom__inputField">
         {{> messageInputField}}

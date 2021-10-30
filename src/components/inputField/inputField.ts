@@ -18,7 +18,8 @@ type InputFieldProps = {
   vbox?: boolean,
   justifyContentSpaceBetween?: boolean,
   validation?: { regex: RegExp, validationMessage: string },
-  isValid?: false
+  isValid?: boolean,
+  isLabelEnabled?: boolean
 }
 
 export class InputField extends Block {
@@ -102,7 +103,8 @@ export class InputField extends Block {
 
   resetHighlightedInput() {
     this._getInputField().classList.remove('invalidInputField');
-    (this.getElement().querySelector('.error-message') as HTMLElement).innerText = '';
+    //  todo : this seems to be not working properly atm
+    // (this.getElement().querySelector('.error-message') as HTMLElement).innerText = '';
   }
 
   render() {
@@ -121,6 +123,7 @@ export class InputField extends Block {
       justifyContentSpaceBetween: this.props.justifyContentSpaceBetween ?? false,
       isValid: this.props.isValid,
       validationFailedMessage: this.validation?.validationMessage ?? '',
+      isLabelEnabled: this.props.isLabelEnabled ?? true,
     });
     return rh.convertHTMLToDOM(templateHTML);
   }

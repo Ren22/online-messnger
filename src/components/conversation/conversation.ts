@@ -20,10 +20,11 @@ export class Conversation extends Block {
     this.messageInputField = new InputField({
       inputFieldPlaceholder: 'Message',
       inputFieldType: 'text',
+      inputFieldText: 'Message',
       inpFieldStyle: 'chatWindowBottom__inputField-defaultStyle',
-      readOnly: false,
       mediumMarginHorizontally: true,
       validation: noEmptyStringRule,
+      isLabelEnabled: false,
     });
     this.submitMessageButton = new Button({
       buttonStyle: 'roundButtonArrowRight',
