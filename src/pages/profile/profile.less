@@ -1,5 +1,6 @@
 @import '../../global/fonts.less';
 @import '../../global/styles.less';
+@import '../../global/colors.less';
 
 .profileContainer {
   display: flex;
@@ -13,29 +14,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.roundButton {
-  background: #3369F3;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  border: none;
-  position: relative;
-  cursor: pointer;
- 
- &::before {
-   content: '';
-   width: 0.5rem;
-   height: 0.5rem;
-   border-style: solid;
-   border-color: #fafafa;
-   position: absolute;
-   top: 30%;
-   left: 40%;
-   transform: rotate(-135deg);
-   border-width: 0.15rem 0.15rem 0 0;
- }
 }
 
 .profileContainer__main {
@@ -62,10 +40,10 @@
   line-height: 1.4rem;
   margin-top: 1rem;
   text-align: center;
-  color: #1E1E1E;
+  color: @eerieBlack;
 }
 
-.profileInputFields {
+.profileForm {
   width: 35vw;
   margin-top: 2rem;
 
@@ -92,11 +70,29 @@
     font-style: normal;
     font-size: 1rem;
     line-height: 1rem;
-    color: #3369F3;
+    color: @ultramarineBlue;
     cursor: pointer;
   }
 
   .profileConfigs__logout {
-    color: #FF0000;
+    color: @red;
   }
+}
+
+.profileInputField {
+  border: none;
+  font-style: normal;
+  font-size: 1rem;
+  line-height: 1rem;
+  color: @baseGray;
+  font-family: 'Inter-regular';
+  text-align: end;
+}
+
+.profileInputFieldLabel {
+  .fontRegular;
+  font-style: normal;
+  font-size: 1rem;
+  line-height: 1rem;
+  color: @eerieBlack;
 }
