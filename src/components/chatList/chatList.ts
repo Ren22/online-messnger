@@ -4,10 +4,10 @@ import { Block } from '../../baseClasses/Block';
 import { SearchField } from '../searchField/index';
 import { Chat } from '../../pages/chats/chats.controller';
 import { Link } from '../link/index';
-import { navTo } from '../../utils/router';
 import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 import { ChatContact } from '../chatContact/index';
 import EventBus from '../../baseClasses/EventBus';
+import { Router } from '../../utils/router';
 
 const Handlebars = require('handlebars');
 
@@ -24,12 +24,14 @@ export class ChatList extends Block {
   isChatSelected: boolean;
   selectedChat: number | null;
   localEventBus: EventBus;
+  router: Router;
 
   constructor(props: ChatListProps) {
     super('div', props);
     this.isChatSelected = false;
     this.selectedChat = null;
     this.localEventBus = this.props.localEventBus;
+    this.router = new Router();
   }
 
   componentDidMount() {
@@ -46,7 +48,7 @@ export class ChatList extends Block {
   }
 
   onClickLinkToProfile() {
-    navTo('profilePage');
+    this.router.go('/settings');
   }
 
   onClickChatContact() {

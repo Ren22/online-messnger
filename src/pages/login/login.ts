@@ -4,11 +4,11 @@ import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 import notCompiledTemplate from './login.tmpl';
 import { InputField } from '../../components/inputField/index';
 import { loginRule, passwordRule } from '../../global/regex';
-import { navTo } from '../../utils/router';
 import { Link } from '../../components/link/index';
 import { getFormData } from '../../utils/common';
 import { Form } from '../../global/types';
 import { Block } from '../../baseClasses/Block';
+import { Router } from '../../utils/router';
 
 export default class LoginPage extends Block {
   login: string;
@@ -19,12 +19,14 @@ export default class LoginPage extends Block {
   isLoggedIn: boolean;
   linkToRegistration: Link;
   rh: RenderHelpers;
+  router: Router;
 
   constructor() {
     super('div', {}, true);
     this.login = '';
     this.password = '';
     this.isLoggedIn = false;
+    this.router = new Router();
   }
 
   componentDidMount() {
@@ -71,12 +73,12 @@ export default class LoginPage extends Block {
     const isValidationPassed = this.loginInputField.getIsInputFieldValid()
       && this.passwordInputField.getIsInputFieldValid();
     if (isValidationPassed || this.isLoggedIn) {
-      navTo('chatsPage');
+      this.router.go('/messenger');
     }
   }
 
   onClickLinkToRegistration() {
-    navTo('registrationPage');
+    this.router.go('/sign-up');
   }
 
   render() {

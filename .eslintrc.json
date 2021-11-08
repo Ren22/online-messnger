@@ -26,7 +26,8 @@
         "no-param-reassign": ["error", { "props": false }],
         "class-methods-use-this": "off",
         "camelcase": "off",
-        "function-paren-newline": "off"
+        "function-paren-newline": "off",
+        "max-classes-per-file": "off"
     },
     "settings": {
         "import/resolver": {

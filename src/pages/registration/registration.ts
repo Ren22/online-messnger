@@ -7,10 +7,10 @@ import {
 } from '../../global/regex';
 import { getFormData } from '../../utils/common';
 import { Form } from '../../global/types';
-import { navTo } from '../../utils/router';
 import { Link } from '../../components/link/link';
 import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 import { Block } from '../../baseClasses/Block';
+import { Router } from '../../utils/router';
 
 export class RegistrationPage extends Block {
   notCompiledTemplate: string;
@@ -24,10 +24,12 @@ export class RegistrationPage extends Block {
   passwordAgainInputField: InputField;
   isLoggedIn: boolean;
   linkToSignIn: Link;
+  router: Router;
 
   constructor() {
     super('div', {}, true);
     this.isLoggedIn = false;
+    this.router = new Router();
   }
 
   componentDidMount() {
@@ -133,12 +135,12 @@ export class RegistrationPage extends Block {
     const isValidationPassed = this.getAllInputFields()
       .map((inpField) => inpField.getIsInputFieldValid()).every((isValidField) => isValidField);
     if (isValidationPassed || this.isLoggedIn) {
-      navTo('chatsPage');
+      this.router.go('/messenger');
     }
   }
 
   onClickLinkToSignIn() {
-    navTo('loginPage');
+    this.router.go('/');
   }
 
   render() {

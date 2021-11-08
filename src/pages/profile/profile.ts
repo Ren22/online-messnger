@@ -11,8 +11,8 @@ import {
 } from '../../global/regex';
 import { Form } from '../../global/types';
 import { getFormData } from '../../utils/common';
-import { navTo } from '../../utils/router';
 import { Button } from '../../components/button/index';
+import { Router } from '../../utils/router';
 
 type User = {
   id: number,
@@ -38,9 +38,11 @@ export class ProfilePage extends Block {
   changePasswordText: Text;
   logoutText: Text;
   backToButton: Button;
+  router: Router;
 
   constructor() {
     super('div', {}, true);
+    this.router = new Router();
   }
 
   componentDidMount() {
@@ -153,15 +155,15 @@ export class ProfilePage extends Block {
   }
 
   onClickBackToButton() {
-    navTo('chatsPage');
+    this.router.go('/messenger');
   }
 
   onClickChangePswrd() {
-    navTo('page404');
+    this.router.go('/404');
   }
 
   onClickLogout() {
-    navTo('page500');
+    this.router.go('/500');
   }
 
   onClickChangeUserSettings() {
@@ -173,7 +175,7 @@ export class ProfilePage extends Block {
     const isValidationPassed = this.getAllInputFields()
       .map((inpField) => inpField.getIsInputFieldValid()).every((isValidField) => isValidField);
     if (isValidationPassed) {
-      navTo('profilePage');
+      this.router.go('/settings');
     }
   }
 
