@@ -51,9 +51,7 @@ export class Request {
       xhr.onabort = reject;
       xhr.onerror = reject;
       xhr.ontimeout = reject;
-      if (withCredentials) {
-        xhr.withCredentials = true;
-      }
+      xhr.withCredentials = true;
       xhr.onload = () => {
         const { status } = xhr;
         if (status === 0 || (status >= 200 && status < 400)) {
