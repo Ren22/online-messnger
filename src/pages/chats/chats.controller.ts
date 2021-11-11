@@ -13,7 +13,8 @@ export default class ChatsListController {
   async getChats(): Promise<Chat[]> {
     let rawChats: RawChat[] = [];
     try {
-      rawChats = await this.chatsService.getChats();
+      const res = await this.chatsService.getChats();
+      rawChats = JSON.parse(res.response);
     } catch (error) {
       // todo: create a component that will be popped up when an error occurs
       if (isError(error)) {

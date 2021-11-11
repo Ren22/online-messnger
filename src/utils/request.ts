@@ -16,20 +16,20 @@ type Options = {
 }
 
 export class Request {
-  get<T>(url: string, options?: GenericObject, timeout?: number): Promise<T> {
+  get(url: string, options?: GenericObject, timeout?: number) {
     return this.request(url, { ...options, method: METHODS.GET }, timeout);
   }
-  put<T>(url: string, options?: GenericObject, timeout?: number): Promise<T> {
+  put(url: string, options?: GenericObject, timeout?: number) {
     return this.request(url, { ...options, method: METHODS.PUT }, timeout);
   }
-  post<T>(url: string, options?: GenericObject, timeout?: number): Promise<T> {
+  post(url: string, options?: GenericObject, timeout?: number) {
     return this.request(url, { ...options, method: METHODS.POST }, timeout);
   }
-  delete<T>(url: string, options?: GenericObject, timeout?: number): Promise<T> {
+  delete(url: string, options?: GenericObject, timeout?: number) {
     return this.request(url, { ...options, method: METHODS.DELETE }, timeout);
   }
 
-  request = <T>(url: string, options: GenericObject, timeout = 5000): Promise<T> => {
+  request = (url: string, options: GenericObject, timeout = 5000): Promise<XMLHttpRequest> => {
     const {
       headers = {}, data, method, withCredentials,
     } = options as Options;
@@ -51,7 +51,6 @@ export class Request {
       xhr.onabort = reject;
       xhr.onerror = reject;
       xhr.ontimeout = reject;
-      xhr.responseType = 'json';
       if (withCredentials) {
         xhr.withCredentials = true;
       }
@@ -59,9 +58,10 @@ export class Request {
         const { status } = xhr;
         if (status === 0 || (status >= 200 && status < 400)) {
           // The request has been completed successfully
-          resolve(xhr.response);
+          resolve(xhr);
         } else {
-          reject(new Error(`Failed to request data: ${xhr.status} ${xhr.statusText} ${xhr.response.reason}`));
+          const parsedError = JSON.parse(xhr.response);
+          reject(new Error(`Failed to request data: ${xhr.status} ${parsedError.statusText} ${parsedError.reason}`));
         }
       };
       if (method === METHODS.GET || !data) {

@@ -14,7 +14,7 @@ export class LoginController {
   async signIn(userCredentials: GenericObject): Promise<boolean> {
     try {
       const res = await this.userService.signIn(userCredentials);
-      return res === USER_LOGIN_STATUS.IS_LOGGED;
+      return res.responseText === USER_LOGIN_STATUS.IS_LOGGED;
     } catch (error) {
       // todo: create a component that will be popped up when an error occurs
       if (isError(error)) {

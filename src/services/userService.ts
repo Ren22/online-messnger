@@ -10,7 +10,7 @@ export default class UserService {
     this.baseUrl = 'https://ya-praktikum.tech/api/v2';
   }
 
-  signIn(userCredentials: GenericObject): Promise<string> {
+  signIn(userCredentials: GenericObject): Promise<XMLHttpRequest> {
     return this.request.post(`${this.baseUrl}/auth/signIn`, {
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',
