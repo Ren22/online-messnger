@@ -1,16 +1,7 @@
 import ChatsService from '../../services/chatsService';
 import { snakeToCamelCase } from '../../utils/common';
-
-export type Chat = {
-  id: number,
-  title: string,
-  avatar: string,
-  unreadCount: number,
-  firstName: string,
-  secondName: string,
-  time: string,
-  content: string,
-}
+import { isError } from '../../global/types';
+import { Chat, RawChat } from './types';
 
 export default class ChatsListController {
   chatsService: ChatsService;
@@ -19,7 +10,16 @@ export default class ChatsListController {
     this.chatsService = new ChatsService();
   }
 
-  static getChatsData() {
-    return (ChatsService.getChats().map(snakeToCamelCase) as unknown as Chat[]);
+  async getChats(): Promise<Chat[]> {
+    let rawChats: RawChat[] = [];
+    try {
+      rawChats = await this.chatsService.getChats();
+    } catch (error) {
+      // todo: create a component that will be popped up when an error occurs
+      if (isError(error)) {
+        throw new Error(error.message);
+      }
+    }
+    return rawChats.map(snakeToCamelCase) as Chat[];
   }
 }

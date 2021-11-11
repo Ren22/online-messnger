@@ -1,45 +1,16 @@
 /* eslint-disable camelcase */
 import { Request } from '../utils/request';
-
-type RawChat = {
-  id: number,
-  title: string,
-  avatar: string,
-  unread_count: number,
-  first_name: string,
-  second_name: string,
-  time: string,
-  content: string,
-}
+import { RawChat } from '../pages/chats/types';
 
 export default class ChatsService {
   request: Request;
+  baseUrl: string;
   constructor() {
     this.request = new Request();
+    this.baseUrl = 'https://ya-praktikum.tech/api/v2';
   }
 
-  static getChats(): RawChat[] {
-    return [
-      {
-        id: 1,
-        title: 'my-chat',
-        avatar: '/123/avatar1.jpg',
-        unread_count: 15,
-        first_name: 'Petya',
-        second_name: 'Pupkin',
-        time: '14:22',
-        content: 'this is message content',
-      },
-      {
-        id: 2,
-        title: 'my-chat',
-        avatar: '/123/avatar1.jpg',
-        unread_count: 15,
-        first_name: 'Vanya',
-        second_name: 'Ivanov',
-        time: '14:22',
-        content: 'this is message content',
-      },
-    ];
+  getChats() {
+    return this.request.get(`${this.baseUrl}/chats`, { withCredentials: true }) as Promise<RawChat[]>;
   }
 }

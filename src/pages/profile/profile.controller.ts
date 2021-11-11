@@ -1,23 +1,20 @@
 import UserService from '../../services/userService';
 import { snakeToCamelCase } from '../../utils/common';
+import { User } from './types';
 
-type User = {
-  id: number,
-  firstName: string,
-  secondName: string,
-  displayName: string,
+type UserCredentials = {
   login: string,
-  email: string,
-  phone: string,
-  avatar: string,
+  password: string
 }
+
 export default class ProfileController {
   userService: UserService;
   constructor() {
     this.userService = new UserService();
   }
 
-  getProfileData() {
-    return (snakeToCamelCase(this.userService.getUserInfo()) as User);
+  async getProfileData() {
+    const userData = await this.userService.getUserInfo();
+    return (snakeToCamelCase(userData) as User);
   }
 }

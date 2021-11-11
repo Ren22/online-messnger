@@ -11,6 +11,7 @@ import { Link } from '../../components/link/link';
 import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 import { Block } from '../../baseClasses/Block';
 import { Router } from '../../utils/router';
+import { RegistrationController } from './registration.controller';
 
 export class RegistrationPage extends Block {
   notCompiledTemplate: string;
@@ -25,11 +26,13 @@ export class RegistrationPage extends Block {
   isLoggedIn: boolean;
   linkToSignIn: Link;
   router: Router;
+  controller: RegistrationController;
 
   constructor() {
     super('div', {}, true);
     this.isLoggedIn = false;
     this.router = new Router();
+    this.controller = new RegistrationController();
   }
 
   componentDidMount() {
@@ -41,7 +44,7 @@ export class RegistrationPage extends Block {
       },
     });
     this.loginInputField = new InputField({
-      inputFieldText: 'Login',
+      inputFieldInternalName: 'login',
       inputFieldPlaceholder: 'Login',
       inpFieldStyle: 'registrationInputFieldStyle',
       labelStyle: 'registrationLabelStyle',
@@ -50,7 +53,7 @@ export class RegistrationPage extends Block {
       validation: loginRule,
     });
     this.emailInputField = new InputField({
-      inputFieldText: 'Email',
+      inputFieldInternalName: 'email',
       inputFieldPlaceholder: 'Email',
       inpFieldStyle: 'registrationInputFieldStyle',
       labelStyle: 'registrationLabelStyle',
@@ -59,7 +62,7 @@ export class RegistrationPage extends Block {
       validation: emailRule,
     });
     this.nameInputField = new InputField({
-      inputFieldText: 'Name',
+      inputFieldInternalName: 'first_name',
       inputFieldPlaceholder: 'Name',
       inpFieldStyle: 'registrationInputFieldStyle',
       labelStyle: 'registrationLabelStyle',
@@ -68,7 +71,7 @@ export class RegistrationPage extends Block {
       validation: nameRule,
     });
     this.surnameInputField = new InputField({
-      inputFieldText: 'Surname',
+      inputFieldInternalName: 'second_name',
       inputFieldPlaceholder: 'Surname',
       inpFieldStyle: 'registrationInputFieldStyle',
       labelStyle: 'registrationLabelStyle',
@@ -77,7 +80,7 @@ export class RegistrationPage extends Block {
       validation: surnameRule,
     });
     this.phoneInputField = new InputField({
-      inputFieldText: 'Phone',
+      inputFieldInternalName: 'phone',
       inputFieldPlaceholder: 'Phone',
       inpFieldStyle: 'registrationInputFieldStyle',
       labelStyle: 'registrationLabelStyle',
@@ -86,7 +89,7 @@ export class RegistrationPage extends Block {
       validation: phoneRule,
     });
     this.passwordInputField = new InputField({
-      inputFieldText: 'Password',
+      inputFieldInternalName: 'password',
       inputFieldPlaceholder: 'Password',
       inputFieldType: 'password',
       inpFieldStyle: 'registrationInputFieldStyle',
@@ -96,7 +99,7 @@ export class RegistrationPage extends Block {
       validation: passwordRule,
     });
     this.passwordAgainInputField = new InputField({
-      inputFieldText: 'Password',
+      inputFieldInternalName: 'password',
       inputFieldPlaceholder: 'Password',
       inputFieldType: 'password',
       inpFieldStyle: 'registrationInputFieldStyle',
@@ -126,15 +129,15 @@ export class RegistrationPage extends Block {
     ];
   }
 
-  onClickCompleteRegistration() {
+  async onClickCompleteRegistration() {
     const { registrationForm } = document.forms as Form;
-    getFormData(registrationForm);
     this.getAllInputFields().forEach((inpField) => {
       inpField.validateInputField();
     });
     const isValidationPassed = this.getAllInputFields()
       .map((inpField) => inpField.getIsInputFieldValid()).every((isValidField) => isValidField);
     if (isValidationPassed || this.isLoggedIn) {
+      await this.controller.signUp(getFormData(registrationForm));
       this.router.go('/messenger');
     }
   }

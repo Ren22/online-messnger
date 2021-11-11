@@ -2,14 +2,16 @@ import { ChatList } from '../../components/chatList/index';
 import notCompiledTemplate from './chats.tmpl';
 import './chats.less';
 import { RenderHelpers } from '../../baseClasses/RenderHelpers';
-import ChatsListController, { Chat } from './chats.controller';
+import ChatsListController from './chats.controller';
 import { Block } from '../../baseClasses/Block';
 import EventBus from '../../baseClasses/EventBus';
 import { Conversation } from '../../components/conversation/index';
+import { Chat } from './types';
 
 export class ChatsPage extends Block {
   chatList: ChatList;
   chatContacts: Chat[];
+  controller: ChatsListController;
   constructor() {
     super('div', {}, true);
   }
@@ -20,8 +22,9 @@ export class ChatsPage extends Block {
     this.eventBus().emit('flow:render');
   }
 
-  componentDidMount() {
-    this.chatContacts = ChatsListController.getChatsData();
+  async componentDidMount() {
+    this.controller = new ChatsListController();
+    this.chatContacts = await this.controller.getChats();
     this.localEventBus = new EventBus();
     this.localEventBus.on('chatIsSelected', this.renderAfterChatSelection.bind(this));
     this.chatList = new ChatList({
@@ -35,7 +38,6 @@ export class ChatsPage extends Block {
     const rh = new RenderHelpers();
     rh.registerPartial('chatsList', this.chatList.renderAsHTMLString());
     rh.registerPartial('chat', this.conversation.renderAsHTMLString());
-    rh.generateView(notCompiledTemplate);
     const templateHTML = rh.generateView(notCompiledTemplate,
       { isChatSelected: this.chatList.isChatSelected });
     return rh.replaceElementsInHTMLTemplate(templateHTML,

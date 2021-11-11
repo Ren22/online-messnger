@@ -20,7 +20,7 @@ export class Conversation extends Block {
     this.messageInputField = new InputField({
       inputFieldPlaceholder: 'Message',
       inputFieldType: 'text',
-      inputFieldText: 'Message',
+      inputFieldInternalName: 'Message',
       inpFieldStyle: 'form-conversation__inputfield_style_default',
       mediumMarginHorizontally: true,
       validation: noEmptyStringRule,

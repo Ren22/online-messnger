@@ -66,8 +66,8 @@ export class Block {
     Object.assign(this.props, nextProps);
   };
 
-  private _componentDidMount() {
-    this.componentDidMount();
+  private async _componentDidMount() {
+    await this.componentDidMount();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 

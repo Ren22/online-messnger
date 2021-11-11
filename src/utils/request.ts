@@ -1,3 +1,4 @@
+import { queryStringify } from './queryString';
 import { GenericObject } from '../global/types';
 
 const METHODS = {
@@ -7,42 +8,42 @@ const METHODS = {
   DELETE: 'DELETE',
 };
 
-function queryStringify(data: GenericObject) {
-  let queryString = '?';
-  data.forEach((key: string) => {
-    queryString += `${String(key)}=${String(data[key])}&`;
-  });
-  return queryString;
+type Options = {
+  headers: Record<string, string>,
+  data?: GenericObject,
+  method: string,
+  withCredentials: boolean
 }
 
 export class Request {
-  get(url: string, options?: GenericObject, timeout?: number) {
+  get<T>(url: string, options?: GenericObject, timeout?: number): Promise<T> {
     return this.request(url, { ...options, method: METHODS.GET }, timeout);
   }
-  put(url: string, options?: GenericObject, timeout?: number) {
+  put<T>(url: string, options?: GenericObject, timeout?: number): Promise<T> {
     return this.request(url, { ...options, method: METHODS.PUT }, timeout);
   }
-  post(url: string, options?: GenericObject, timeout?: number) {
+  post<T>(url: string, options?: GenericObject, timeout?: number): Promise<T> {
     return this.request(url, { ...options, method: METHODS.POST }, timeout);
   }
-  delete(url: string, options?: GenericObject, timeout?: number) {
+  delete<T>(url: string, options?: GenericObject, timeout?: number): Promise<T> {
     return this.request(url, { ...options, method: METHODS.DELETE }, timeout);
   }
 
-  request = (url: string, options: GenericObject, timeout = 5000) => {
-    const { headers = {}, data, method } = options;
+  request = <T>(url: string, options: GenericObject, timeout = 5000): Promise<T> => {
+    const {
+      headers = {}, data, method, withCredentials,
+    } = options as Options;
     return new Promise((resolve, reject) => {
       if (!method) {
         reject(new Error('No method provided for XHR'));
       }
       const xhr = new XMLHttpRequest();
-      if (method === METHODS.GET) {
+      if (method === METHODS.GET && data) {
         const urlForGet = url + queryStringify(data);
         xhr.open(method, urlForGet);
+      } else {
+        xhr.open(method, url);
       }
-      xhr.onload = () => {
-        resolve(xhr);
-      };
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
       });
@@ -50,10 +51,23 @@ export class Request {
       xhr.onabort = reject;
       xhr.onerror = reject;
       xhr.ontimeout = reject;
+      xhr.responseType = 'json';
+      if (withCredentials) {
+        xhr.withCredentials = true;
+      }
+      xhr.onload = () => {
+        const { status } = xhr;
+        if (status === 0 || (status >= 200 && status < 400)) {
+          // The request has been completed successfully
+          resolve(xhr.response);
+        } else {
+          reject(new Error(`Failed to request data: ${xhr.status} ${xhr.statusText} ${xhr.response.reason}`));
+        }
+      };
       if (method === METHODS.GET || !data) {
         xhr.send();
       } else {
-        xhr.send(data);
+        xhr.send(queryStringify(data));
       }
     });
   }

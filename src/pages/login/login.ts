@@ -9,6 +9,7 @@ import { getFormData } from '../../utils/common';
 import { Form } from '../../global/types';
 import { Block } from '../../baseClasses/Block';
 import { Router } from '../../utils/router';
+import { LoginController } from './loigin.controller';
 
 export default class LoginPage extends Block {
   login: string;
@@ -20,6 +21,7 @@ export default class LoginPage extends Block {
   linkToRegistration: Link;
   rh: RenderHelpers;
   router: Router;
+  controller: LoginController;
 
   constructor() {
     super('div', {}, true);
@@ -27,6 +29,7 @@ export default class LoginPage extends Block {
     this.password = '';
     this.isLoggedIn = false;
     this.router = new Router();
+    this.controller = new LoginController();
   }
 
   componentDidMount() {
@@ -38,7 +41,7 @@ export default class LoginPage extends Block {
       },
     });
     this.loginInputField = new InputField({
-      inputFieldText: 'Login',
+      inputFieldInternalName: 'login',
       inputFieldPlaceholder: 'Login',
       inpFieldStyle: 'loginInputFieldStyle',
       labelStyle: 'loginLabelStyle',
@@ -47,7 +50,7 @@ export default class LoginPage extends Block {
       validation: loginRule,
     });
     this.passwordInputField = new InputField({
-      inputFieldText: 'Password',
+      inputFieldInternalName: 'password',
       inputFieldPlaceholder: 'Password',
       inputFieldType: 'password',
       inpFieldStyle: 'loginInputFieldStyle',
@@ -65,14 +68,14 @@ export default class LoginPage extends Block {
     });
   }
 
-  onClickSignIn() {
+  async onClickSignIn() {
     const { loginForm } = document.forms as Form;
-    getFormData(loginForm);
     this.loginInputField.validateInputField();
     this.passwordInputField.validateInputField();
     const isValidationPassed = this.loginInputField.getIsInputFieldValid()
       && this.passwordInputField.getIsInputFieldValid();
-    if (isValidationPassed || this.isLoggedIn) {
+    this.isLoggedIn = await this.controller.signIn(getFormData(loginForm));
+    if (isValidationPassed && this.isLoggedIn) {
       this.router.go('/messenger');
     }
   }
@@ -88,6 +91,7 @@ export default class LoginPage extends Block {
     rh.registerPartial('passwordInputField', this.passwordInputField.renderAsHTMLString());
     rh.registerPartial('linkToRegistration', this.linkToRegistration.renderAsHTMLString());
     const templateHTML = rh.generateView(notCompiledTemplate);
+
     return rh.replaceElementsInHTMLTemplate(templateHTML,
       [this.button, this.loginInputField, this.passwordInputField, this.linkToRegistration],
     );

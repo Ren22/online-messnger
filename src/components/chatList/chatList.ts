@@ -2,12 +2,12 @@ import notCompiledTemplate from './chatList.tmpl';
 import './chatList.less';
 import { Block } from '../../baseClasses/Block';
 import { SearchField } from '../searchField/index';
-import { Chat } from '../../pages/chats/chats.controller';
 import { Link } from '../link/index';
 import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 import { ChatContact } from '../chatContact/index';
 import EventBus from '../../baseClasses/EventBus';
 import { Router } from '../../utils/router';
+import { Chat } from '../../pages/chats/types';
 
 const Handlebars = require('handlebars');
 

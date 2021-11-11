@@ -45,11 +45,12 @@ export class ProfilePage extends Block {
     this.router = new Router();
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.controller = new ProfileController();
-    this.user = this.controller.getProfileData();
+    this.user = await this.controller.getProfileData();
     this.emailInputField = new InputField({
-      inputFieldText: 'Email',
+      inputFieldInternalName: 'email',
+      inputFieldName: 'Email',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
       inputFieldValue: this.user.email,
@@ -62,7 +63,8 @@ export class ProfilePage extends Block {
     });
 
     this.loginInputField = new InputField({
-      inputFieldText: 'Login',
+      inputFieldInternalName: 'login',
+      inputFieldName: 'Login',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
       inputFieldValue: this.user.login,
@@ -75,7 +77,8 @@ export class ProfilePage extends Block {
     });
 
     this.nameInputField = new InputField({
-      inputFieldText: 'Name',
+      inputFieldInternalName: 'frist_name',
+      inputFieldName: 'Name',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
       inputFieldValue: this.user.firstName,
@@ -88,7 +91,8 @@ export class ProfilePage extends Block {
     });
 
     this.surnameInputField = new InputField({
-      inputFieldText: 'Surname',
+      inputFieldInternalName: 'second_name',
+      inputFieldName: 'Surname',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
       inputFieldValue: this.user.secondName,
@@ -101,7 +105,8 @@ export class ProfilePage extends Block {
     });
 
     this.visibleNameInputField = new InputField({
-      inputFieldText: 'Visible Name',
+      inputFieldInternalName: 'display_name',
+      inputFieldName: 'Visible name',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
       inputFieldValue: this.user.displayName,
@@ -114,7 +119,8 @@ export class ProfilePage extends Block {
     });
 
     this.phoneInputField = new InputField({
-      inputFieldText: 'Phone',
+      inputFieldInternalName: 'phone',
+      inputFieldName: 'Phone',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
       inputFieldValue: this.user.phone,
