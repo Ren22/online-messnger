@@ -8,6 +8,7 @@ import { ChatContact } from '../chatContact/index';
 import EventBus from '../../baseClasses/EventBus';
 import { Router } from '../../utils/router';
 import { Chat } from '../../pages/chats/types';
+import {ChatListController} from "./chatList.controller";
 
 const Handlebars = require('handlebars');
 
@@ -25,6 +26,9 @@ export class ChatList extends Block {
   selectedChat: number | null;
   localEventBus: EventBus;
   router: Router;
+  linkToCreateNewChat: Link;
+  linkToRemoveChat: Link;
+  controller: ChatListController;
 
   constructor(props: ChatListProps) {
     super('div', props);
@@ -32,6 +36,7 @@ export class ChatList extends Block {
     this.selectedChat = null;
     this.localEventBus = this.props.localEventBus;
     this.router = new Router();
+    this.controller = new ChatListController();
   }
 
   componentDidMount() {
@@ -43,12 +48,32 @@ export class ChatList extends Block {
         click: this.onClickLinkToProfile.bind(this),
       },
     });
+    this.linkToCreateNewChat = new Link({
+      linkText: 'New chat',
+      linkStyle: 'chatlist__link_new-chat',
+      events: {
+        click: this.onClickLinkToCreateChat.bind(this),
+      },
+    });
+    this.linkToRemoveChat = new Link({
+      linkText: 'Remove chat',
+      linkStyle: 'chatlist__link_remove-chat',
+      events: {
+        click: this.onClickLinkToProfile.bind(this),
+      },
+    });
     this.rh = new RenderHelpers();
     this.chatContacts = this.buildChatContacts();
   }
 
   onClickLinkToProfile() {
     this.router.go('/settings');
+  }
+
+  async onClickLinkToCreateChat() {
+    // todo: introduce a pop up component for new chat's name
+    await this.controller.createChat('randomName');
+    this.router.go('/messenger');
   }
 
   onClickChatContact() {
@@ -74,13 +99,15 @@ export class ChatList extends Block {
   render() {
     Handlebars.registerPartial('searchField', this.searchField.renderAsHTMLString());
     Handlebars.registerPartial('linkToProfile', this.linkToProfile.renderAsHTMLString());
+    Handlebars.registerPartial('linkToCreateNewChat', this.linkToCreateNewChat.renderAsHTMLString());
+    Handlebars.registerPartial('linkToRemoveChat', this.linkToRemoveChat.renderAsHTMLString());
     Handlebars.registerPartial('chatContacts', this.chatContacts
       .map((chatContact: ChatContact) => chatContact.renderAsHTMLString())
       .join());
     const template = Handlebars.compile(notCompiledTemplate);
     const templateHTML = template({ chatContacts: this.props.chatContacts });
     return this.rh.replaceElementsInHTMLTemplate(templateHTML,
-      [this.searchField, this.linkToProfile, ...this.chatContacts],
+      [this.searchField, this.linkToProfile, ...this.chatContacts, this.linkToCreateNewChat, this.linkToRemoveChat],
     );
   }
 }

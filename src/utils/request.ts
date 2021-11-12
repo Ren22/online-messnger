@@ -31,7 +31,7 @@ export class Request {
 
   request = (url: string, options: GenericObject, timeout = 5000): Promise<XMLHttpRequest> => {
     const {
-      headers = {}, data, method, withCredentials,
+      headers = {}, data, method
     } = options as Options;
     return new Promise((resolve, reject) => {
       if (!method) {
@@ -62,10 +62,10 @@ export class Request {
           reject(new Error(`Failed to request data: ${xhr.status} ${parsedError.statusText} ${parsedError.reason}`));
         }
       };
-      if (method === METHODS.GET || !data) {
+      if (method === METHODS.GET || method === METHODS.DELETE) {
         xhr.send();
       } else {
-        xhr.send(queryStringify(data));
+        xhr.send(queryStringify(data || {}));
       }
     });
   }

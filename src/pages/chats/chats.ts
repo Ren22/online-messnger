@@ -7,11 +7,12 @@ import { Block } from '../../baseClasses/Block';
 import EventBus from '../../baseClasses/EventBus';
 import { Conversation } from '../../components/conversation/index';
 import { Chat } from './types';
+import ChatsController from "./chats.controller";
 
 export class ChatsPage extends Block {
   chatList: ChatList;
   chatContacts: Chat[];
-  controller: ChatsListController;
+  controller: ChatsController;
   constructor() {
     super('div', {}, true);
   }

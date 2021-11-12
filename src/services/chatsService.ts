@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import { Request } from '../utils/request';
-import { RawChat } from '../pages/chats/types';
 
 export default class ChatsService {
   request: Request;
@@ -12,5 +11,25 @@ export default class ChatsService {
 
   getChats() {
     return this.request.get(`${this.baseUrl}/chats`, { withCredentials: true });
+  }
+
+  createChat(title: string) {
+    return this.request.post(`${this.baseUrl}/chats`,
+      {
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded',
+        },
+        data: {title: title},
+      });
+  }
+
+  removeChat(chatId: number) {
+    return this.request.delete(`${this.baseUrl}/chats`,
+      {
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded',
+        },
+        data: {chatId: chatId},
+      })
   }
 }
