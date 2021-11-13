@@ -124,7 +124,7 @@ export class ChatList extends Block {
     Handlebars.registerPartial('linkToRemoveChat', this.linkToRemoveChat.renderAsHTMLString());
     Handlebars.registerPartial('chatContacts', this.chatContacts
       .map((chatContact: ChatContact) => chatContact.renderAsHTMLString())
-      .join());
+      .join(''));
     const template = Handlebars.compile(notCompiledTemplate);
     const templateHTML = template({ chatContacts: this.props.chatContacts });
     return this.rh.replaceElementsInHTMLTemplate(templateHTML,

@@ -14,12 +14,12 @@ interface ChatContactProps extends Chat {
 
 type LastMsgData = {
   user: {
-      firstName: string;
-      secondName: string;
-      avatar: string;
-      email: string;
-      login: string;
-      phone: string;
+    firstName: string;
+    secondName: string;
+    avatar: string;
+    email: string;
+    login: string;
+    phone: string;
   };
   time: Date;
   content: string;
