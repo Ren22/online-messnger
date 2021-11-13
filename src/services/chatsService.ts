@@ -10,7 +10,7 @@ export default class ChatsService {
   }
 
   getChats() {
-    return this.request.get(`${this.baseUrl}/chats`, { withCredentials: true });
+    return this.request.get(`${this.baseUrl}/chats`);
   }
 
   createChat(title: string) {

@@ -35,6 +35,9 @@ export default class UserService {
 
   updateUserData(userData: UpdateUserInfo) {
     return this.request.put(`${this.baseUrl}/user/profile`, {
+      headers: {
+        'Content-type': 'application/x-www-form-urlencoded',
+      },
       data: userData,
     });
   }
