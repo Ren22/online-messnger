@@ -62,7 +62,7 @@ export class Request {
           reject(new Error(`Failed to request data: ${xhr.status} ${parsedError.statusText} ${parsedError.reason}`));
         }
       };
-      if (method === METHODS.GET || method === METHODS.DELETE) {
+      if (method === METHODS.GET) {
         xhr.send();
       } else {
         xhr.send(queryStringify(data || {}));

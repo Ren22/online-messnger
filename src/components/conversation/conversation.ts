@@ -32,7 +32,6 @@ export class Conversation extends Block {
         click: this.onClickSubmitMessage.bind(this),
       },
     });
-    this.rh = new RenderHelpers();
   }
 
   onClickSubmitMessage() {

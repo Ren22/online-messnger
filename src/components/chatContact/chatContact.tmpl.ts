@@ -6,6 +6,8 @@ export default `
       <p class="chat-contact__lastMessage">{{content}}</p>
     </div>
     <div class="chat-contact__spacer"></div>
-    <p class="chat-contact__lastMessageTime">{{time}}</p>
+    <div class="chat-contact__endSection">
+      <p class="chat-contact__lastMessageTime">{{time}}</p>
+    </div>
   </div>
 `;

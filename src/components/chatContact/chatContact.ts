@@ -2,9 +2,9 @@ import notCompiledTemplate from './chatContact.tmpl';
 import './chatContact.less';
 import { Block } from '../../baseClasses/Block';
 import { CallBack } from '../../global/types';
-import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 import { Chat } from '../../pages/chats/types';
 
+// todo: centraliz handlebars import from Block.ts
 const Handlebars = require('handlebars');
 
 interface ChatContactProps extends Chat {
@@ -45,7 +45,6 @@ export class ChatContact extends Block {
   }
 
   render() {
-    const rh = new RenderHelpers();
     const template = Handlebars.compile(notCompiledTemplate);
     const templateHTML = template({
       firstName: this.lastMsgData.user?.firstName,
@@ -54,6 +53,6 @@ export class ChatContact extends Block {
       time: this.lastMsgTime,
       isHighlighted: this.props.isHighlighted,
     });
-    return rh.convertHTMLToDOM(templateHTML);
+    return this.rh.convertHTMLToDOM(templateHTML);
   }
 }

@@ -1,13 +1,13 @@
 import { ChatList } from '../../components/chatList/index';
 import notCompiledTemplate from './chats.tmpl';
 import './chats.less';
-import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 import { Block } from '../../baseClasses/Block';
 import EventBus from '../../baseClasses/EventBus';
 import { Conversation } from '../../components/conversation/index';
 import { Chat } from './types';
 import { ChatsController } from './chats.controller';
 import { ChatContact } from '../../components/chatContact/index';
+import { Link } from '../../components/link/index';
 
 export class ChatsPage extends Block {
   chatList: ChatList;
@@ -15,7 +15,8 @@ export class ChatsPage extends Block {
   controller: ChatsController;
   localEventBus: EventBus;
   conversation: Conversation;
-  selectedChat: Chat
+  selectedChat: Chat;
+  linkToRemoveChat: Link;
 
   constructor() {
     super('div', {}, true);
@@ -28,7 +29,14 @@ export class ChatsPage extends Block {
     });
   }
 
-  async chatIsCreatedOrRemoved() {
+  async chatIsCreated() {
+    const updatedChatContacts = await this.controller.getChats();
+    this.chatList.setProps({
+      chatContacts: updatedChatContacts,
+    });
+  }
+
+  async chatIsRemoved() {
     const updatedChatContacts = await this.controller.getChats();
     this.chatList.setProps({
       chatContacts: updatedChatContacts,
@@ -42,8 +50,8 @@ export class ChatsPage extends Block {
     this.localEventBus = new EventBus();
 
     this.localEventBus.on('chatIsSelected', this.chatIsSelected.bind(this));
-    this.localEventBus.on('chatIsCreated', this.chatIsCreatedOrRemoved.bind(this));
-    this.localEventBus.on('chatIsRemoved', this.chatIsCreatedOrRemoved.bind(this));
+    // this.localEventBus.on('chatIsCreated', this.chatIsCreated.bind(this));
+    // this.localEventBus.on('chatIsRemoved', this.chatIsRemoved.bind(this));
 
     this.chatList = new ChatList({
       chatContacts: this.chatContacts,
@@ -52,12 +60,11 @@ export class ChatsPage extends Block {
   }
 
   render() {
-    const rh = new RenderHelpers();
-    rh.registerPartial('chatsList', this.chatList.renderAsHTMLString());
-    rh.registerPartial('chat', this.conversation.renderAsHTMLString());
-    const templateHTML = rh.generateView(notCompiledTemplate,
+    this.rh.registerPartial('chatsList', this.chatList.renderAsHTMLString());
+    this.rh.registerPartial('chat', this.conversation.renderAsHTMLString());
+    const templateHTML = this.rh.generateView(notCompiledTemplate,
       { isChatSelected: this.chatList.isChatSelected });
-    return rh.replaceElementsInHTMLTemplate(templateHTML,
+    return this.rh.replaceElementsInHTMLTemplate(templateHTML,
       [this.chatList, this.conversation],
     );
   }

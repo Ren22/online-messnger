@@ -8,7 +8,7 @@ export default `
     <div>
     <div class="chatlist__controller">
       {{> linkToCreateNewChat }}
-      {{> linkToRemoveChat }}
+      {{#if isRemoveChatLinkEnabled}}{{> linkToRemoveChat }}{{/if}}
     </div>
   </div>
 `;

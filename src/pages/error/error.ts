@@ -22,7 +22,6 @@ export default class ErrorPage extends Block {
   }
 
   componentDidMount() {
-    this.rh = new RenderHelpers();
     this.linkToChats = new Link({
       linkText: 'Back to chats',
       linkStyle: 'errorPageContainer__navToChats',

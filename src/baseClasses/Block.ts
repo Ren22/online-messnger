@@ -1,5 +1,6 @@
 import { v4 as makeUUID } from 'uuid';
 import EventBus from './EventBus';
+import { RenderHelpers } from './RenderHelpers';
 
 type allowedTags = 'div' | 'button';
 export class Block {
@@ -16,6 +17,7 @@ export class Block {
     FLOW_RENDER: 'flow:render',
     FLOW_CDU: 'flow:component-did-update',
   }
+  rh: RenderHelpers;
 
   constructor(tagName: allowedTags = 'div', props = {}, isFullPageHeight = false) {
     const eventBus = new EventBus();
@@ -28,6 +30,7 @@ export class Block {
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     this.isFullPageHeight = isFullPageHeight;
+    this.rh = new RenderHelpers();
     eventBus.emit(Block.EVENTS.INIT);
   }
 

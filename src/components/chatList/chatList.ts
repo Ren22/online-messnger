@@ -10,6 +10,7 @@ import { Router } from '../../utils/router';
 import { Chat } from '../../pages/chats/types';
 import { ChatListController } from './chatList.controller';
 
+// todo: centralize Handlebars in Block ts
 const Handlebars = require('handlebars');
 
 type ChatListProps = {
@@ -59,10 +60,9 @@ export class ChatList extends Block {
       linkText: 'Remove chat',
       linkStyle: 'chatlist__link_remove-chat',
       events: {
-        click: this.onClickLinkToProfile.bind(this),
+        click: this.onClickLinkToRemoveChat.bind(this),
       },
     });
-    this.rh = new RenderHelpers();
     this.chatContacts = this.buildChatContacts();
   }
 
@@ -73,7 +73,11 @@ export class ChatList extends Block {
   async onClickLinkToCreateChat() {
     // todo: introduce a pop up component for new chat's name
     await this.controller.createChat('randomName');
-    this.localEventBus.emit('chatIsCreated');
+    // this.localEventBus.emit('chatIsCreated');
+    const updatedChatContacts = await this.controller.getChats();
+    this.setProps({
+      chatContacts: updatedChatContacts,
+    });
   }
 
   async onClickLinkToRemoveChat() {
@@ -81,7 +85,14 @@ export class ChatList extends Block {
     const { selectedChat } = this.props;
     if (selectedChat) {
       await this.controller.removeChat(selectedChat.getChatId());
-      this.localEventBus.emit('chatIsCreated');
+      const updatedChatContacts = await this.controller.getChats();
+      const isSelectedChatRemoved = updatedChatContacts
+        .map((chat) => chat.id)
+        .includes(selectedChat.getChatId());
+      this.setProps({
+        chatContacts: updatedChatContacts,
+        selectedChat: isSelectedChatRemoved ?? undefined,
+      });
     }
   }
 
@@ -95,6 +106,10 @@ export class ChatList extends Block {
     if (selectedChat) {
       this.localEventBus.emit('chatIsSelected', selectedChat);
     }
+  }
+
+  getSelectedChat() {
+    return this.props.selectedChat;
   }
 
   buildChatContacts() {
@@ -126,7 +141,10 @@ export class ChatList extends Block {
       .map((chatContact: ChatContact) => chatContact.renderAsHTMLString())
       .join(''));
     const template = Handlebars.compile(notCompiledTemplate);
-    const templateHTML = template({ chatContacts: this.props.chatContacts });
+    const templateHTML = template({
+      chatContacts: this.props.chatContacts,
+      isRemoveChatLinkEnabled: this.props.selectedChat ?? false,
+    });
     return this.rh.replaceElementsInHTMLTemplate(templateHTML,
       [
         this.searchField,
