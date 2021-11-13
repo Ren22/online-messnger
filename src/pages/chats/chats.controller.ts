@@ -3,7 +3,7 @@ import { snakeToCamelCase } from '../../utils/common';
 import { isError } from '../../global/types';
 import { Chat, RawChat } from './types';
 
-export default class ChatsController {
+export class ChatsController {
   chatsService: ChatsService;
 
   constructor() {

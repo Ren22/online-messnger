@@ -19,7 +19,7 @@ export default class ChatsService {
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
         },
-        data: {title: title},
+        data: { title },
       });
   }
 
@@ -29,7 +29,7 @@ export default class ChatsService {
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
         },
-        data: {chatId: chatId},
-      })
+        data: { chatId },
+      });
   }
 }

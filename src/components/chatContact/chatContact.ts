@@ -8,7 +8,7 @@ import { Chat } from '../../pages/chats/types';
 const Handlebars = require('handlebars');
 
 interface ChatContactProps extends Chat {
-  index: number,
+  isHighlighted: boolean;
   events?: { [key: string]: CallBack },
 }
 
@@ -27,30 +27,32 @@ type LastMsgData = {
 
 export class ChatContact extends Block {
   // Chatontact is a component to which data is feed from the chatList
-  index: number;
   lastMsgData: LastMsgData;
+  lastMsgTime: string;
+  props: ChatContactProps;
+
   constructor(props: ChatContactProps) {
     super('div', props);
   }
 
-  getIndex() {
-    return this.getIndex;
+  getChatId() {
+    return this.props.id;
   }
 
   componentDidMount() {
-    this.index = this.props.index;
-    this.lastMsgData = this.props.lastMessage;
+    this.lastMsgData = this.props.lastMessage ?? {};
+    this.lastMsgTime = new Date(this.lastMsgData?.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
 
   render() {
     const rh = new RenderHelpers();
     const template = Handlebars.compile(notCompiledTemplate);
-
     const templateHTML = template({
-      firstName: this.lastMsgData.user.firstName,
-      secondName: this.lastMsgData.user.secondName,
-      content: this.lastMsgData.content,
-      time: new Date(this.lastMsgData.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      firstName: this.lastMsgData.user?.firstName,
+      secondName: this.lastMsgData.user?.secondName,
+      content: this.lastMsgData?.content,
+      time: this.lastMsgTime,
+      isHighlighted: this.props.isHighlighted,
     });
     return rh.convertHTMLToDOM(templateHTML);
   }

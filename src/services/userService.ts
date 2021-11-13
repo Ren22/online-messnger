@@ -1,6 +1,6 @@
 import { Request } from '../utils/request';
 import { GenericObject } from '../global/types';
-import { RawUser } from '../pages/profile/types';
+import { UpdateUserInfo } from '../pages/profile/types';
 
 export default class UserService {
   request: Request;
@@ -10,6 +10,7 @@ export default class UserService {
     this.baseUrl = 'https://ya-praktikum.tech/api/v2';
   }
 
+  // todo: provide a concrete type here
   signIn(userCredentials: GenericObject): Promise<XMLHttpRequest> {
     return this.request.post(`${this.baseUrl}/auth/signIn`, {
       headers: {
@@ -18,7 +19,7 @@ export default class UserService {
       data: userCredentials,
     });
   }
-
+  // todo: provide a concrete type here
   signUp(userData: GenericObject) {
     return this.request.post(`${this.baseUrl}/auth/signUp`, {
       headers: {
@@ -28,14 +29,17 @@ export default class UserService {
     });
   }
 
-  getUserInfo(): Promise<RawUser> {
-    return this.request.get(`${this.baseUrl}/auth/user`, { withCredentials: true });
+  getUserInfo() {
+    return this.request.get(`${this.baseUrl}/auth/user`);
   }
 
-  updateUserInfo(userData: RawUser): Promise<RawUser> {
+  updateUserData(userData: UpdateUserInfo) {
     return this.request.put(`${this.baseUrl}/user/profile`, {
-      withCredentials: true,
       data: userData,
     });
+  }
+
+  logOut() {
+    return this.request.post(`${this.baseUrl}/auth/logout`);
   }
 }

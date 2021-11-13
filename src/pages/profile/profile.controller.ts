@@ -1,11 +1,7 @@
 import UserService from '../../services/userService';
 import { snakeToCamelCase } from '../../utils/common';
-import { User } from './types';
-
-type UserCredentials = {
-  login: string,
-  password: string
-}
+import { User, UpdateUserInfo } from './types';
+import { isError } from '../../global/types';
 
 export default class ProfileController {
   userService: UserService;
@@ -14,7 +10,35 @@ export default class ProfileController {
   }
 
   async getProfileData() {
-    const userData = await this.userService.getUserInfo();
-    return (snakeToCamelCase(userData) as User);
+    let user = {};
+    try {
+      const res = await this.userService.getUserInfo();
+      user = JSON.parse(res.response);
+    } catch (error) {
+      if (isError(error)) {
+        throw new Error(error.message);
+      }
+    }
+    return (snakeToCamelCase(user) as User);
+  }
+
+  async logOut() {
+    try {
+      await this.userService.logOut();
+    } catch (error) {
+      if (isError(error)) {
+        throw new Error(error.message);
+      }
+    }
+  }
+
+  async updateUserData(userData: UpdateUserInfo) {
+    try {
+      await this.userService.updateUserData(userData);
+    } catch (error) {
+      if (isError(error)) {
+        throw new Error(error.message);
+      }
+    }
   }
 }

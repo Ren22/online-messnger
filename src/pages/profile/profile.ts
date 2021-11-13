@@ -13,6 +13,7 @@ import { Form } from '../../global/types';
 import { getFormData } from '../../utils/common';
 import { Button } from '../../components/button/index';
 import { Router } from '../../utils/router';
+import { UpdateUserInfo } from './types';
 
 type User = {
   id: number,
@@ -43,6 +44,7 @@ export class ProfilePage extends Block {
   constructor() {
     super('div', {}, true);
     this.router = new Router();
+    this.controller = new ProfileController();
   }
 
   async componentDidMount() {
@@ -77,7 +79,7 @@ export class ProfilePage extends Block {
     });
 
     this.nameInputField = new InputField({
-      inputFieldInternalName: 'frist_name',
+      inputFieldInternalName: 'first_name',
       inputFieldName: 'Name',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
@@ -168,19 +170,35 @@ export class ProfilePage extends Block {
     this.router.go('/404');
   }
 
-  onClickLogout() {
-    this.router.go('/500');
+  async onClickLogout() {
+    await this.controller.logOut();
+    this.router.go('/');
   }
 
   onClickChangeUserSettings() {
     const { profileForm } = document.forms as Form;
-    getFormData(profileForm);
     this.getAllInputFields().forEach((inpField) => {
       inpField.validateInputField();
     });
     const isValidationPassed = this.getAllInputFields()
       .map((inpField) => inpField.getIsInputFieldValid()).every((isValidField) => isValidField);
     if (isValidationPassed) {
+      const {
+        first_name,
+        second_name,
+        display_name,
+        login,
+        email,
+        phone,
+      } = getFormData(profileForm) as UpdateUserInfo;
+      this.controller.updateUserData({
+        first_name,
+        second_name,
+        display_name,
+        login,
+        email,
+        phone,
+      });
       this.router.go('/settings');
     }
   }
@@ -216,7 +234,9 @@ export class ProfilePage extends Block {
     rh.registerPartial('changePasswordText', this.changePasswordText.renderAsHTMLString());
     rh.registerPartial('logoutText', this.logoutText.renderAsHTMLString());
     rh.registerPartial('backToButton', this.backToButton.renderAsHTMLString());
-    const templateHTML = rh.generateView(notCompiledTemplate);
+    const templateHTML = rh.generateView(notCompiledTemplate, {
+      profileName: `${this.user.firstName} ${this.user.secondName}`,
+    });
     return rh.replaceElementsInHTMLTemplate(templateHTML,
       [...this.getAllInputFields(), ...this.getAllText(), this.backToButton],
     );

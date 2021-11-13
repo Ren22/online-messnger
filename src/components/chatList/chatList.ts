@@ -8,13 +8,14 @@ import { ChatContact } from '../chatContact/index';
 import EventBus from '../../baseClasses/EventBus';
 import { Router } from '../../utils/router';
 import { Chat } from '../../pages/chats/types';
-import {ChatListController} from "./chatList.controller";
+import { ChatListController } from './chatList.controller';
 
 const Handlebars = require('handlebars');
 
 type ChatListProps = {
   chatContacts: Chat[];
   localEventBus: EventBus;
+  selectedChat?: ChatContact;
 }
 
 export class ChatList extends Block {
@@ -23,17 +24,16 @@ export class ChatList extends Block {
   chatContacts: ChatContact[];
   rh: RenderHelpers;
   isChatSelected: boolean;
-  selectedChat: number | null;
   localEventBus: EventBus;
   router: Router;
   linkToCreateNewChat: Link;
   linkToRemoveChat: Link;
   controller: ChatListController;
+  props: ChatListProps;
 
   constructor(props: ChatListProps) {
     super('div', props);
     this.isChatSelected = false;
-    this.selectedChat = null;
     this.localEventBus = this.props.localEventBus;
     this.router = new Router();
     this.controller = new ChatListController();
@@ -73,27 +73,48 @@ export class ChatList extends Block {
   async onClickLinkToCreateChat() {
     // todo: introduce a pop up component for new chat's name
     await this.controller.createChat('randomName');
-    this.router.go('/messenger');
+    this.localEventBus.emit('chatIsCreated');
   }
 
-  onClickChatContact() {
-    this.isChatSelected = true;
-    this.localEventBus.emit('chatIsSelected');
+  async onClickLinkToRemoveChat() {
+    // todo: introduce a pop up component for new chat's name
+    const { selectedChat } = this.props;
+    if (selectedChat) {
+      await this.controller.removeChat(selectedChat.getChatId());
+      this.localEventBus.emit('chatIsCreated');
+    }
+  }
+
+  onClickChatContact(event: Event) {
+    let selectedChat;
+    const { currentTarget } = event;
+    if (currentTarget) {
+      const selectedChatId = (currentTarget as HTMLElement).getAttribute('data-id');
+      selectedChat = this.chatContacts.find((chat) => chat.getId() === selectedChatId);
+    }
+    if (selectedChat) {
+      this.localEventBus.emit('chatIsSelected', selectedChat);
+    }
   }
 
   buildChatContacts() {
     const chatContacts: ChatContact[] = [];
-    this.props.chatContacts.forEach((chat: Chat, index: number) => {
+    const { selectedChat } = this.props;
+    this.props.chatContacts.forEach((chat: Chat) => {
       const chatContact = new ChatContact({
         ...chat,
-        index,
         events: {
           click: this.onClickChatContact.bind(this),
         },
+        isHighlighted: selectedChat ? selectedChat.getChatId() === chat.id : false,
       });
       chatContacts.push(chatContact);
     });
     return chatContacts;
+  }
+
+  componentDidUpdate() {
+    this.chatContacts = this.buildChatContacts();
   }
 
   render() {
@@ -107,7 +128,13 @@ export class ChatList extends Block {
     const template = Handlebars.compile(notCompiledTemplate);
     const templateHTML = template({ chatContacts: this.props.chatContacts });
     return this.rh.replaceElementsInHTMLTemplate(templateHTML,
-      [this.searchField, this.linkToProfile, ...this.chatContacts, this.linkToCreateNewChat, this.linkToRemoveChat],
+      [
+        this.searchField,
+        this.linkToProfile,
+        ...this.chatContacts,
+        this.linkToCreateNewChat,
+        this.linkToRemoveChat,
+      ],
     );
   }
 }

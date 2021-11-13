@@ -31,7 +31,7 @@ export class Request {
 
   request = (url: string, options: GenericObject, timeout = 5000): Promise<XMLHttpRequest> => {
     const {
-      headers = {}, data, method
+      headers = {}, data, method,
     } = options as Options;
     return new Promise((resolve, reject) => {
       if (!method) {

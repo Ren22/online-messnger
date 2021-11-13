@@ -1,9 +1,5 @@
 import UserService from '../../services/userService';
-import { GenericObject, isError } from '../../global/types';
-
-enum USER_LOGIN_STATUS {
-  IS_LOGGED = 'OK'
-}
+import { GenericObject, isError, USER_LOGIN_STATUS } from '../../global/types';
 
 export class LoginController {
   userService: UserService;

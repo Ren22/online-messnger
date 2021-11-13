@@ -2,37 +2,53 @@ import { ChatList } from '../../components/chatList/index';
 import notCompiledTemplate from './chats.tmpl';
 import './chats.less';
 import { RenderHelpers } from '../../baseClasses/RenderHelpers';
-import ChatsListController from './chats.controller';
 import { Block } from '../../baseClasses/Block';
 import EventBus from '../../baseClasses/EventBus';
 import { Conversation } from '../../components/conversation/index';
 import { Chat } from './types';
-import ChatsController from "./chats.controller";
+import { ChatsController } from './chats.controller';
+import { ChatContact } from '../../components/chatContact/index';
 
 export class ChatsPage extends Block {
   chatList: ChatList;
   chatContacts: Chat[];
   controller: ChatsController;
+  localEventBus: EventBus;
+  conversation: Conversation;
+  selectedChat: Chat
+
   constructor() {
     super('div', {}, true);
   }
-  localEventBus: EventBus;
-  conversation: Conversation;
 
-  renderAfterChatSelection() {
-    this.eventBus().emit('flow:render');
+  chatIsSelected(...args: any[]) {
+    const selectedChat = args[0][0] as ChatContact;
+    this.chatList.setProps({
+      selectedChat,
+    });
+  }
+
+  async chatIsCreatedOrRemoved() {
+    const updatedChatContacts = await this.controller.getChats();
+    this.chatList.setProps({
+      chatContacts: updatedChatContacts,
+    });
   }
 
   async componentDidMount() {
-    this.controller = new ChatsListController();
+    this.controller = new ChatsController();
     this.chatContacts = await this.controller.getChats();
+    this.conversation = new Conversation();
     this.localEventBus = new EventBus();
-    this.localEventBus.on('chatIsSelected', this.renderAfterChatSelection.bind(this));
+
+    this.localEventBus.on('chatIsSelected', this.chatIsSelected.bind(this));
+    this.localEventBus.on('chatIsCreated', this.chatIsCreatedOrRemoved.bind(this));
+    this.localEventBus.on('chatIsRemoved', this.chatIsCreatedOrRemoved.bind(this));
+
     this.chatList = new ChatList({
       chatContacts: this.chatContacts,
       localEventBus: this.localEventBus,
     });
-    this.conversation = new Conversation();
   }
 
   render() {
