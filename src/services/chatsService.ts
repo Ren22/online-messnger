@@ -32,4 +32,13 @@ export default class ChatsService {
         data: { chatId },
       });
   }
+
+  getChatWSToken(chatId: number) {
+    return this.request.post(`${this.baseUrl}/chats/token/${chatId}`,
+      {
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded',
+        },
+      });
+  }
 }

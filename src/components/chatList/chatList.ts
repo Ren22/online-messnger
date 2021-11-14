@@ -35,7 +35,6 @@ export class ChatList extends Block {
   constructor(props: ChatListProps) {
     super('div', props);
     this.isChatSelected = false;
-    this.localEventBus = this.props.localEventBus;
     this.router = new Router();
     this.controller = new ChatListController();
   }
@@ -73,7 +72,6 @@ export class ChatList extends Block {
   async onClickLinkToCreateChat() {
     // todo: introduce a pop up component for new chat's name
     await this.controller.createChat('randomName');
-    // this.localEventBus.emit('chatIsCreated');
     const updatedChatContacts = await this.controller.getChats();
     this.setProps({
       chatContacts: updatedChatContacts,
@@ -104,12 +102,23 @@ export class ChatList extends Block {
       selectedChat = this.chatContacts.find((chat) => chat.getId() === selectedChatId);
     }
     if (selectedChat) {
-      this.localEventBus.emit('chatIsSelected', selectedChat);
+      this.setProps({
+        selectedChat,
+      });
+      this.props.localEventBus.emit('chatIsSelected', selectedChat);
     }
   }
 
   getSelectedChat() {
     return this.props.selectedChat;
+  }
+
+  updateLastMessageOfSelectedChat(message: string) {
+    this.getSelectedChat()?.setProps({
+      lastMsgData: {
+        content: message,
+      },
+    });
   }
 
   buildChatContacts() {

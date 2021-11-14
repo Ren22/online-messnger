@@ -40,16 +40,15 @@ export class ChatContact extends Block {
   }
 
   componentDidMount() {
-    this.lastMsgData = this.props.lastMessage ?? {};
     this.lastMsgTime = new Date(this.lastMsgData?.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
 
   render() {
     const template = Handlebars.compile(notCompiledTemplate);
     const templateHTML = template({
-      firstName: this.lastMsgData.user?.firstName,
-      secondName: this.lastMsgData.user?.secondName,
-      content: this.lastMsgData?.content,
+      firstName: this.props.lastMessage?.user.firstName,
+      secondName: this.props.lastMessage?.user.secondName,
+      content: this.props.lastMessage?.content,
       time: this.lastMsgTime,
       isHighlighted: this.props.isHighlighted,
     });

@@ -8,6 +8,12 @@ import { Chat } from './types';
 import { ChatsController } from './chats.controller';
 import { ChatContact } from '../../components/chatContact/index';
 import { Link } from '../../components/link/index';
+import { User } from '../profile/types';
+
+type ChatsPageProps = {
+  isChatSelected: boolean;
+  conversation: Conversation | null;
+}
 
 export class ChatsPage extends Block {
   chatList: ChatList;
@@ -15,46 +21,50 @@ export class ChatsPage extends Block {
   controller: ChatsController;
   localEventBus: EventBus;
   conversation: Conversation;
-  selectedChat: Chat;
+  selectedChat: ChatContact;
   linkToRemoveChat: Link;
+  props: ChatsPageProps;
+  user: User;
 
   constructor() {
     super('div', {}, true);
   }
 
-  chatIsSelected(...args: any[]) {
-    const selectedChat = args[0][0] as ChatContact;
-    this.chatList.setProps({
-      selectedChat,
+  chatIsSelected() {
+    this.setProps({
+      isChatSelected: true,
+    });
+    this.conversation.setProps({
+      userId: this.user.id,
+      chatId: this.chatList.getSelectedChat()?.getChatId(),
     });
   }
 
-  async chatIsCreated() {
-    const updatedChatContacts = await this.controller.getChats();
-    this.chatList.setProps({
-      chatContacts: updatedChatContacts,
+  chatIsRemoved() {
+    this.setProps({
+      isChatSelected: false,
     });
   }
 
-  async chatIsRemoved() {
-    const updatedChatContacts = await this.controller.getChats();
-    this.chatList.setProps({
-      chatContacts: updatedChatContacts,
-    });
+  onNewMessage() {
+    this.chatList.updateLastMessageOfSelectedChat('Bla bla');
   }
 
   async componentDidMount() {
     this.controller = new ChatsController();
+    this.user = await this.controller.getUserInfo();
     this.chatContacts = await this.controller.getChats();
-    this.conversation = new Conversation();
-    this.localEventBus = new EventBus();
 
+    this.localEventBus = new EventBus();
     this.localEventBus.on('chatIsSelected', this.chatIsSelected.bind(this));
-    // this.localEventBus.on('chatIsCreated', this.chatIsCreated.bind(this));
-    // this.localEventBus.on('chatIsRemoved', this.chatIsRemoved.bind(this));
+    this.localEventBus.on('chatIsRemoved', this.chatIsRemoved.bind(this));
+    this.localEventBus.on('onNewMessage', this.onNewMessage.bind(this));
 
     this.chatList = new ChatList({
       chatContacts: this.chatContacts,
+      localEventBus: this.localEventBus,
+    });
+    this.conversation = new Conversation({
       localEventBus: this.localEventBus,
     });
   }
@@ -63,7 +73,7 @@ export class ChatsPage extends Block {
     this.rh.registerPartial('chatsList', this.chatList.renderAsHTMLString());
     this.rh.registerPartial('chat', this.conversation.renderAsHTMLString());
     const templateHTML = this.rh.generateView(notCompiledTemplate,
-      { isChatSelected: this.chatList.isChatSelected });
+      { isChatSelected: this.props.isChatSelected });
     return this.rh.replaceElementsInHTMLTemplate(templateHTML,
       [this.chatList, this.conversation],
     );

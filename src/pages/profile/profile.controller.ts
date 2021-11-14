@@ -9,7 +9,7 @@ export default class ProfileController {
     this.userService = new UserService();
   }
 
-  async getProfileData() {
+  async getUserInfo() {
     let user = {};
     try {
       const res = await this.userService.getUserInfo();

@@ -49,7 +49,7 @@ export class ProfilePage extends Block {
 
   async componentDidMount() {
     this.controller = new ProfileController();
-    this.user = await this.controller.getProfileData();
+    this.user = await this.controller.getUserInfo();
     this.emailInputField = new InputField({
       inputFieldInternalName: 'email',
       inputFieldName: 'Email',
