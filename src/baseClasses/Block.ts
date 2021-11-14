@@ -11,6 +11,7 @@ export class Block {
   static eventBus: () => EventBus;
   private _id: string;
   isFullPageHeight: boolean;
+  isFullPageWidth: boolean;
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -19,7 +20,7 @@ export class Block {
   }
   rh: RenderHelpers;
 
-  constructor(tagName: allowedTags = 'div', props = {}, isFullPageHeight = false) {
+  constructor(tagName: allowedTags = 'div', props = {}, isFullPageHeight = false, isFullPageWidth = false) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
@@ -30,6 +31,7 @@ export class Block {
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     this.isFullPageHeight = isFullPageHeight;
+    this.isFullPageWidth = isFullPageWidth;
     this.rh = new RenderHelpers();
     eventBus.emit(Block.EVENTS.INIT);
   }
@@ -58,6 +60,9 @@ export class Block {
     if (this.isFullPageHeight) {
       element.style.height = '100%';
     }
+    if (this.isFullPageWidth) {
+      element.style.width = '100%';
+    }
     return element;
   }
 
@@ -76,8 +81,8 @@ export class Block {
 
   componentDidMount() {}
 
-  private _componentDidUpdate() {
-    this.componentDidUpdate();
+  private async _componentDidUpdate() {
+    await this.componentDidUpdate();
     this._render();
   }
 
@@ -118,6 +123,10 @@ export class Block {
     return document.createElement('div');
   }
 
+  forceRender() {
+    this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+  }
+
   private _makePropsProxy(props: any) {
     function errorWhenPrivateProp(prop: string | number | symbol) {
       if (typeof prop === 'string' && prop.indexOf('_') === 0) {
@@ -133,8 +142,10 @@ export class Block {
       },
       set: (target, prop, value) => {
         errorWhenPrivateProp(prop);
-        target[prop] = value;
-        this.eventBus().emit(Block.EVENTS.FLOW_CDU);
+        if (target[prop] !== value) {
+          target[prop] = value;
+          this.eventBus().emit(Block.EVENTS.FLOW_CDU);
+        }
         return true;
       },
       deleteProperty: () => {

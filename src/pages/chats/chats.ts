@@ -8,7 +8,6 @@ import { Chat } from './types';
 import { ChatsController } from './chats.controller';
 import { ChatContact } from '../../components/chatContact/index';
 import { Link } from '../../components/link/index';
-import { User } from '../profile/types';
 
 type ChatsPageProps = {
   isChatSelected: boolean;
@@ -24,7 +23,6 @@ export class ChatsPage extends Block {
   selectedChat: ChatContact;
   linkToRemoveChat: Link;
   props: ChatsPageProps;
-  user: User;
 
   constructor() {
     super('div', {}, true);
@@ -35,7 +33,6 @@ export class ChatsPage extends Block {
       isChatSelected: true,
     });
     this.conversation.setProps({
-      userId: this.user.id,
       chatId: this.chatList.getSelectedChat()?.getChatId(),
     });
   }
@@ -52,7 +49,6 @@ export class ChatsPage extends Block {
 
   async componentDidMount() {
     this.controller = new ChatsController();
-    this.user = await this.controller.getUserInfo();
     this.chatContacts = await this.controller.getChats();
 
     this.localEventBus = new EventBus();

@@ -6,17 +6,11 @@ import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 import { noEmptyStringRule } from '../../global/regex';
 import { Button } from '../button/index';
 import { Form } from '../../global/types';
-import { getFormData } from '../../utils/common';
+import { getFormData, isArray, isObject } from '../../utils/common';
 import { ConversationController } from './conversation.controller';
-import EventBus from '../../baseClasses/EventBus';
-
-type ConversationProps = {
-  userId?: number,
-  chatId?: number,
-  localEventBus: EventBus
-}
-
-const WSS_BASEURL = 'wss://ya-praktikum.tech/ws/chats';
+import { Message } from '../message/index';
+import { ConversationProps, RawMessage } from './types';
+import { User } from '../../pages/profile/types';
 
 export class Conversation extends Block {
   messageInputField: InputField;
@@ -25,12 +19,23 @@ export class Conversation extends Block {
   props: ConversationProps;
   controller: ConversationController;
   socket: WebSocket;
+  rawMessages: RawMessage[];
+  messages: Message[];
+  user: User;
 
   constructor(props: ConversationProps) {
-    super('div', props);
+    super('div', props, false, true);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    this.controller = new ConversationController();
+    this.user = await this.controller.getUserInfo();
+    this.messages = [];
+    this.rawMessages = [];
+    this._initComponents();
+  }
+
+  _initComponents() {
     this.messageInputField = new InputField({
       inputFieldPlaceholder: 'Message',
       inputFieldType: 'text',
@@ -46,7 +51,6 @@ export class Conversation extends Block {
         click: this.onClickSubmitMessage.bind(this),
       },
     });
-    this.controller = new ConversationController();
   }
 
   onClickSubmitMessage() {
@@ -63,40 +67,70 @@ export class Conversation extends Block {
     }
   }
 
+  _sortByDate(a: RawMessage, b:RawMessage) {
+    return new Date(a.time).getTime() - new Date(b.time).getTime();
+  }
+
+  _onMessageWebSocket(event: MessageEvent) {
+    const { data } = event;
+    const parsedData = JSON.parse(data);
+    if (isArray(parsedData)) {
+      parsedData.forEach((el: RawMessage) => this.rawMessages.push(el));
+    } else if (isObject(parsedData)) {
+      this.rawMessages.push(parsedData as RawMessage);
+    } else {
+      throw new Error('Not supported type of parsed WS response!');
+    }
+    const messages = this.rawMessages.sort(this._sortByDate).map((msg) => new Message({
+      messageText: msg.content,
+      messageTime: new Date(msg.time).toLocaleTimeString([], {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+      }),
+      isMessageAuthor: msg.user_id === this.user.id,
+    }));
+    this.updateMessages(messages);
+    this.forceRender();
+  }
+
   async initializeSocketConnection() {
-    if (this.props.chatId && this.props.userId) {
-      const wsToken = await this.controller.getChatWSToken(this.props.chatId);
-      if (!wsToken) {
-        throw new Error('no WS token!');
+    if (this.props.chatId) {
+      const socket = await this.controller.createWSconnection(
+        this.props.chatId,
+        this.user.id,
+        this._onMessageWebSocket.bind(this),
+      );
+      if (socket) {
+        this.socket = socket;
       }
-      this.socket = new WebSocket(`${WSS_BASEURL}/${this.props.userId}/${this.props.chatId}/${wsToken}`);
-      this.socket.addEventListener('open', () => {
-        console.log('Соединение установлено');
-      });
-      this.socket.addEventListener('message', (event) => {
-        console.log('Получены данные', event.data);
-      });
-      this.socket.addEventListener('close', (event) => {
-        if (event.wasClean) {
-          console.log('Соединение закрыто чисто');
-        } else {
-          console.log('Обрыв соединения');
-        }
-        console.log(`Код: ${event.code} | Причина: ${event.reason}`);
-      });
     }
   }
 
+  updateMessages(messages: Message[]) {
+    this.messages = messages;
+  }
+
+  getPreviousMessages() {
+    this.socket.send(JSON.stringify({
+      content: '0',
+      type: 'get old',
+    }));
+  }
+
   async componentDidUpdate() {
+    this.rawMessages = [];
     await this.initializeSocketConnection();
+    this.getPreviousMessages();
   }
 
   render() {
     this.rh.registerPartial('messageInputField', this.messageInputField.renderAsHTMLString());
     this.rh.registerPartial('submitMessageButton', this.submitMessageButton.renderAsHTMLString());
+    this.rh.registerPartial('messages', this.messages
+      .map((msg: Message) => msg.renderAsHTMLString())
+      .join(''));
     const templateHTML = this.rh.generateView(notCompiledTemplate);
     return this.rh.replaceElementsInHTMLTemplate(templateHTML,
-      [this.messageInputField, this.submitMessageButton],
+      [this.messageInputField, this.submitMessageButton, ...this.messages],
     );
   }
 }
