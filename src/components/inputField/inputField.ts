@@ -108,6 +108,12 @@ export class InputField extends Block {
     // (this.getElement().querySelector('.inputfield__error-msg') as HTMLElement).innerText = '';
   }
 
+  setInputFieldValue(value: string) {
+    this.setProps({
+      inputFieldValue: value,
+    });
+  }
+
   render() {
     const rh = new RenderHelpers();
     const template = Handlebars.compile(notCompiledTemplate);

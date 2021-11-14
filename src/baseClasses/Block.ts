@@ -142,10 +142,8 @@ export class Block {
       },
       set: (target, prop, value) => {
         errorWhenPrivateProp(prop);
-        if (target[prop] !== value) {
-          target[prop] = value;
-          this.eventBus().emit(Block.EVENTS.FLOW_CDU);
-        }
+        target[prop] = value;
+        this.eventBus().emit(Block.EVENTS.FLOW_CDU);
         return true;
       },
       deleteProperty: () => {

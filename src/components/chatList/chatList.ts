@@ -92,6 +92,7 @@ export class ChatList extends Block {
         selectedChat: isSelectedChatRemoved ?? undefined,
       });
     }
+    this.props.localEventBus.emit('chatIsRemoved');
   }
 
   onClickChatContact(event: Event) {
@@ -111,14 +112,6 @@ export class ChatList extends Block {
 
   getSelectedChat() {
     return this.props.selectedChat;
-  }
-
-  updateLastMessageOfSelectedChat(message: string) {
-    this.getSelectedChat()?.setProps({
-      lastMsgData: {
-        content: message,
-      },
-    });
   }
 
   buildChatContacts() {

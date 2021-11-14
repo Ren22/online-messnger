@@ -28,7 +28,7 @@ type LastMsgData = {
 export class ChatContact extends Block {
   // Chatontact is a component to which data is feed from the chatList
   lastMsgData: LastMsgData;
-  lastMsgTime: string;
+  lastMsgTime: string | null;
   props: ChatContactProps;
 
   constructor(props: ChatContactProps) {
@@ -40,7 +40,12 @@ export class ChatContact extends Block {
   }
 
   componentDidMount() {
-    this.lastMsgTime = new Date(this.lastMsgData?.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const timeOptions = {
+      year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+    };
+    this.lastMsgTime = this.props.lastMessage
+      ? new Date(this.props.lastMessage.time).toLocaleTimeString([], timeOptions)
+      : '';
   }
 
   render() {

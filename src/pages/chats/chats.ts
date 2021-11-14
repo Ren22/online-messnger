@@ -41,10 +41,13 @@ export class ChatsPage extends Block {
     this.setProps({
       isChatSelected: false,
     });
+    this.conversation.closeSocket();
   }
 
-  onNewMessage() {
-    this.chatList.updateLastMessageOfSelectedChat('Bla bla');
+  async onNewMessage() {
+    this.chatList.setProps({
+      chatContacts: await this.controller.getChats(),
+    });
   }
 
   async componentDidMount() {

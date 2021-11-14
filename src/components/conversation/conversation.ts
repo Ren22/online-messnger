@@ -48,6 +48,7 @@ export class Conversation extends Block {
     this.submitMessageButton = new Button({
       buttonStyle: 'button_style_round-arrow-right',
       events: {
+        submit: this.onClickSubmitMessage.bind(this),
         click: this.onClickSubmitMessage.bind(this),
       },
     });
@@ -59,10 +60,12 @@ export class Conversation extends Block {
     this.messageInputField.validateInputField();
     const isValidationPassed = this.messageInputField.getIsInputFieldValid();
     if (isValidationPassed) {
+      this.initializeSocketConnection();
       this.socket.send(JSON.stringify({
         content: this.messageInputField.getInputFieldValue(),
         type: 'message',
       }));
+      this.messageInputField.setInputFieldValue('');
       this.props.localEventBus.emit('onNewMessage');
     }
   }
@@ -103,6 +106,10 @@ export class Conversation extends Block {
         this.socket = socket;
       }
     }
+  }
+
+  closeSocket() {
+    this.socket.close();
   }
 
   updateMessages(messages: Message[]) {
