@@ -1,13 +1,14 @@
 import { Block } from '../baseClasses/Block';
-import { GenericObject } from '../global/types';
+
+type PropsType = { rootQuery?: string }
 
 class Route {
   private _pathname: string;
   private _blockClass: Block;
   private _block: null | Block;
-  private _props: GenericObject
+  private _props: PropsType;
 
-  constructor(pathname: string, view: Block, props: GenericObject) {
+  constructor(pathname: string, view: Block, props: PropsType) {
     this._pathname = pathname;
     this._blockClass = view;
     this._block = null;
@@ -22,7 +23,7 @@ class Route {
     if (!this._block) {
       this._block = this._blockClass;
     }
-    render(this._props.rootQuery, this._block);
+    render(this._block, this._props.rootQuery);
   }
 }
 
@@ -30,11 +31,13 @@ function isEqual(lhs: string, rhs: string) {
   return lhs === rhs;
 }
 
-function render(query: string, block: Block) {
-  const root = document.querySelector(query);
-  if (root) {
-    root.innerHTML = '';
-    root.appendChild(block.getElement());
+function render(block: Block, query?: string) {
+  if (query) {
+    const root = document.querySelector(query);
+    if (root) {
+      root.innerHTML = '';
+      root.appendChild(block.getElement());
+    }
   }
 }
 

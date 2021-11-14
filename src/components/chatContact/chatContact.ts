@@ -40,11 +40,10 @@ export class ChatContact extends Block {
   }
 
   componentDidMount() {
-    const timeOptions = {
-      year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
-    };
     this.lastMsgTime = this.props.lastMessage
-      ? new Date(this.props.lastMessage.time).toLocaleTimeString([], timeOptions)
+      ? new Date(this.props.lastMessage.time).toLocaleTimeString([], {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+      })
       : '';
   }
 
