@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node app.ts",
     "dev": "parcel index.html",
-    "build": "parcel build index.html --public-url ./",
+    "build": "parcel build index.html --no-optimize --public-url ./",
     "check-types": "tsc --noEmit",
     "lint": "eslint src --ext .ts --fix",
     "test": "./node_modules/.bin/mocha -r jsdom-global/register"
@@ -13,7 +13,6 @@
   "author": "Renat",
   "license": "ISC",
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.16.0",
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-typescript": "^7.16.0",
     "@babel/register": "^7.16.0",
