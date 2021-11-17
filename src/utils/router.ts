@@ -1,4 +1,6 @@
 import { Block } from '../baseClasses/Block';
+import { areStringsEqual } from './isEqual';
+import { render } from './common';
 
 type PropsType = { rootQuery?: string }
 
@@ -16,7 +18,7 @@ class Route {
   }
 
   match(pathname: string) {
-    return isEqual(pathname, this._pathname);
+    return areStringsEqual(pathname, this._pathname);
   }
 
   render() {
@@ -24,20 +26,6 @@ class Route {
       this._block = this._blockClass;
     }
     render(this._block, this._props.rootQuery);
-  }
-}
-
-function isEqual(lhs: string, rhs: string) {
-  return lhs === rhs;
-}
-
-function render(block: Block, query?: string) {
-  if (query) {
-    const root = document.querySelector(query);
-    if (root) {
-      root.innerHTML = '';
-      root.appendChild(block.getElement());
-    }
   }
 }
 

@@ -1,5 +1,5 @@
 import { GenericObject } from '../global/types';
-import { isObject, isArray } from './common';
+import { isObject, isArray } from './typeGuards';
 
 function stringifyArray(key: string, arr: []): string {
   let res = '';

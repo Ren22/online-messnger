@@ -74,7 +74,7 @@ export default class LoginPage extends Block {
     this.passwordInputField.validateInputField();
     const isValidationPassed = this.loginInputField.getIsInputFieldValid()
       && this.passwordInputField.getIsInputFieldValid();
-    this.isLoggedIn = await this.controller.signIn(getFormData(loginForm));
+    this.isLoggedIn = await this.controller.isUserSigned(getFormData(loginForm));
     if (isValidationPassed && this.isLoggedIn) {
       this.router.go('/messenger');
     }

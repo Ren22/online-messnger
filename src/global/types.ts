@@ -10,10 +10,6 @@ export interface Form extends HTMLCollectionOf<HTMLFormElement>{
   conversationForm: HTMLFormElement,
 }
 
-export function isError(x: any): x is Error {
-  return x instanceof Error;
-}
-
 export enum USER_LOGIN_STATUS {
   IS_LOGGED = 'OK'
 }

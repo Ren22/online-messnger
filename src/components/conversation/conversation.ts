@@ -6,11 +6,12 @@ import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 import { noEmptyStringRule } from '../../global/regex';
 import { Button } from '../button/index';
 import { Form } from '../../global/types';
-import { getFormData, isArray, isObject } from '../../utils/common';
+import { getFormData } from '../../utils/common';
 import { ConversationController } from './conversation.controller';
 import { Message } from '../message/index';
 import { ConversationProps, RawMessage } from './types';
 import { User } from '../../pages/profile/types';
+import { isArray, isObject } from '../../utils/typeGuards';
 
 export class Conversation extends Block {
   messageInputField: InputField;

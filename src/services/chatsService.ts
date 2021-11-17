@@ -2,6 +2,8 @@
 /* eslint-disable camelcase */
 import { Request } from '../utils/request';
 import { CallBack } from '../global/types';
+import { RawChat } from '../pages/chats/types';
+import { isError } from '../utils/typeGuards';
 
 export default class ChatsService {
   request: Request;
@@ -13,37 +15,68 @@ export default class ChatsService {
     this.wssBaseUrl = 'wss://ya-praktikum.tech/ws/chats';
   }
 
-  getChats() {
-    return this.request.get(`${this.baseUrl}/chats`);
+  async getChats(): Promise<RawChat[]> {
+    let rawChats: RawChat[] = [];
+    try {
+      const res = await this.request.get(`${this.baseUrl}/chats`);
+      rawChats = JSON.parse(res.response);
+    } catch (error) {
+      // todo: create a component that will be popped up when an error occurs
+      if (isError(error)) {
+        throw new Error(error.message);
+      }
+    }
+    return rawChats;
   }
 
-  createChat(title: string) {
-    return this.request.post(`${this.baseUrl}/chats`,
-      {
+  async createChat(title: string): Promise<void> {
+    try {
+      await this.request.post(`${this.baseUrl}/chats`, {
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
         },
         data: { title },
       });
+    } catch (error) {
+      // todo: create a component that will be popped up when an error occurs
+      if (isError(error)) {
+        throw new Error(error.message);
+      }
+    }
   }
 
-  removeChat(chatId: number) {
-    return this.request.delete(`${this.baseUrl}/chats`,
-      {
+  async removeChat(chatId: number): Promise<void> {
+    try {
+      await this.request.delete(`${this.baseUrl}/chats`, {
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
         },
         data: { chatId },
       });
+    } catch (error) {
+      // todo: create a component that will be popped up when an error occurs
+      if (isError(error)) {
+        throw new Error(error.message);
+      }
+    }
   }
 
-  getChatWSToken(chatId: number) {
-    return this.request.post(`${this.baseUrl}/chats/token/${chatId}`,
-      {
+  async getChatWSToken(chatId: number): Promise<string> {
+    let wsToken;
+    try {
+      const res = await this.request.post(`${this.baseUrl}/chats/token/${chatId}`, {
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
         },
       });
+      wsToken = JSON.parse(res.responseText).token;
+    } catch (error) {
+      // todo: create a component that will be popped up when an error occurs
+      if (isError(error)) {
+        throw new Error(error.message);
+      }
+    }
+    return wsToken;
   }
 
   createWSconnection(chatId: number, userId: number, wsToken: string, cb: CallBack):

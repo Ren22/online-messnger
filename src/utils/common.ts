@@ -1,4 +1,6 @@
 import { GenericObject } from '../global/types';
+import { Block } from '../baseClasses/Block';
+import { isObject } from './typeGuards';
 
 const snakeToCamel = (s: string) => s.replace(/(_\w)/g, (k) => k[1].toUpperCase());
 
@@ -25,14 +27,12 @@ export function getFormData(form: HTMLFormElement) {
   return formDataToDisplay;
 }
 
-export function isObject(val: unknown): val is GenericObject {
-  return (
-    typeof val === 'object'
-    && val != null
-    && val.constructor === Object
-    && Object.prototype.toString.call(val) === '[object Object]');
-}
-
-export function isArray(val: unknown): val is [] {
-  return Array.isArray(val);
+export function render(block: Block, query?: string) {
+  if (query) {
+    const root = document.querySelector(query);
+    if (root) {
+      root.innerHTML = '';
+      root.appendChild(block.getElement());
+    }
+  }
 }

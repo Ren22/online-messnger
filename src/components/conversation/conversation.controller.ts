@@ -1,8 +1,9 @@
 import ChatsService from '../../services/chatsService';
-import { isError, CallBack } from '../../global/types';
+import { CallBack } from '../../global/types';
 import UserService from '../../services/userService';
 import { snakeToCamelCase } from '../../utils/common';
 import { User } from '../../pages/profile/types';
+import { isError } from '../../utils/typeGuards';
 
 export class ConversationController {
   chatsService: ChatsService;
@@ -16,8 +17,7 @@ export class ConversationController {
   async createWSconnection(chatId: number, userId: number, cb: CallBack) {
     let webSocket;
     try {
-      const res = await this.chatsService.getChatWSToken(chatId);
-      const wsToken = JSON.parse(res.responseText).token;
+      const wsToken = await this.chatsService.getChatWSToken(chatId);
       if (wsToken) {
         webSocket = await this.chatsService.createWSconnection(chatId, userId, wsToken, cb);
       }
@@ -30,15 +30,7 @@ export class ConversationController {
   }
 
   async getUserInfo() {
-    let user = {};
-    try {
-      const res = await this.userService.getUserInfo();
-      user = JSON.parse(res.response);
-    } catch (error) {
-      if (isError(error)) {
-        throw new Error(error.message);
-      }
-    }
+    const user = await this.userService.getUserInfo();
     return (snakeToCamelCase(user) as User);
   }
 }

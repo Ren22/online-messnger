@@ -39,21 +39,17 @@ export class ChatContact extends Block {
     return this.props.id;
   }
 
-  componentDidMount() {
-    this.lastMsgTime = this.props.lastMessage
-      ? new Date(this.props.lastMessage.time).toLocaleTimeString([], {
-        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
-      })
-      : '';
-  }
-
   render() {
     const template = Handlebars.compile(notCompiledTemplate);
     const templateHTML = template({
       firstName: this.props.lastMessage?.user.firstName,
       secondName: this.props.lastMessage?.user.secondName,
       content: this.props.lastMessage?.content,
-      time: this.lastMsgTime,
+      time: this.props.lastMessage
+        ? new Date(this.props.lastMessage.time).toLocaleTimeString([], {
+          year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        })
+        : '',
       isHighlighted: this.props.isHighlighted,
     });
     return this.rh.convertHTMLToDOM(templateHTML);

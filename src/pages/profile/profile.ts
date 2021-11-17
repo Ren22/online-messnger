@@ -40,6 +40,9 @@ export class ProfilePage extends Block {
   logoutText: Text;
   backToButton: Button;
   router: Router;
+  props: {
+    user: User
+  }
 
   constructor() {
     super('div', {}, true);
@@ -50,12 +53,13 @@ export class ProfilePage extends Block {
   async componentDidMount() {
     this.controller = new ProfileController();
     this.user = await this.controller.getUserInfo();
+    this._setUserState(this.user);
     this.emailInputField = new InputField({
       inputFieldInternalName: 'email',
       inputFieldName: 'Email',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
-      inputFieldValue: this.user.email,
+      inputFieldValue: this.props.user.email,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
       mediumMarginHorizontally: false,
@@ -69,7 +73,7 @@ export class ProfilePage extends Block {
       inputFieldName: 'Login',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
-      inputFieldValue: this.user.login,
+      inputFieldValue: this.props.user.login,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
       mediumMarginHorizontally: false,
@@ -83,7 +87,7 @@ export class ProfilePage extends Block {
       inputFieldName: 'Name',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
-      inputFieldValue: this.user.firstName,
+      inputFieldValue: this.props.user.firstName,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
       mediumMarginHorizontally: false,
@@ -97,7 +101,7 @@ export class ProfilePage extends Block {
       inputFieldName: 'Surname',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
-      inputFieldValue: this.user.secondName,
+      inputFieldValue: this.props.user.secondName,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
       mediumMarginHorizontally: false,
@@ -111,7 +115,7 @@ export class ProfilePage extends Block {
       inputFieldName: 'Visible name',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
-      inputFieldValue: this.user.displayName,
+      inputFieldValue: this.props.user.displayName,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
       mediumMarginHorizontally: false,
@@ -125,7 +129,7 @@ export class ProfilePage extends Block {
       inputFieldName: 'Phone',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
-      inputFieldValue: this.user.phone,
+      inputFieldValue: this.props.user.phone,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
       mediumMarginHorizontally: false,
@@ -162,6 +166,12 @@ export class ProfilePage extends Block {
     });
   }
 
+  _setUserState(user: User) {
+    this.setProps({
+      user,
+    });
+  }
+
   onClickBackToButton() {
     this.router.go('/messenger');
   }
@@ -175,7 +185,7 @@ export class ProfilePage extends Block {
     this.router.go('/');
   }
 
-  onClickChangeUserSettings() {
+  async onClickChangeUserSettings() {
     const { profileForm } = document.forms as Form;
     this.getAllInputFields().forEach((inpField) => {
       inpField.validateInputField();
@@ -191,7 +201,8 @@ export class ProfilePage extends Block {
         email,
         phone,
       } = getFormData(profileForm) as UpdateUserInfo;
-      this.controller.updateUserData({
+      // todo update all input fields with the new data;
+      const newUserData = await this.controller.updateUserData({
         first_name,
         second_name,
         display_name,
@@ -199,7 +210,7 @@ export class ProfilePage extends Block {
         email,
         phone,
       });
-      this.router.go('/settings');
+      this._setUserState(newUserData);
     }
   }
 
@@ -235,7 +246,7 @@ export class ProfilePage extends Block {
     rh.registerPartial('logoutText', this.logoutText.renderAsHTMLString());
     rh.registerPartial('backToButton', this.backToButton.renderAsHTMLString());
     const templateHTML = rh.generateView(notCompiledTemplate, {
-      profileName: `${this.user.firstName} ${this.user.secondName}`,
+      profileName: `${this.props.user.displayName}`,
     });
     return rh.replaceElementsInHTMLTemplate(templateHTML,
       [...this.getAllInputFields(), ...this.getAllText(), this.backToButton],
