@@ -24,9 +24,6 @@ export default class EventBus {
   }
 
   emit(event: string, ...args: any[]) {
-    if (!this.listeners[event]) {
-      throw new Event(event);
-    }
     this.listeners[event].forEach(function callListener(listener) {
       listener(args);
     });
