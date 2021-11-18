@@ -1,5 +1,6 @@
 import { v4 as makeUUID } from 'uuid';
 import EventBus from './EventBus';
+import { RenderHelpers } from './RenderHelpers';
 
 type allowedTags = 'div' | 'button';
 export class Block {
@@ -10,14 +11,16 @@ export class Block {
   static eventBus: () => EventBus;
   private _id: string;
   isFullPageHeight: boolean;
+  isFullPageWidth: boolean;
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_RENDER: 'flow:render',
     FLOW_CDU: 'flow:component-did-update',
   }
+  rh: RenderHelpers;
 
-  constructor(tagName: allowedTags = 'div', props = {}, isFullPageHeight = false) {
+  constructor(tagName: allowedTags = 'div', props = {}, isFullPageHeight = false, isFullPageWidth = false) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
@@ -28,6 +31,8 @@ export class Block {
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     this.isFullPageHeight = isFullPageHeight;
+    this.isFullPageWidth = isFullPageWidth;
+    this.rh = new RenderHelpers();
     eventBus.emit(Block.EVENTS.INIT);
   }
 
@@ -55,6 +60,9 @@ export class Block {
     if (this.isFullPageHeight) {
       element.style.height = '100%';
     }
+    if (this.isFullPageWidth) {
+      element.style.width = '100%';
+    }
     return element;
   }
 
@@ -66,15 +74,15 @@ export class Block {
     Object.assign(this.props, nextProps);
   };
 
-  private _componentDidMount() {
-    this.componentDidMount();
+  private async _componentDidMount() {
+    await this.componentDidMount();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
   componentDidMount() {}
 
-  private _componentDidUpdate() {
-    this.componentDidUpdate();
+  private async _componentDidUpdate() {
+    await this.componentDidUpdate();
     this._render();
   }
 
@@ -113,6 +121,10 @@ export class Block {
 
   render(): Node {
     return document.createElement('div');
+  }
+
+  forceRender() {
+    this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
   private _makePropsProxy(props: any) {

@@ -3,7 +3,7 @@ import './error.less';
 import { Block } from '../../baseClasses/Block';
 import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 import { Link } from '../../components/link/index';
-import { navTo } from '../../utils/router';
+import { Router } from '../../utils/router';
 
 type ErrorPageProps = {
   errorCode: number,
@@ -15,12 +15,13 @@ export default class ErrorPage extends Block {
   desc: string;
   rh: RenderHelpers;
   linkToChats: any;
+  router: Router;
   constructor(props: ErrorPageProps) {
     super('div', props, true);
+    this.router = new Router();
   }
 
   componentDidMount() {
-    this.rh = new RenderHelpers();
     this.linkToChats = new Link({
       linkText: 'Back to chats',
       linkStyle: 'errorPageContainer__navToChats',
@@ -31,7 +32,7 @@ export default class ErrorPage extends Block {
   }
 
   onClickLinkToChats() {
-    navTo('chatsPage');
+    this.router.go('/messenger');
   }
 
   render() {

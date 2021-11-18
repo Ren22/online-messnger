@@ -11,8 +11,9 @@ import {
 } from '../../global/regex';
 import { Form } from '../../global/types';
 import { getFormData } from '../../utils/common';
-import { navTo } from '../../utils/router';
 import { Button } from '../../components/button/index';
+import { Router } from '../../utils/router';
+import { UpdateUserInfo } from './types';
 
 type User = {
   id: number,
@@ -38,19 +39,27 @@ export class ProfilePage extends Block {
   changePasswordText: Text;
   logoutText: Text;
   backToButton: Button;
+  router: Router;
+  props: {
+    user: User
+  }
 
   constructor() {
     super('div', {}, true);
+    this.router = new Router();
+    this.controller = new ProfileController();
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.controller = new ProfileController();
-    this.user = this.controller.getProfileData();
+    this.user = await this.controller.getUserInfo();
+    this._setUserState(this.user);
     this.emailInputField = new InputField({
-      inputFieldText: 'Email',
+      inputFieldInternalName: 'email',
+      inputFieldName: 'Email',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
-      inputFieldValue: this.user.email,
+      inputFieldValue: this.props.user.email,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
       mediumMarginHorizontally: false,
@@ -60,10 +69,11 @@ export class ProfilePage extends Block {
     });
 
     this.loginInputField = new InputField({
-      inputFieldText: 'Login',
+      inputFieldInternalName: 'login',
+      inputFieldName: 'Login',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
-      inputFieldValue: this.user.login,
+      inputFieldValue: this.props.user.login,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
       mediumMarginHorizontally: false,
@@ -73,10 +83,11 @@ export class ProfilePage extends Block {
     });
 
     this.nameInputField = new InputField({
-      inputFieldText: 'Name',
+      inputFieldInternalName: 'first_name',
+      inputFieldName: 'Name',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
-      inputFieldValue: this.user.firstName,
+      inputFieldValue: this.props.user.firstName,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
       mediumMarginHorizontally: false,
@@ -86,10 +97,11 @@ export class ProfilePage extends Block {
     });
 
     this.surnameInputField = new InputField({
-      inputFieldText: 'Surname',
+      inputFieldInternalName: 'second_name',
+      inputFieldName: 'Surname',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
-      inputFieldValue: this.user.secondName,
+      inputFieldValue: this.props.user.secondName,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
       mediumMarginHorizontally: false,
@@ -99,10 +111,11 @@ export class ProfilePage extends Block {
     });
 
     this.visibleNameInputField = new InputField({
-      inputFieldText: 'Visible Name',
+      inputFieldInternalName: 'display_name',
+      inputFieldName: 'Visible name',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
-      inputFieldValue: this.user.displayName,
+      inputFieldValue: this.props.user.displayName,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
       mediumMarginHorizontally: false,
@@ -112,10 +125,11 @@ export class ProfilePage extends Block {
     });
 
     this.phoneInputField = new InputField({
-      inputFieldText: 'Phone',
+      inputFieldInternalName: 'phone',
+      inputFieldName: 'Phone',
       inputFieldPlaceholder: '',
       inputFieldType: 'text',
-      inputFieldValue: this.user.phone,
+      inputFieldValue: this.props.user.phone,
       inpFieldStyle: 'profileInputField',
       labelStyle: 'profileInputFieldLabel',
       mediumMarginHorizontally: false,
@@ -152,28 +166,51 @@ export class ProfilePage extends Block {
     });
   }
 
+  _setUserState(user: User) {
+    this.setProps({
+      user,
+    });
+  }
+
   onClickBackToButton() {
-    navTo('chatsPage');
+    this.router.go('/messenger');
   }
 
   onClickChangePswrd() {
-    navTo('page404');
+    this.router.go('/404');
   }
 
-  onClickLogout() {
-    navTo('page500');
+  async onClickLogout() {
+    await this.controller.logOut();
+    this.router.go('/');
   }
 
-  onClickChangeUserSettings() {
+  async onClickChangeUserSettings() {
     const { profileForm } = document.forms as Form;
-    getFormData(profileForm);
     this.getAllInputFields().forEach((inpField) => {
       inpField.validateInputField();
     });
     const isValidationPassed = this.getAllInputFields()
       .map((inpField) => inpField.getIsInputFieldValid()).every((isValidField) => isValidField);
     if (isValidationPassed) {
-      navTo('profilePage');
+      const {
+        first_name,
+        second_name,
+        display_name,
+        login,
+        email,
+        phone,
+      } = getFormData(profileForm) as UpdateUserInfo;
+      // todo update all input fields with the new data;
+      const newUserData = await this.controller.updateUserData({
+        first_name,
+        second_name,
+        display_name,
+        login,
+        email,
+        phone,
+      });
+      this._setUserState(newUserData);
     }
   }
 
@@ -208,7 +245,9 @@ export class ProfilePage extends Block {
     rh.registerPartial('changePasswordText', this.changePasswordText.renderAsHTMLString());
     rh.registerPartial('logoutText', this.logoutText.renderAsHTMLString());
     rh.registerPartial('backToButton', this.backToButton.renderAsHTMLString());
-    const templateHTML = rh.generateView(notCompiledTemplate);
+    const templateHTML = rh.generateView(notCompiledTemplate, {
+      profileName: `${this.props.user.displayName}`,
+    });
     return rh.replaceElementsInHTMLTemplate(templateHTML,
       [...this.getAllInputFields(), ...this.getAllText(), this.backToButton],
     );

@@ -24,10 +24,7 @@ export default class EventBus {
   }
 
   emit(event: string, ...args: any[]) {
-    if (!this.listeners[event]) {
-      throw new Error(`No such event exists ${event}`);
-    }
-    this.listeners[event].forEach((listener) => {
+    this.listeners[event].forEach(function callListener(listener) {
       listener(args);
     });
   }

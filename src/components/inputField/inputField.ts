@@ -7,7 +7,8 @@ import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 const Handlebars = require('handlebars');
 
 type InputFieldProps = {
-  inputFieldText?: string,
+  inputFieldInternalName?: string,
+  inputFieldName?: string,
   inputFieldPlaceholder?: string,
   inputFieldType?: string,
   inputFieldValue?: string,
@@ -30,7 +31,7 @@ export class InputField extends Block {
   constructor(props: InputFieldProps) {
     super('div', props);
     this.validation = this.props.validation;
-    this.isValid = this.props.isValid ?? false;
+    this.isValid = this.props.isValid ?? true;
   }
 
   componentDidMount() {
@@ -107,11 +108,18 @@ export class InputField extends Block {
     // (this.getElement().querySelector('.inputfield__error-msg') as HTMLElement).innerText = '';
   }
 
+  setInputFieldValue(value: string) {
+    this.setProps({
+      inputFieldValue: value,
+    });
+  }
+
   render() {
     const rh = new RenderHelpers();
     const template = Handlebars.compile(notCompiledTemplate);
     const templateHTML = template({
-      inputFieldText: this.props.inputFieldText ?? '',
+      inputFieldInternalName: this.props.inputFieldInternalName ?? '',
+      inputFieldName: this.props.inputFieldName ?? '',
       inputFieldPlaceholder: this.props.inputFieldPlaceholder ?? '',
       inputFieldType: this.props.inputFieldType ?? 'text',
       inputFieldValue: this.props.inputFieldValue ?? '',
@@ -121,7 +129,7 @@ export class InputField extends Block {
       mediumMarginHorizontally: this.props.mediumMarginHorizontally ?? false,
       vbox: this.props.vbox ?? true,
       style_justifyContentSpaceBetween: this.props.style_justifyContentSpaceBetween ?? false,
-      isValid: this.props.isValid,
+      isValid: this.isValid,
       validationFailedMessage: this.validation?.validationMessage ?? '',
       isLabelEnabled: this.props.isLabelEnabled ?? true,
     });
