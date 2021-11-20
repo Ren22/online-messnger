@@ -4,7 +4,7 @@ import { render } from './common';
 
 type PropsType = { rootQuery?: string }
 
-class Route {
+export class Route {
   private _pathname: string;
   private _blockClass: Block;
   private _block: null | Block;

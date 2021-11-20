@@ -1,6 +1,5 @@
 import notCompiledTemplate from './registration.tmpl';
 import { Button } from '../../components/button/index';
-import './registration.less';
 import { InputField } from '../../components/inputField/index';
 import {
   loginRule, emailRule, nameRule, surnameRule, phoneRule, passwordRule,
