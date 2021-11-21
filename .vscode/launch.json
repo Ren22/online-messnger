@@ -15,9 +15,7 @@
         "-r",
         "test/babel-register.js",
         "-r",
-        "test/utils/dom.js",
-        "-r",
-        "ignore-styles",
+        "ignore-styles"
       ],
       "internalConsoleOptions": "openOnSessionStart",
       "name": "Mocha Tests",

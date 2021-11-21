@@ -3,7 +3,6 @@
   "spec": "**/*.test.ts",
   "require": [
     "test/babel-register.js",
-    "test/utils/dom.js",
     "ignore-styles"
   ],
   "package": "./package.json"
