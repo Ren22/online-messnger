@@ -70,7 +70,7 @@ export class Router {
   }
 
   go(pathname: string) {
-    this.history.pushState({}, `${pathname}`, pathname);
+    this.history.pushState(null, `${pathname}`, pathname);
     this._onRoute(pathname);
   }
 
