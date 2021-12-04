@@ -7,8 +7,7 @@
     "build": "npx webpack",
     "check-types": "tsc --noEmit",
     "lint": "eslint src --ext .ts --fix",
-    "test": "mocha",
-    "prepare": "husky install"
+    "test": "mocha"
   },
   "author": "Renat",
   "license": "ISC",
