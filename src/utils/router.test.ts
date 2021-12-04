@@ -53,7 +53,7 @@ describe('Router navigation', () => {
     Router.reset();
   });
 
-  it.skip('should check that method use adds all paths to routes', () => {
+  it('should check that method use adds all paths to routes', () => {
     // Given
     const mockedRouter = new Router('.app');
     mockedRouter

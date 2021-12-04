@@ -33,7 +33,7 @@ export class Router {
   private _rootQuery?: string;
   routes: Route[];
   history: History;
-  private static __instance: Router;
+  private static __instance?: Router;
   constructor(rootQuery?: string) {
     if (Router.__instance) {
       return Router.__instance;
@@ -70,7 +70,7 @@ export class Router {
   }
 
   go(pathname: string) {
-    this.history.pushState(null, `${pathname}`, pathname);
+    this.history.pushState({}, `${pathname}`, pathname);
     this._onRoute(pathname);
   }
 
