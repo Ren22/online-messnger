@@ -6,8 +6,15 @@ module.exports = {
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'coolchat.bundle.js',
-    publicPath: '',
+    filename: 'main.bundle.js',
+    publicPath: '/',
+  },
+  devtool: 'source-map',
+  devServer: {
+    port: 8080,
+    historyApiFallback: {
+      index: '/',
+    },
   },
   resolve: {
     extensions: ['.ts', '.js', '.json'],

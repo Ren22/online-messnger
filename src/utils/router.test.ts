@@ -6,7 +6,6 @@ import LoginPage from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/index';
 import { ChatsPage } from '../pages/chats/chats';
 import ErrorPage from '../pages/error/error';
-// import { autoMockFullNavigation } from '../../test/utils/router-helper';
 
 const jsdom = require('jsdom');
 
@@ -16,6 +15,7 @@ const { JSDOM } = jsdom;
 //   const { history } = window;
 //   const originalBack = history.back;
 //   const originalForwards = history.forward;
+//   // const states: { [key in string]: [string, string] }[] = [];
 
 //   // eslint-disable-next-line no-proto
 //   (history as unknown as {__proto__: History}).__proto__.back =
@@ -25,11 +25,21 @@ const { JSDOM } = jsdom;
 //     const popStateEvent = document.createEvent('Event');
 //     popStateEvent.initEvent('popstate', true, true);
 //     window.dispatchEvent(popStateEvent);
+//     // states.splice(-1);
 //   };
 
 //   // eslint-disable-next-line no-proto
-//   (history as unknown as {__proto__: History}).__proto__.forward =
-//  function patchedForward(this: History, ...args: Parameters<History['forward']>): void {
+//   (history as unknown as {__proto__: History}).__proto__.go =
+// function patchedGo(this: History, ...args: Parameters<History['forward']>): void {
+//     originalForwards.apply(this, args);
+
+//     const popStateEvent = document.createEvent('Event');
+//     popStateEvent.initEvent('popstate', true, true);
+//     window.dispatchEvent(popStateEvent);
+//   };
+
+//     (history as unknown as {__proto__: History}).__proto__.go =
+// function patchedGo(this: History, ...args: Parameters<History['forward']>): void {
 //     originalForwards.apply(this, args);
 
 //     const popStateEvent = document.createEvent('Event');
@@ -38,14 +48,17 @@ const { JSDOM } = jsdom;
 //   };
 // }
 
-describe('Router navigation', () => {
-  // autoMockFullNavigation();
+// function mockHistoryMethods(history: History) {
+//   sinon.spy(history, 'pushState');
+// }
 
+describe('Router navigation', () => {
   beforeEach(() => {
     const { window } = new JSDOM('<!DOCTYPE html><head></head><p>Fake document</p>', {
       url: 'http://localhost:3000/',
     });
     // firePopstateOnRoute(window);
+    // mockHistoryMethods(window.history);
     global.document = window.document;
     global.window = window;
   });
@@ -93,7 +106,7 @@ describe('Router navigation', () => {
     mockedRouter.go('/sign-up');
     mockedRouter.back();
     // Then
-    assert.deepEqual(mockedRouter.history.state, { page: '/sign-up' });
+    assert.deepEqual(mockedRouter.history.state, { page: '/' });
     expect(mockedRouter.history.length).equal(3);
   });
 
@@ -126,7 +139,7 @@ describe('Router navigation', () => {
     expect(mockedRouter.history.length).equal(3);
   });
 
-  it.skip('should check that getRoute is called once when starting a router', () => {
+  it('should check that getRoute is called once when starting a router', () => {
     // Given
     const mockedLoginPage = new LoginPage();
     // sinon.stub(mockedLoginPage, 'render').callsFake(() => document.createDocumentFragment());
