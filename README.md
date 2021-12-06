@@ -60,3 +60,5 @@ User can also click on the profile link to edit personal information or logout f
 ## UI prototypes
 [Figma prototypes](https://www.figma.com/file/0tnzcPJnhbMgOgE5XtB8qA/Chat-(Copy)?node-id=0%3A1)
 
+## Pull requests
+PR4: https://github.com/Ren22/middle.messenger.praktikum.yandex/pull/4
