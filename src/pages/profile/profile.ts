@@ -1,18 +1,18 @@
 import './profile.less';
-import { RenderHelpers } from '../../baseClasses/RenderHelpers';
-import EventBus from '../../baseClasses/EventBus';
-import ProfileController from './profile.controller';
-import notCompiledTemplate from './profile.tmpl';
-import { InputField } from '../../components/inputField/index';
-import { Block } from '../../baseClasses/Block';
-import { Text } from '../../components/text/index';
+import { RenderHelpers } from 'baseClasses/RenderHelpers';
+import EventBus from 'baseClasses/EventBus';
+import { InputField } from 'components/inputField/index';
+import { Block } from 'baseClasses/Block';
+import { Text } from 'components/text/index';
 import {
   emailRule, loginRule, nameRule, phoneRule,
-} from '../../global/regex';
-import { Form } from '../../global/types';
-import { getFormData } from '../../utils/common';
-import { Button } from '../../components/button/index';
-import { Router } from '../../utils/router';
+} from 'global/regex';
+import { Form } from 'global/types';
+import { getFormData } from 'utils/common';
+import { Button } from 'components/button/index';
+import { Router } from 'utils/router';
+import notCompiledTemplate from './profile.tmpl';
+import ProfileController from './profile.controller';
 import { UpdateUserInfo } from './types';
 
 type User = {

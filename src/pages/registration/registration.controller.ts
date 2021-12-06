@@ -1,5 +1,5 @@
-import UserService from '../../services/userService';
-import { GenericObject } from '../../global/types';
+import UserService from 'services/userService';
+import { GenericObject } from 'global/types';
 
 export class RegistrationController {
   userService: UserService;

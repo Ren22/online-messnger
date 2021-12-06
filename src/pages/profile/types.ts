@@ -1,4 +1,4 @@
-import { GenericObject } from '../../global/types';
+import { GenericObject } from 'global/types';
 
 export interface RawUser extends GenericObject {
   id: number,

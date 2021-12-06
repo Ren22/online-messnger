@@ -1,9 +1,9 @@
-import notCompiledTemplate from './error.tmpl';
 import './error.less';
-import { Block } from '../../baseClasses/Block';
-import { RenderHelpers } from '../../baseClasses/RenderHelpers';
-import { Link } from '../../components/link/index';
-import { Router } from '../../utils/router';
+import { Block } from 'baseClasses/Block';
+import { RenderHelpers } from 'baseClasses/RenderHelpers';
+import { Link } from 'components/link/index';
+import { Router } from 'utils/router';
+import notCompiledTemplate from './error.tmpl';
 
 type ErrorPageProps = {
   errorCode: number,

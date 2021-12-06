@@ -1,4 +1,4 @@
-import { GenericObject } from '../global/types';
+import { GenericObject } from 'global/types';
 import { isObject, isArray } from './typeGuards';
 
 function stringifyArray(key: string, arr: []): string {

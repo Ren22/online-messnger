@@ -1,8 +1,8 @@
+import { Block } from 'baseClasses/Block';
+import { CallBack } from 'global/types';
 import notRenderedTemplateAuthor from './message.author.tmpl';
 import notRenderedTemplateGuest from './message.guest.tmpl';
 import './message.less';
-import { Block } from '../../baseClasses/Block';
-import { CallBack } from '../../global/types';
 
 const Handlebars = require('handlebars');
 

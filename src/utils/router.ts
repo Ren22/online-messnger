@@ -1,4 +1,4 @@
-import { Block } from '../baseClasses/Block';
+import { Block } from 'baseClasses/Block';
 import { areStringsEqual } from './isEqual';
 import { render } from './common';
 

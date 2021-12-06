@@ -1,5 +1,5 @@
-import ChatsService from '../../services/chatsService';
-import { snakeToCamelCase } from '../../utils/common';
+import ChatsService from 'services/chatsService';
+import { snakeToCamelCase } from 'utils/common';
 import { Chat, RawChat } from './types';
 
 export class ChatsController {

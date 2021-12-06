@@ -1,8 +1,8 @@
-import notCompiledTemplate from './text.tmpl';
 import './text.less';
-import { Block } from '../../baseClasses/Block';
-import { CallBack } from '../../global/types';
-import { RenderHelpers } from '../../baseClasses/RenderHelpers';
+import { Block } from 'baseClasses/Block';
+import { CallBack } from 'global/types';
+import { RenderHelpers } from 'baseClasses/RenderHelpers';
+import notCompiledTemplate from './text.tmpl';
 
 const Handlebars = require('handlebars');
 

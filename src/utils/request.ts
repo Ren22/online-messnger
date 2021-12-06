@@ -1,5 +1,5 @@
+import { GenericObject } from 'global/types';
 import { queryStringify } from './queryString';
-import { GenericObject } from '../global/types';
 
 const METHODS = {
   GET: 'GET',

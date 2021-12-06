@@ -2,7 +2,6 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -17,9 +16,15 @@ module.exports = {
     },
   },
   resolve: {
-    extensions: ['.ts', '.js', '.json'],
+    extensions: ['.ts', '.js', '.json', '.test.ts'],
     alias: {
       handlebars: 'handlebars/dist/handlebars.js',
+      utils: path.resolve(__dirname, 'src/utils/'),
+      pages: path.resolve(__dirname, 'src/pages/'),
+      components: path.resolve(__dirname, 'src/components/'),
+      services: path.resolve(__dirname, 'src/services/'),
+      global: path.resolve(__dirname, 'src/global/'),
+      baseClasses: path.resolve(__dirname, 'src/baseClasses/'),
     },
   },
   plugins: [new HtmlWebpackPlugin({

@@ -1,11 +1,11 @@
 import { expect, assert } from 'chai';
 import sinon from 'sinon';
+import { RegistrationPage } from 'pages/registration/index';
+import LoginPage from 'pages/login/login';
+import { ProfilePage } from 'pages/profile/index';
+import { ChatsPage } from 'pages/chats/chats';
+import ErrorPage from 'pages/error/error';
 import { Router } from './router';
-import { RegistrationPage } from '../pages/registration/index';
-import LoginPage from '../pages/login/login';
-import { ProfilePage } from '../pages/profile/index';
-import { ChatsPage } from '../pages/chats/chats';
-import ErrorPage from '../pages/error/error';
 
 const jsdom = require('jsdom');
 

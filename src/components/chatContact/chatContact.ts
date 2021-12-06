@@ -1,8 +1,8 @@
+import { Block } from 'baseClasses/Block';
+import { CallBack } from 'global/types';
+import { Chat } from 'pages/chats/types';
 import notCompiledTemplate from './chatContact.tmpl';
 import './chatContact.less';
-import { Block } from '../../baseClasses/Block';
-import { CallBack } from '../../global/types';
-import { Chat } from '../../pages/chats/types';
 
 // todo: centraliz handlebars import from Block.ts
 const Handlebars = require('handlebars');

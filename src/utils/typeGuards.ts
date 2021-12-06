@@ -1,4 +1,4 @@
-import { GenericObject } from '../global/types';
+import { GenericObject } from 'global/types';
 
 export function isObject(val: unknown): val is GenericObject {
   return (

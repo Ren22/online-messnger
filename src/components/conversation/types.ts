@@ -1,4 +1,4 @@
-import EventBus from '../../baseClasses/EventBus';
+import EventBus from 'baseClasses/EventBus';
 import { Message } from '../message/index';
 
 export type ConversationProps = {

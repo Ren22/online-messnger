@@ -1,7 +1,7 @@
-import { Request } from '../utils/request';
-import { GenericObject } from '../global/types';
-import { UpdateUserInfo, RawUser } from '../pages/profile/types';
-import { isError } from '../utils/typeGuards';
+import { Request } from 'utils/request';
+import { GenericObject } from 'global/types';
+import { UpdateUserInfo, RawUser } from 'pages/profile/types';
+import { isError } from 'utils/typeGuards';
 
 export default class UserService {
   request: Request;
