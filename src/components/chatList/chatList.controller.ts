@@ -1,6 +1,6 @@
-import ChatsService from '../../services/chatsService';
-import { snakeToCamelCase } from '../../utils/common';
-import { Chat, RawChat } from '../../pages/chats/types';
+import ChatsService from 'services/chatsService';
+import { snakeToCamelCase } from 'utils/common';
+import { Chat, RawChat } from 'pages/chats/types';
 
 export class ChatListController {
   chatsService: ChatsService;

@@ -1,9 +1,9 @@
-import { Router } from './utils/router';
-import { LoginPage } from './pages/login/index';
-import { RegistrationPage } from './pages/registration/index';
-import { ChatsPage } from './pages/chats/index';
-import { ProfilePage } from './pages/profile/index';
-import { ErrorPage } from './pages/error/index';
+import { Router } from 'utils/router';
+import { LoginPage } from 'pages/login/index';
+import { RegistrationPage } from 'pages/registration/index';
+import { ChatsPage } from 'pages/chats/index';
+import { ProfilePage } from 'pages/profile/index';
+import { ErrorPage } from 'pages/error/index';
 
 const router = new Router('.app');
 

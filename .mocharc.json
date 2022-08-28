@@ -1,5 +1,9 @@
 {
-  "extension": ["ts"],
+  "extension": ["ts", "js"],
   "spec": "**/*.test.ts",
-  "require": "test/babel-register.js"
+  "require": [
+    "test/babel-register.js",
+    "ignore-styles"
+  ],
+  "package": "./package.json"
 } 

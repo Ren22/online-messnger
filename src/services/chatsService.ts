@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 /* eslint-disable camelcase */
-import { Request } from '../utils/request';
-import { CallBack } from '../global/types';
-import { RawChat } from '../pages/chats/types';
-import { isError } from '../utils/typeGuards';
+import { Request } from 'utils/request';
+import { CallBack } from 'global/types';
+import { RawChat } from 'pages/chats/types';
+import { isError } from 'utils/typeGuards';
 
 export default class ChatsService {
   request: Request;

@@ -1,17 +1,19 @@
-import notCompiledTemplate from './conversation.tmpl';
-import './conversation.less';
+import { Block } from 'baseClasses/Block';
+import { RenderHelpers } from 'baseClasses/RenderHelpers';
+import { noEmptyStringRule } from 'global/regex';
+import { Form } from 'global/types';
+import { getFormData } from 'utils/common';
+import { User } from 'pages/profile/types';
+import { isArray, isObject } from 'utils/typeGuards';
+
 import { InputField } from '../inputField/index';
-import { Block } from '../../baseClasses/Block';
-import { RenderHelpers } from '../../baseClasses/RenderHelpers';
-import { noEmptyStringRule } from '../../global/regex';
 import { Button } from '../button/index';
-import { Form } from '../../global/types';
-import { getFormData } from '../../utils/common';
 import { ConversationController } from './conversation.controller';
 import { Message } from '../message/index';
 import { ConversationProps, RawMessage } from './types';
-import { User } from '../../pages/profile/types';
-import { isArray, isObject } from '../../utils/typeGuards';
+
+import notCompiledTemplate from './conversation.tmpl';
+import './conversation.less';
 
 export class Conversation extends Block {
   messageInputField: InputField;

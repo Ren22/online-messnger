@@ -1,8 +1,8 @@
-import notCompiledTemplate from './inputField.tmpl';
 import './inputField.less';
-import { Block } from '../../baseClasses/Block';
-import { CallBack } from '../../global/types';
-import { RenderHelpers } from '../../baseClasses/RenderHelpers';
+import { Block } from 'baseClasses/Block';
+import { CallBack } from 'global/types';
+import { RenderHelpers } from 'baseClasses/RenderHelpers';
+import notCompiledTemplate from './inputField.tmpl';
 
 const Handlebars = require('handlebars');
 

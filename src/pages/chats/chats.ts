@@ -1,13 +1,13 @@
-import { ChatList } from '../../components/chatList/index';
-import notCompiledTemplate from './chats.tmpl';
+import { ChatList } from 'components/chatList/index';
 import './chats.less';
-import { Block } from '../../baseClasses/Block';
-import EventBus from '../../baseClasses/EventBus';
-import { Conversation } from '../../components/conversation/index';
-import { Chat } from './types';
+import { Block } from 'baseClasses/Block';
+import EventBus from 'baseClasses/EventBus';
+import { Conversation } from 'components/conversation/index';
+import { ChatContact } from 'components/chatContact/index';
+import { Link } from 'components/link/index';
 import { ChatsController } from './chats.controller';
-import { ChatContact } from '../../components/chatContact/index';
-import { Link } from '../../components/link/index';
+import { Chat } from './types';
+import notCompiledTemplate from './chats.tmpl';
 
 type ChatsPageProps = {
   isChatSelected: boolean;

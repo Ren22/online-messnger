@@ -1,9 +1,9 @@
-import ChatsService from '../../services/chatsService';
-import { CallBack } from '../../global/types';
-import UserService from '../../services/userService';
-import { snakeToCamelCase } from '../../utils/common';
-import { User } from '../../pages/profile/types';
-import { isError } from '../../utils/typeGuards';
+import ChatsService from 'services/chatsService';
+import { CallBack } from 'global/types';
+import UserService from 'services/userService';
+import { snakeToCamelCase } from 'utils/common';
+import { User } from 'pages/profile/types';
+import { isError } from 'utils/typeGuards';
 
 export class ConversationController {
   chatsService: ChatsService;

@@ -1,10 +1,10 @@
-import { Block } from '../baseClasses/Block';
+import { Block } from 'baseClasses/Block';
 import { areStringsEqual } from './isEqual';
 import { render } from './common';
 
 type PropsType = { rootQuery?: string }
 
-class Route {
+export class Route {
   private _pathname: string;
   private _blockClass: Block;
   private _block: null | Block;
@@ -33,7 +33,7 @@ export class Router {
   private _rootQuery?: string;
   routes: Route[];
   history: History;
-  private static __instance: Router;
+  private static __instance?: Router;
   constructor(rootQuery?: string) {
     if (Router.__instance) {
       return Router.__instance;
@@ -63,6 +63,7 @@ export class Router {
     const route = this.getRoute(pathname);
 
     if (!route) {
+      this.go('/404');
       return;
     }
 
@@ -84,5 +85,9 @@ export class Router {
 
   getRoute(pathname: string) {
     return this.routes.find((route) => route.match(pathname));
+  }
+
+  static reset() {
+    delete Router.__instance;
   }
 }

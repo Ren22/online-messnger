@@ -1,7 +1,7 @@
-import notCompiledTemplate from './searchField.tmpl';
 import './searchField.less';
-import { Block } from '../../baseClasses/Block';
-import { RenderHelpers } from '../../baseClasses/RenderHelpers';
+import { Block } from 'baseClasses/Block';
+import { RenderHelpers } from 'baseClasses/RenderHelpers';
+import notCompiledTemplate from './searchField.tmpl';
 
 const Handlebars = require('handlebars');
 

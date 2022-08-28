@@ -1,16 +1,15 @@
-import notCompiledTemplate from './registration.tmpl';
-import { Button } from '../../components/button/index';
-import './registration.less';
-import { InputField } from '../../components/inputField/index';
+import { Button } from 'components/button/index';
+import { InputField } from 'components/inputField/index';
 import {
   loginRule, emailRule, nameRule, surnameRule, phoneRule, passwordRule,
-} from '../../global/regex';
-import { getFormData } from '../../utils/common';
-import { Form } from '../../global/types';
-import { Link } from '../../components/link/link';
-import { RenderHelpers } from '../../baseClasses/RenderHelpers';
-import { Block } from '../../baseClasses/Block';
-import { Router } from '../../utils/router';
+} from 'global/regex';
+import { getFormData } from 'utils/common';
+import { Form } from 'global/types';
+import { Link } from 'components/link/link';
+import { RenderHelpers } from 'baseClasses/RenderHelpers';
+import { Block } from 'baseClasses/Block';
+import { Router } from 'utils/router';
+import notCompiledTemplate from './registration.tmpl';
 import { RegistrationController } from './registration.controller';
 
 export class RegistrationPage extends Block {

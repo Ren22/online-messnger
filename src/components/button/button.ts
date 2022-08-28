@@ -1,8 +1,8 @@
+import { Block } from 'baseClasses/Block';
+import { CallBack } from 'global/types';
+import { RenderHelpers } from 'baseClasses/RenderHelpers';
 import notRenderedTemplate from './button.tmpl';
 import './button.less';
-import { Block } from '../../baseClasses/Block';
-import { CallBack } from '../../global/types';
-import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 
 const Handlebars = require('handlebars');
 

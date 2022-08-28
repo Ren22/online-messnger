@@ -1,13 +1,14 @@
-import notCompiledTemplate from './chatList.tmpl';
 import './chatList.less';
-import { Block } from '../../baseClasses/Block';
+import { Block } from 'baseClasses/Block';
+import { RenderHelpers } from 'baseClasses/RenderHelpers';
+import EventBus from 'baseClasses/EventBus';
+import { Chat } from 'pages/chats/types';
+import { Router } from 'utils/router';
+import notCompiledTemplate from './chatList.tmpl';
+
 import { SearchField } from '../searchField/index';
 import { Link } from '../link/index';
-import { RenderHelpers } from '../../baseClasses/RenderHelpers';
 import { ChatContact } from '../chatContact/index';
-import EventBus from '../../baseClasses/EventBus';
-import { Router } from '../../utils/router';
-import { Chat } from '../../pages/chats/types';
 import { ChatListController } from './chatList.controller';
 
 // todo: centralize Handlebars in Block ts

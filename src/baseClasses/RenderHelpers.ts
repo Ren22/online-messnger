@@ -1,4 +1,4 @@
-import { GenericObject } from '../global/types';
+import { GenericObject } from 'global/types';
 import { Block } from './Block';
 
 const Handlebars = require('handlebars');

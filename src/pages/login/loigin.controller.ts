@@ -1,5 +1,5 @@
-import UserService from '../../services/userService';
-import { GenericObject, USER_LOGIN_STATUS } from '../../global/types';
+import UserService from 'services/userService';
+import { GenericObject, USER_LOGIN_STATUS } from 'global/types';
 
 export class LoginController {
   userService: UserService;

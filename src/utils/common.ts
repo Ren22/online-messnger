@@ -1,5 +1,5 @@
-import { GenericObject } from '../global/types';
-import { Block } from '../baseClasses/Block';
+import { GenericObject } from 'global/types';
+import { Block } from 'baseClasses/Block';
 import { isObject } from './typeGuards';
 
 const snakeToCamel = (s: string) => s.replace(/(_\w)/g, (k) => k[1].toUpperCase());

@@ -1,14 +1,14 @@
 import './login.less';
-import { Button } from '../../components/button/index';
-import { RenderHelpers } from '../../baseClasses/RenderHelpers';
+import { Button } from 'components/button/index';
+import { RenderHelpers } from 'baseClasses/RenderHelpers';
+import { InputField } from 'components/inputField/index';
+import { loginRule, passwordRule } from 'global/regex';
+import { Link } from 'components/link/index';
+import { getFormData } from 'utils/common';
+import { Form } from 'global/types';
+import { Block } from 'baseClasses/Block';
+import { Router } from 'utils/router';
 import notCompiledTemplate from './login.tmpl';
-import { InputField } from '../../components/inputField/index';
-import { loginRule, passwordRule } from '../../global/regex';
-import { Link } from '../../components/link/index';
-import { getFormData } from '../../utils/common';
-import { Form } from '../../global/types';
-import { Block } from '../../baseClasses/Block';
-import { Router } from '../../utils/router';
 import { LoginController } from './loigin.controller';
 
 export default class LoginPage extends Block {

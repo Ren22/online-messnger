@@ -1,5 +1,5 @@
-import UserService from '../../services/userService';
-import { snakeToCamelCase } from '../../utils/common';
+import UserService from 'services/userService';
+import { snakeToCamelCase } from 'utils/common';
 import { User, UpdateUserInfo } from './types';
 
 export default class ProfileController {
