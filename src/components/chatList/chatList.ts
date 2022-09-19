@@ -64,6 +64,7 @@ export class ChatList extends Block {
       },
     });
     this.chatContacts = this.buildChatContacts();
+    this.render();
   }
 
   onClickLinkToProfile() {

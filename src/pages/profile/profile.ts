@@ -245,9 +245,7 @@ export class ProfilePage extends Block {
     rh.registerPartial('changePasswordText', this.changePasswordText.renderAsHTMLString());
     rh.registerPartial('logoutText', this.logoutText.renderAsHTMLString());
     rh.registerPartial('backToButton', this.backToButton.renderAsHTMLString());
-    const templateHTML = rh.generateView(notCompiledTemplate, {
-      profileName: `${this.props.user.displayName}`,
-    });
+    const templateHTML = rh.generateView(notCompiledTemplate);
     return rh.replaceElementsInHTMLTemplate(templateHTML,
       [...this.getAllInputFields(), ...this.getAllText(), this.backToButton],
     );

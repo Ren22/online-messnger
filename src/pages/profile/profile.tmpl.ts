@@ -6,7 +6,6 @@ export default `
   </div>
   <div class="profileContainer__main">
     <div class="profileImage"></div>
-    <div class="profileName">{{profileName}}</div>
     <form name="profileForm" class="profileForm" onsubmit="return false">
       {{> emailInputField}}
       {{> loginInputField}}

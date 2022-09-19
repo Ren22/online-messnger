@@ -25,7 +25,7 @@ export const surnameRule = {
 
 export const phoneRule = {
   regex: /^\+?[\d]{10,15}$/,
-  validationMessage: 'Please provide a correct phone number',
+  validationMessage: 'Please provide a correct phone number, e.g. 74848484884',
 };
 
 export const noEmptyStringRule = {
