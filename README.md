@@ -19,8 +19,8 @@ Cookies are used to store a user session.
 The project is tested with Mocha + Chai + Sinon + jsbin. Currently only the router is tested.
 
 For CSS [BEM](https://en.bem.info/methodology/) methodoly is used.
-![Login page](../Project-Y/static/snapshots/login.png)
-![Messenger page](../Project-Y/static/snapshots/messenger.png)
+![Login page](https://raw.githubusercontent.com/Ren22/telegram-like-messenger/main/static/snapshots/login.png)
+![Messenger page](https://raw.githubusercontent.com/Ren22/telegram-like-messenger/main/static/snapshots/messenger.png)
 ## Chat functionality
 
 A user can login or register on the login/registation page. 
