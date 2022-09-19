@@ -99,13 +99,14 @@ export class InputField extends Block {
 
   highlightInvalidInput() {
     this._getInputField().classList.add('inputfield_style_invalid');
-    (this.getElement().querySelector('.inputfield__error-msg') as HTMLElement).innerText = this.validation.validationMessage;
+    const el = (this.getElement().querySelector('.inputfield__error-msg') as HTMLElement);
+    if (el) {
+      el.innerText = this.validation.validationMessage;
+    }
   }
 
   resetHighlightedInput() {
     this._getInputField().classList.remove('inputfield_style_invalid');
-    //  todo : this seems to be not working properly atm
-    // (this.getElement().querySelector('.inputfield__error-msg') as HTMLElement).innerText = '';
   }
 
   setInputFieldValue(value: string) {

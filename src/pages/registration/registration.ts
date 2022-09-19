@@ -1,3 +1,4 @@
+import './registration.less';
 import { Button } from 'components/button/index';
 import { InputField } from 'components/inputField/index';
 import {
@@ -136,8 +137,12 @@ export class RegistrationPage extends Block {
     const isValidationPassed = this.getAllInputFields()
       .map((inpField) => inpField.getIsInputFieldValid()).every((isValidField) => isValidField);
     if (isValidationPassed || this.isLoggedIn) {
-      await this.controller.signUp(getFormData(registrationForm));
-      this.router.go('/messenger');
+      try {
+        await this.controller.signUp(getFormData(registrationForm));
+        this.router.go('/messenger');
+      } catch (e) {
+        alert(e.message);
+      }
     }
   }
 
