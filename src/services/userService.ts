@@ -35,7 +35,7 @@ export default class UserService {
   // todo: provide a concrete type here
   async signUp(userData: GenericObject): Promise<void> {
     try {
-      this.request.post(`${this.baseUrl}/auth/signUp`, {
+      await this.request.post(`${this.baseUrl}/auth/signUp`, {
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
         },

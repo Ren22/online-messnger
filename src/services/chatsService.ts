@@ -99,4 +99,8 @@ export default class ChatsService {
       };
     });
   }
+
+  isOpen(ws: WebSocket) {
+    return ws.readyState === ws.OPEN;
+  }
 }

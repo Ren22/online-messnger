@@ -51,7 +51,6 @@ export class Conversation extends Block {
     this.submitMessageButton = new Button({
       buttonStyle: 'button_style_round-arrow-right',
       events: {
-        submit: this.onClickSubmitMessage.bind(this),
         click: this.onClickSubmitMessage.bind(this),
       },
     });
@@ -62,13 +61,15 @@ export class Conversation extends Block {
     getFormData(conversationForm);
     this.messageInputField.validateInputField();
     const isValidationPassed = this.messageInputField.getIsInputFieldValid();
-    if (isValidationPassed) {
+    const isSocketOpened = this.controller.chatsService.isOpen(this.socket);
+    if (isValidationPassed && isSocketOpened) {
       this.initializeSocketConnection();
       this.socket.send(JSON.stringify({
         content: this.messageInputField.getInputFieldValue(),
         type: 'message',
       }));
       this.messageInputField.setInputFieldValue('');
+      this.messageInputField.forceRender();
       this.props.localEventBus.emit('onNewMessage');
     }
   }

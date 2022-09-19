@@ -8,6 +8,10 @@ export class RegistrationController {
   }
 
   async signUp(userData: GenericObject) {
-    await this.userService.signUp(userData);
+    try {
+      await this.userService.signUp(userData);
+    } catch (e) {
+      throw new Error(e);
+    }
   }
 }
